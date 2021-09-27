@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="Carga_Stock"
   DTS:PackageType="5"
-  DTS:VersionBuild="37"
-  DTS:VersionGUID="{251FF674-7B5B-4D05-A07D-B9556AD3DF15}">
+  DTS:VersionBuild="41"
+  DTS:VersionGUID="{B20799A9-B65E-4E9D-8188-0F71B6FD4049}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -41,10 +41,13 @@
       </DTS:ObjectData>
     </DTS:ConnectionManager>
     <DTS:ConnectionManager
-      DTS:refId="Package.ConnectionManagers[Flat File Connection Manager]"
+      DTS:refId="Package.ConnectionManagers[STOCK]"
       DTS:CreationName="FLATFILE"
+      DTS:DelayValidation="True"
       DTS:DTSID="{28573B5B-9716-4B0B-97A1-278D67D7D427}"
-      DTS:ObjectName="Flat File Connection Manager">
+      DTS:ObjectName="STOCK">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[User::PARAMETER_RUTA]</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
           DTS:Format="Delimited"
@@ -52,8 +55,7 @@
           DTS:HeaderRowDelimiter="_x000D__x000A_"
           DTS:RowDelimiter=""
           DTS:TextQualifier="_x003C_none_x003E_"
-          DTS:CodePage="1252"
-          DTS:ConnectionString="C:\Users\genti\Documents\SISTEMAS\UTN\5 AÑO\Sistema de Gestión\TP DW\Datos\Stock.txt">
+          DTS:CodePage="1252">
           <DTS:FlatFileColumns>
             <DTS:FlatFileColumn
               DTS:ColumnType="Delimited"
@@ -87,7 +89,18 @@
       </DTS:ObjectData>
     </DTS:ConnectionManager>
   </DTS:ConnectionManagers>
-  <DTS:Variables />
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{28FD3BAE-32F2-4938-9344-6E7F7549D475}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="PARAMETER_RUTA">
+      <DTS:VariableValue
+        DTS:DataType="8"
+        xml:space="preserve"></DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
   <DTS:Executables>
     <DTS:Executable
       DTS:refId="Package\CARGA FACT_STOCK"
@@ -435,8 +448,8 @@
               <connections>
                 <connection
                   refId="Package\CARGA ODS STOCK\Flat File Source.Connections[FlatFileConnection]"
-                  connectionManagerID="Package.ConnectionManagers[Flat File Connection Manager]"
-                  connectionManagerRefId="Package.ConnectionManagers[Flat File Connection Manager]"
+                  connectionManagerID="Package.ConnectionManagers[STOCK]"
+                  connectionManagerRefId="Package.ConnectionManagers[STOCK]"
                   name="FlatFileConnection" />
               </connections>
               <outputs>
@@ -671,7 +684,9 @@
                       name="VARIATION" />
                     <externalMetadataColumn
                       refId="Package\CARGA ODS STOCK\ODS STOCK.Inputs[OLE DB Destination Input].ExternalColumns[DATE_STOCK]"
-                      dataType="dbTimeStamp"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
                       name="DATE_STOCK" />
                   </externalMetadataColumns>
                 </input>
@@ -1023,6 +1038,28 @@
       </DTS:ObjectData>
     </DTS:Executable>
     <DTS:Executable
+      DTS:refId="Package\OBTIENE RUTA"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{2707abce-0148-4aec-b211-85a6a353b4f8}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="OBTIENE RUTA"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{18C142E1-C401-45BB-8171-AF5337B8A847}"
+          SQLTask:SqlStatementSource="SELECT PARAMETER_RUTA FROM DW.DW_PARAMETER WHERE PARAMETER_NAME='TXT_STOCK'"
+          SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ResultBinding
+            SQLTask:ResultName="PARAMETER_RUTA"
+            SQLTask:DtsVariableName="User::PARAMETER_RUTA" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
       DTS:refId="Package\TRUNCATE TABLE FACT_STOCK"
       DTS:CreationName="Microsoft.ExecuteSQLTask"
       DTS:Description="Execute SQL Task"
@@ -1115,6 +1152,14 @@
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 4"
       DTS:To="Package\CARGA FACT_STOCK" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 5]"
+      DTS:CreationName=""
+      DTS:DTSID="{C66A6E2D-511A-4A0A-AFCF-5FF90C6FA0B5}"
+      DTS:From="Package\OBTIENE RUTA"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 5"
+      DTS:To="Package\TRUNCATE TABLE ODS STOCK" />
   </DTS:PrecedenceConstraints>
   <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
 <!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
@@ -1131,41 +1176,41 @@
         <NodeLayout
           Size="194,42"
           Id="Package\CARGA FACT_STOCK"
-          TopLeft="192,385" />
+          TopLeft="509.777763737572,310" />
         <NodeLayout
           Size="186,42"
           Id="Package\CARGA ODS STOCK"
-          TopLeft="186.777763737572,87.511112777922" />
+          TopLeft="509.777763737572,139.511112777922" />
         <NodeLayout
           Size="248,42"
           Id="Package\CARGA STG STG_FACT_STOCK"
-          TopLeft="165.833319591152,234.511112777922" />
+          TopLeft="509.777763737572,217.511112777922" />
         <NodeLayout
           Size="252,42"
           Id="Package\TRUNCATE TABLE FACT_STOCK"
-          TopLeft="159.833319591152,303.511112777922" />
+          TopLeft="152.833319591152,308.511112777922" />
         <NodeLayout
           Size="244,42"
           Id="Package\TRUNCATE TABLE ODS STOCK"
-          TopLeft="162.833319591152,20.466667520735" />
+          TopLeft="152.833319591152,134.466667520735" />
         <NodeLayout
           Size="306,42"
           Id="Package\TRUNCATE TABLE STG STG_FACT_STOCK"
-          TopLeft="129.833319591152,158.511112777922" />
+          TopLeft="152.833319591152,215.511112777922" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint]"
-          TopLeft="282.305541664362,62.466667520735">
+          TopLeft="396.833319591152,157.988890149328">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,25.044445257187"
+              EndConnector="112.94444414642,0"
               Start="0,0"
-              End="0,17.544445257187">
+              End="105.44444414642,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,17.544445257187" />
+                    End="105.44444414642,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -1176,18 +1221,30 @@
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 1]"
-          TopLeft="281.305541664362,129.511112777922">
+          TopLeft="602.777763737572,181.511112777922">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,29"
+              EndConnector="-296.94444414642,34"
               Start="0,0"
-              End="0,21.5">
+              End="-296.94444414642,26.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,21.5" />
+                    End="0,13" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,13"
+                    Point2="0,17"
+                    Point3="-4,17" />
+                  <mssgle:LineSegment
+                    End="-292.94444414642,17" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-292.94444414642,17"
+                    Point2="-296.94444414642,17"
+                    Point3="-296.94444414642,21" />
+                  <mssgle:LineSegment
+                    End="-296.94444414642,26.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -1198,18 +1255,18 @@
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 2]"
-          TopLeft="286.333319591152,200.511112777922">
+          TopLeft="458.833319591152,237.511112777922">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,34"
+              EndConnector="50.9444441464201,0"
               Start="0,0"
-              End="0,26.5">
+              End="43.4444441464201,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,26.5" />
+                    End="43.4444441464201,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -1220,18 +1277,30 @@
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 3]"
-          TopLeft="287.833319591152,276.511112777922">
+          TopLeft="633.777763737572,259.511112777922">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,27"
+              EndConnector="-354.94444414642,49"
               Start="0,0"
-              End="0,19.5">
+              End="-354.94444414642,41.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,19.5" />
+                    End="0,20.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,20.5"
+                    Point2="0,24.5"
+                    Point3="-4,24.5" />
+                  <mssgle:LineSegment
+                    End="-350.94444414642,24.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-350.94444414642,24.5"
+                    Point2="-354.94444414642,24.5"
+                    Point3="-354.94444414642,28.5" />
+                  <mssgle:LineSegment
+                    End="-354.94444414642,41.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -1242,18 +1311,18 @@
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 4]"
-          TopLeft="287.416659795576,345.511112777922">
+          TopLeft="404.833319591152,330.255556388961">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,39.488887222078"
+              EndConnector="104.94444414642,0"
               Start="0,0"
-              End="0,31.988887222078">
+              End="97.4444441464201,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,31.988887222078" />
+                    End="97.4444441464201,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -1268,14 +1337,40 @@
           FontInfo="{assembly:Null}"
           Size="398,40"
           Id="871e4e74-ba3b-40f1-aad4-0fab0ddd56b5"
-          TopLeft="94,334" />
+          TopLeft="78,278" />
         <AnnotationLayout
           Text="FALTA CASTEAR LA FECHA"
           ParentId="Package"
           FontInfo="{assembly:Null}"
           Size="168,40"
           Id="278c9b7e-ee9c-4c55-94a4-936f4aaf7a33"
-          TopLeft="483,198" />
+          TopLeft="661,181" />
+        <NodeLayout
+          Size="160,42"
+          Id="Package\OBTIENE RUTA"
+          TopLeft="194,53" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 5]"
+          TopLeft="274.416659795576,95">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,39.466667520735"
+              Start="0,0"
+              End="0,31.966667520735">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,31.966667520735" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </Package>
@@ -1283,7 +1378,7 @@
     design-time-name="Package\CARGA FACT_STOCK">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="206,42"
           Id="Package\CARGA FACT_STOCK\STG STG_FACT_STOCK"
@@ -1311,7 +1406,9 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -1347,7 +1444,7 @@
     design-time-name="Package\CARGA ODS STOCK">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="144,42"
           Id="Package\CARGA ODS STOCK\ODS STOCK"
@@ -1375,9 +1472,7 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -1400,15 +1495,15 @@
     design-time-name="Package\CARGA STG STG_FACT_STOCK">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
-        <NodeLayout
-          Size="144,42"
-          Id="Package\CARGA STG STG_FACT_STOCK\ODS STOCK"
-          TopLeft="258,71" />
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="206,42"
           Id="Package\CARGA STG STG_FACT_STOCK\STG STG_FACT_STOCK"
           TopLeft="232,201" />
+        <NodeLayout
+          Size="144,42"
+          Id="Package\CARGA STG STG_FACT_STOCK\ODS STOCK"
+          TopLeft="258,71" />
         <EdgeLayout
           Id="Package\CARGA STG STG_FACT_STOCK.Paths[Salida de origen de OLE DB]"
           TopLeft="332.5,113">
@@ -1428,7 +1523,9 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
