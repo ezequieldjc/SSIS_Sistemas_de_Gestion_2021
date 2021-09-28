@@ -11,8 +11,8 @@
   DTS:LocaleID="11274"
   DTS:ObjectName="Package1"
   DTS:PackageType="5"
-  DTS:VersionBuild="12"
-  DTS:VersionGUID="{50E4AB47-4A27-48D7-9246-7FC7626AE005}">
+  DTS:VersionBuild="28"
+  DTS:VersionGUID="{43FFF610-4666-4AAD-BEE3-2C3BED799AB6}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -29,15 +29,16 @@
       </DTS:ObjectData>
     </DTS:ConnectionManager>
     <DTS:ConnectionManager
-      DTS:refId="Package.ConnectionManagers[Excel Connection Manager]"
+      DTS:refId="Package.ConnectionManagers[Excel employee]"
       DTS:CreationName="EXCEL"
+      DTS:DelayValidation="True"
       DTS:DTSID="{FAEA2B23-91DD-4069-9962-951DD5271A25}"
-      DTS:ObjectName="Excel Connection Manager">
+      DTS:ObjectName="Excel employee">
       <DTS:ObjectData>
         <DTS:ConnectionManager
           DTS:ConnectRetryCount="0"
           DTS:ConnectRetryInterval="0"
-          DTS:ConnectionString="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Users\genti\Documents\SISTEMAS\UTN\5 AÑO\Sistema de Gestión\TP DW\Datos\Employee.xls;Extended Properties=&quot;EXCEL 8.0;HDR=YES&quot;;" />
+          DTS:ConnectionString="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Users\genti\Documents\SISTEMAS\UTN\5 AÑO\Sistema de Gestión\TP DW\Datos\Employee.xls;Extended Properties=&quot;Excel 8.0;HDR=YES&quot;;" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
     <DTS:ConnectionManager
@@ -61,18 +62,7 @@
       DTS:Namespace="User"
       DTS:ObjectName="PARAMETER_RUTA">
       <DTS:VariableValue
-        DTS:DataType="8"
-        xml:space="preserve"></DTS:VariableValue>
-    </DTS:Variable>
-    <DTS:Variable
-      DTS:CreationName=""
-      DTS:DTSID="{85EAC3BE-F5AC-4D70-B35C-34CD71B744D6}"
-      DTS:IncludeInDebugDump="2345"
-      DTS:Namespace="User"
-      DTS:ObjectName="PARAMETER_RUTA1">
-      <DTS:VariableValue
-        DTS:DataType="8"
-        xml:space="preserve"></DTS:VariableValue>
+        DTS:DataType="8">C:\Users\genti\Documents\SISTEMAS\UTN\5 AÑO\Sistema de Gestión\TP DW\Datos\Employee.xls</DTS:VariableValue>
     </DTS:Variable>
   </DTS:Variables>
   <DTS:Executables>
@@ -1026,6 +1016,7 @@
               componentClassID="Microsoft.ExcelSource"
               contactInfo="Origen de Excel;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;1"
               description="Origen de Excel"
+              localeId="11274"
               name="Employee"
               usesDispositions="true"
               version="1">
@@ -1064,8 +1055,8 @@
               <connections>
                 <connection
                   refId="Package\CARGA EMPLOYEE EXCEL\Employee.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[Excel Connection Manager]"
-                  connectionManagerRefId="Package.ConnectionManagers[Excel Connection Manager]"
+                  connectionManagerID="Package.ConnectionManagers[Excel employee]"
+                  connectionManagerRefId="Package.ConnectionManagers[Excel employee]"
                   description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
                   name="OleDbConnection" />
               </connections>
@@ -1906,6 +1897,7 @@ WHERE EMPLOYEE_ID IS NOT NULL</property>
       DTS:refId="Package\OBTIENE RUTA"
       DTS:CreationName="Microsoft.ExecuteSQLTask"
       DTS:Description="Execute SQL Task"
+      DTS:Disabled="True"
       DTS:DTSID="{c92954a2-3b9b-424a-9228-de478c1725fe}"
       DTS:ExecutableType="Microsoft.ExecuteSQLTask"
       DTS:LocaleID="-1"
@@ -1920,7 +1912,7 @@ WHERE EMPLOYEE_ID IS NOT NULL</property>
           SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
           <SQLTask:ResultBinding
             SQLTask:ResultName="PARAMETER_RUTA"
-            SQLTask:DtsVariableName="User::PARAMETER_RUTA1" />
+            SQLTask:DtsVariableName="User::PARAMETER_RUTA" />
         </SQLTask:SqlTaskData>
       </DTS:ObjectData>
     </DTS:Executable>
