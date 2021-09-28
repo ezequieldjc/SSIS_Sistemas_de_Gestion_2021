@@ -11,16 +11,16 @@
   DTS:LocaleID="11274"
   DTS:ObjectName="Package1"
   DTS:PackageType="5"
-  DTS:VersionBuild="5"
-  DTS:VersionGUID="{BF58161F-8818-49FD-B150-FABC97417729}">
+  DTS:VersionBuild="12"
+  DTS:VersionGUID="{50E4AB47-4A27-48D7-9246-7FC7626AE005}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
     <DTS:ConnectionManager
-      DTS:refId="Package.ConnectionManagers[DESKTOP-1HP4R3R\MSSQLSERVERDEV.DW_SDG]"
+      DTS:refId="Package.ConnectionManagers[DW_SDG]"
       DTS:CreationName="OLEDB"
       DTS:DTSID="{FB1BF3B8-3FBC-48A0-9F38-0E618DC4FEA4}"
-      DTS:ObjectName="DESKTOP-1HP4R3R\MSSQLSERVERDEV.DW_SDG">
+      DTS:ObjectName="DW_SDG">
       <DTS:ObjectData>
         <DTS:ConnectionManager
           DTS:ConnectRetryCount="1"
@@ -29,10 +29,22 @@
       </DTS:ObjectData>
     </DTS:ConnectionManager>
     <DTS:ConnectionManager
-      DTS:refId="Package.ConnectionManagers[DESKTOP-1HP4R3R\MSSQLSERVERDEV.STG_SDG]"
+      DTS:refId="Package.ConnectionManagers[Excel Connection Manager]"
+      DTS:CreationName="EXCEL"
+      DTS:DTSID="{FAEA2B23-91DD-4069-9962-951DD5271A25}"
+      DTS:ObjectName="Excel Connection Manager">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="0"
+          DTS:ConnectRetryInterval="0"
+          DTS:ConnectionString="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Users\genti\Documents\SISTEMAS\UTN\5 AÑO\Sistema de Gestión\TP DW\Datos\Employee.xls;Extended Properties=&quot;EXCEL 8.0;HDR=YES&quot;;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[STG_SDG]"
       DTS:CreationName="OLEDB"
       DTS:DTSID="{61BF57B2-A724-4FC0-81F2-29A9294322F3}"
-      DTS:ObjectName="DESKTOP-1HP4R3R\MSSQLSERVERDEV.STG_SDG">
+      DTS:ObjectName="STG_SDG">
       <DTS:ObjectData>
         <DTS:ConnectionManager
           DTS:ConnectRetryCount="1"
@@ -52,6 +64,16 @@
         DTS:DataType="8"
         xml:space="preserve"></DTS:VariableValue>
     </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{85EAC3BE-F5AC-4D70-B35C-34CD71B744D6}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="PARAMETER_RUTA1">
+      <DTS:VariableValue
+        DTS:DataType="8"
+        xml:space="preserve"></DTS:VariableValue>
+    </DTS:Variable>
   </DTS:Variables>
   <DTS:Executables>
     <DTS:Executable
@@ -66,7 +88,923 @@
       <DTS:Variables />
       <DTS:ObjectData>
         <pipeline
-          version="1" />
+          version="1">
+          <components>
+            <component
+              refId="Package\CARGA DIM EMPLOYEE\Comando de OLE DB"
+              componentClassID="Microsoft.OLEDBCommand"
+              contactInfo="Comando de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;2"
+              description="Ejecuta una instrucción SQL para cada fila de un flujo de datos. Por ejemplo, se usa para llamar al procedimiento almacenado de configuración de nuevo empleado para cada fila de la tabla de nuevos empleados. Nota: la ejecución de una instrucción SQL para cada fila de un flujo de datos de gran tamaño puede tardar mucho tiempo."
+              name="Comando de OLE DB"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Comando SQL para ejecutar."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">UPDATE [DW].[DIM_EMPLOYEE] SET [BIRTH_DATE] = ?,[CATEGORY] = ?,[EDUCATION_LEVEL] = ?,[EMPLOYMENT_DATE] = ?,[FULL_NAME] = ?,[GENDER] = ? WHERE [EMPLOYEE_ID] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\CARGA DIM EMPLOYEE\Comando de OLE DB.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DW_SDG]"
+                  connectionManagerRefId="Package.ConnectionManagers[DW_SDG]"
+                  description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\CARGA DIM EMPLOYEE\Comando de OLE DB.Inputs[Entrada de comando de OLE DB]"
+                  errorOrTruncationOperation="Ejecución de comando"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Entrada de comando de OLE DB">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\CARGA DIM EMPLOYEE\Comando de OLE DB.Inputs[Entrada de comando de OLE DB].Columns[BIRTH_DATE]"
+                      cachedDataType="dbDate"
+                      cachedName="BIRTH_DATE"
+                      externalMetadataColumnId="Package\CARGA DIM EMPLOYEE\Comando de OLE DB.Inputs[Entrada de comando de OLE DB].ExternalColumns[Param_0]"
+                      lineageId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de origen de OLE DB].Columns[BIRTH_DATE]" />
+                    <inputColumn
+                      refId="Package\CARGA DIM EMPLOYEE\Comando de OLE DB.Inputs[Entrada de comando de OLE DB].Columns[CATEGORY]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="CATEGORY"
+                      externalMetadataColumnId="Package\CARGA DIM EMPLOYEE\Comando de OLE DB.Inputs[Entrada de comando de OLE DB].ExternalColumns[Param_1]"
+                      lineageId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de origen de OLE DB].Columns[CATEGORY]" />
+                    <inputColumn
+                      refId="Package\CARGA DIM EMPLOYEE\Comando de OLE DB.Inputs[Entrada de comando de OLE DB].Columns[EDUCATION_LEVEL]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="EDUCATION_LEVEL"
+                      externalMetadataColumnId="Package\CARGA DIM EMPLOYEE\Comando de OLE DB.Inputs[Entrada de comando de OLE DB].ExternalColumns[Param_2]"
+                      lineageId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de origen de OLE DB].Columns[EDUCATION_LEVEL]" />
+                    <inputColumn
+                      refId="Package\CARGA DIM EMPLOYEE\Comando de OLE DB.Inputs[Entrada de comando de OLE DB].Columns[EMPLOYEE_ID]"
+                      cachedDataType="i4"
+                      cachedName="EMPLOYEE_ID"
+                      externalMetadataColumnId="Package\CARGA DIM EMPLOYEE\Comando de OLE DB.Inputs[Entrada de comando de OLE DB].ExternalColumns[Param_6]"
+                      lineageId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de origen de OLE DB].Columns[EMPLOYEE_ID]" />
+                    <inputColumn
+                      refId="Package\CARGA DIM EMPLOYEE\Comando de OLE DB.Inputs[Entrada de comando de OLE DB].Columns[EMPLOYMENT_DATE]"
+                      cachedDataType="dbDate"
+                      cachedName="EMPLOYMENT_DATE"
+                      externalMetadataColumnId="Package\CARGA DIM EMPLOYEE\Comando de OLE DB.Inputs[Entrada de comando de OLE DB].ExternalColumns[Param_3]"
+                      lineageId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de origen de OLE DB].Columns[EMPLOYMENT_DATE]" />
+                    <inputColumn
+                      refId="Package\CARGA DIM EMPLOYEE\Comando de OLE DB.Inputs[Entrada de comando de OLE DB].Columns[FULL_NAME]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="FULL_NAME"
+                      externalMetadataColumnId="Package\CARGA DIM EMPLOYEE\Comando de OLE DB.Inputs[Entrada de comando de OLE DB].ExternalColumns[Param_4]"
+                      lineageId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de origen de OLE DB].Columns[FULL_NAME]" />
+                    <inputColumn
+                      refId="Package\CARGA DIM EMPLOYEE\Comando de OLE DB.Inputs[Entrada de comando de OLE DB].Columns[GENDER]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="GENDER"
+                      externalMetadataColumnId="Package\CARGA DIM EMPLOYEE\Comando de OLE DB.Inputs[Entrada de comando de OLE DB].ExternalColumns[Param_5]"
+                      lineageId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de origen de OLE DB].Columns[GENDER]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\CARGA DIM EMPLOYEE\Comando de OLE DB.Inputs[Entrada de comando de OLE DB].ExternalColumns[Param_0]"
+                      dataType="dbDate"
+                      name="Param_0">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Información de parámetros. Coincide con los valores de DBPARAMFLAGSENUM de OLE DB."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\CARGA DIM EMPLOYEE\Comando de OLE DB.Inputs[Entrada de comando de OLE DB].ExternalColumns[Param_1]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="Param_1">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Información de parámetros. Coincide con los valores de DBPARAMFLAGSENUM de OLE DB."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\CARGA DIM EMPLOYEE\Comando de OLE DB.Inputs[Entrada de comando de OLE DB].ExternalColumns[Param_2]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="Param_2">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Información de parámetros. Coincide con los valores de DBPARAMFLAGSENUM de OLE DB."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\CARGA DIM EMPLOYEE\Comando de OLE DB.Inputs[Entrada de comando de OLE DB].ExternalColumns[Param_3]"
+                      dataType="dbDate"
+                      name="Param_3">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Información de parámetros. Coincide con los valores de DBPARAMFLAGSENUM de OLE DB."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\CARGA DIM EMPLOYEE\Comando de OLE DB.Inputs[Entrada de comando de OLE DB].ExternalColumns[Param_4]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="Param_4">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Información de parámetros. Coincide con los valores de DBPARAMFLAGSENUM de OLE DB."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\CARGA DIM EMPLOYEE\Comando de OLE DB.Inputs[Entrada de comando de OLE DB].ExternalColumns[Param_5]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="Param_5">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Información de parámetros. Coincide con los valores de DBPARAMFLAGSENUM de OLE DB."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\CARGA DIM EMPLOYEE\Comando de OLE DB.Inputs[Entrada de comando de OLE DB].ExternalColumns[Param_6]"
+                      dataType="i4"
+                      name="Param_6">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Información de parámetros. Coincide con los valores de DBPARAMFLAGSENUM de OLE DB."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\CARGA DIM EMPLOYEE\Comando de OLE DB.Outputs[Salida de comando de OLE DB]"
+                  exclusionGroup="1"
+                  name="Salida de comando de OLE DB"
+                  synchronousInputId="Package\CARGA DIM EMPLOYEE\Comando de OLE DB.Inputs[Entrada de comando de OLE DB]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\CARGA DIM EMPLOYEE\Comando de OLE DB.Outputs[Salida de error de comando de OLE DB]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de comando de OLE DB"
+                  synchronousInputId="Package\CARGA DIM EMPLOYEE\Comando de OLE DB.Inputs[Entrada de comando de OLE DB]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\CARGA DIM EMPLOYEE\Comando de OLE DB.Outputs[Salida de error de comando de OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\CARGA DIM EMPLOYEE\Comando de OLE DB.Outputs[Salida de error de comando de OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\CARGA DIM EMPLOYEE\Comando de OLE DB.Outputs[Salida de error de comando de OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\CARGA DIM EMPLOYEE\Comando de OLE DB.Outputs[Salida de error de comando de OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\CARGA DIM EMPLOYEE\Dimensión de variación lenta"
+              componentClassID="Microsoft.SCD"
+              contactInfo="Dimensión de variación lenta;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;3"
+              description="Actualiza una dimensión del almacenamiento de datos de SQL Server Analysis Services. Actualiza los registros de dimensión existentes e inserta los registros de dimensión que faltan. Por ejemplo, se actualiza la tabla DimProduct de la base de datos OLAP AdventureWorksDW con datos procedentes de la tabla Products de la base de datos OLTP AdventureWorks."
+              name="Dimensión de variación lenta"
+              version="3">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Especifica la instrucción SELECT utilizada para crear un conjunto de filas de esquema."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT [BIRTH_DATE], [CATEGORY], [EDUCATION_LEVEL], [EMPLOYEE_ID], [EMPLOYMENT_DATE], [FULL_NAME], [GENDER] FROM [DW].[DIM_EMPLOYEE]</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica la cláusula WHERE de la instrucción SELECT que selecciona la fila actual de entre filas con claves empresariales idénticas."
+                  name="CurrentRowWhere"></property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si las actualizaciones de atributos históricos se dirigen a la salida de transformación para actualizaciones de atributos variables."
+                  name="UpdateChangingAttributeHistory">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si se produce un error de transformación cuando las columnas con atributos fijos contienen cambios."
+                  name="FailOnFixedAttributeChange">false</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica el nombre de columna para el miembro deducido."
+                  name="InferredMemberIndicator"></property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si se detectan las actualizaciones de miembros deducidos."
+                  name="EnableInferredMember">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si se produce un error de transformación cuando se produce un error de búsqueda de un registro existente."
+                  name="FailOnLookupFailure">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica que todas las filas de la entrada sean nuevas o que la transformación detecte el tipo de cambio."
+                  name="IncomingRowChangeType"
+                  typeConverter="IncomingRowChangeType">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\CARGA DIM EMPLOYEE\Dimensión de variación lenta.Connections[LookupConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DW_SDG]"
+                  connectionManagerRefId="Package.ConnectionManagers[DW_SDG]"
+                  description="Define la conexión que se debe usar para búsquedas en la tabla de dimensiones"
+                  name="LookupConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\CARGA DIM EMPLOYEE\Dimensión de variación lenta.Inputs[Entrada de dimensión de variación lenta]"
+                  name="Entrada de dimensión de variación lenta">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\CARGA DIM EMPLOYEE\Dimensión de variación lenta.Inputs[Entrada de dimensión de variación lenta].Columns[BIRTH_DATE]"
+                      cachedDataType="dbDate"
+                      cachedName="BIRTH_DATE"
+                      externalMetadataColumnId="Package\CARGA DIM EMPLOYEE\Dimensión de variación lenta.Inputs[Entrada de dimensión de variación lenta].ExternalColumns[BIRTH_DATE]"
+                      lineageId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de origen de OLE DB].Columns[BIRTH_DATE]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          name="ColumnType"
+                          typeConverter="ColumnType">2</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\CARGA DIM EMPLOYEE\Dimensión de variación lenta.Inputs[Entrada de dimensión de variación lenta].Columns[CATEGORY]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="CATEGORY"
+                      externalMetadataColumnId="Package\CARGA DIM EMPLOYEE\Dimensión de variación lenta.Inputs[Entrada de dimensión de variación lenta].ExternalColumns[CATEGORY]"
+                      lineageId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de origen de OLE DB].Columns[CATEGORY]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          name="ColumnType"
+                          typeConverter="ColumnType">2</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\CARGA DIM EMPLOYEE\Dimensión de variación lenta.Inputs[Entrada de dimensión de variación lenta].Columns[EDUCATION_LEVEL]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="EDUCATION_LEVEL"
+                      externalMetadataColumnId="Package\CARGA DIM EMPLOYEE\Dimensión de variación lenta.Inputs[Entrada de dimensión de variación lenta].ExternalColumns[EDUCATION_LEVEL]"
+                      lineageId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de origen de OLE DB].Columns[EDUCATION_LEVEL]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          name="ColumnType"
+                          typeConverter="ColumnType">2</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\CARGA DIM EMPLOYEE\Dimensión de variación lenta.Inputs[Entrada de dimensión de variación lenta].Columns[EMPLOYEE_ID]"
+                      cachedDataType="i4"
+                      cachedName="EMPLOYEE_ID"
+                      externalMetadataColumnId="Package\CARGA DIM EMPLOYEE\Dimensión de variación lenta.Inputs[Entrada de dimensión de variación lenta].ExternalColumns[EMPLOYEE_ID]"
+                      lineageId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de origen de OLE DB].Columns[EMPLOYEE_ID]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          name="ColumnType"
+                          typeConverter="ColumnType">1</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\CARGA DIM EMPLOYEE\Dimensión de variación lenta.Inputs[Entrada de dimensión de variación lenta].Columns[EMPLOYMENT_DATE]"
+                      cachedDataType="dbDate"
+                      cachedName="EMPLOYMENT_DATE"
+                      externalMetadataColumnId="Package\CARGA DIM EMPLOYEE\Dimensión de variación lenta.Inputs[Entrada de dimensión de variación lenta].ExternalColumns[EMPLOYMENT_DATE]"
+                      lineageId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de origen de OLE DB].Columns[EMPLOYMENT_DATE]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          name="ColumnType"
+                          typeConverter="ColumnType">2</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\CARGA DIM EMPLOYEE\Dimensión de variación lenta.Inputs[Entrada de dimensión de variación lenta].Columns[FULL_NAME]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="FULL_NAME"
+                      externalMetadataColumnId="Package\CARGA DIM EMPLOYEE\Dimensión de variación lenta.Inputs[Entrada de dimensión de variación lenta].ExternalColumns[FULL_NAME]"
+                      lineageId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de origen de OLE DB].Columns[FULL_NAME]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          name="ColumnType"
+                          typeConverter="ColumnType">2</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\CARGA DIM EMPLOYEE\Dimensión de variación lenta.Inputs[Entrada de dimensión de variación lenta].Columns[GENDER]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="GENDER"
+                      externalMetadataColumnId="Package\CARGA DIM EMPLOYEE\Dimensión de variación lenta.Inputs[Entrada de dimensión de variación lenta].ExternalColumns[GENDER]"
+                      lineageId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de origen de OLE DB].Columns[GENDER]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          name="ColumnType"
+                          typeConverter="ColumnType">2</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\CARGA DIM EMPLOYEE\Dimensión de variación lenta.Inputs[Entrada de dimensión de variación lenta].ExternalColumns[BIRTH_DATE]"
+                      dataType="dbDate"
+                      name="BIRTH_DATE" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA DIM EMPLOYEE\Dimensión de variación lenta.Inputs[Entrada de dimensión de variación lenta].ExternalColumns[CATEGORY]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="CATEGORY" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA DIM EMPLOYEE\Dimensión de variación lenta.Inputs[Entrada de dimensión de variación lenta].ExternalColumns[EDUCATION_LEVEL]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="EDUCATION_LEVEL" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA DIM EMPLOYEE\Dimensión de variación lenta.Inputs[Entrada de dimensión de variación lenta].ExternalColumns[EMPLOYEE_ID]"
+                      dataType="i4"
+                      name="EMPLOYEE_ID" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA DIM EMPLOYEE\Dimensión de variación lenta.Inputs[Entrada de dimensión de variación lenta].ExternalColumns[EMPLOYMENT_DATE]"
+                      dataType="dbDate"
+                      name="EMPLOYMENT_DATE" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA DIM EMPLOYEE\Dimensión de variación lenta.Inputs[Entrada de dimensión de variación lenta].ExternalColumns[FULL_NAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="FULL_NAME" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA DIM EMPLOYEE\Dimensión de variación lenta.Inputs[Entrada de dimensión de variación lenta].ExternalColumns[GENDER]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="GENDER" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\CARGA DIM EMPLOYEE\Dimensión de variación lenta.Outputs[Salida sin cambios]"
+                  description="Filas sin cambios"
+                  exclusionGroup="1"
+                  name="Salida sin cambios"
+                  synchronousInputId="Package\CARGA DIM EMPLOYEE\Dimensión de variación lenta.Inputs[Entrada de dimensión de variación lenta]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\CARGA DIM EMPLOYEE\Dimensión de variación lenta.Outputs[Nueva salida]"
+                  description="Nuevas filas"
+                  exclusionGroup="1"
+                  name="Nueva salida"
+                  synchronousInputId="Package\CARGA DIM EMPLOYEE\Dimensión de variación lenta.Inputs[Entrada de dimensión de variación lenta]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\CARGA DIM EMPLOYEE\Dimensión de variación lenta.Outputs[Salida de atributo fijo]"
+                  description="Filas con cambios en columnas etiquetadas FixedAttribute"
+                  exclusionGroup="1"
+                  name="Salida de atributo fijo"
+                  synchronousInputId="Package\CARGA DIM EMPLOYEE\Dimensión de variación lenta.Inputs[Entrada de dimensión de variación lenta]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\CARGA DIM EMPLOYEE\Dimensión de variación lenta.Outputs[Salida de actualizaciones de atributos variables]"
+                  description="Estas filas contienen información nueva para cambios de columnas ChangingAttribute (tipo 1)"
+                  exclusionGroup="1"
+                  name="Salida de actualizaciones de atributos variables"
+                  synchronousInputId="Package\CARGA DIM EMPLOYEE\Dimensión de variación lenta.Inputs[Entrada de dimensión de variación lenta]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\CARGA DIM EMPLOYEE\Dimensión de variación lenta.Outputs[Salida de inserciones de atributos históricos]"
+                  description="Los cambios de HistoricalAttribute (tipo 2) crean estas nuevas filas"
+                  exclusionGroup="2"
+                  name="Salida de inserciones de atributos históricos"
+                  synchronousInputId="Package\CARGA DIM EMPLOYEE\Dimensión de variación lenta.Inputs[Entrada de dimensión de variación lenta]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\CARGA DIM EMPLOYEE\Dimensión de variación lenta.Outputs[Salida de actualizaciones de miembros deducidos]"
+                  description="Información para actualizar fila de dimensión inicial sin rellenar"
+                  exclusionGroup="1"
+                  name="Salida de actualizaciones de miembros deducidos"
+                  synchronousInputId="Package\CARGA DIM EMPLOYEE\Dimensión de variación lenta.Inputs[Entrada de dimensión de variación lenta]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\CARGA DIM EMPLOYEE\Insert Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="Destino de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;4"
+              description="Destino de OLE DB"
+              name="Insert Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowset">[DW].[DIM_EMPLOYEE]</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Comando SQL para ejecutar."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Fuerza el uso del valor de la propiedad DefaultCodePage al describir datos de caracteres."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si los valores proporcionados para columnas de identidad se van a copiar al destino. Si es False, los valores de las columnas de identidad se generan automáticamente en el destino. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si las columnas que contienen NULL tendrán NULL insertado en el destino. Si es False, las columnas que contienen NULL tendrán sus valores predeterminados insertados en el destino. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica opciones para usar con la carga rápida. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadOptions"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica cuándo se emiten confirmaciones durante la inserción de datos. El valor 0 especifica que se emitirá una confirmación al final de la inserción de datos. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\CARGA DIM EMPLOYEE\Insert Destination.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DW_SDG]"
+                  connectionManagerRefId="Package.ConnectionManagers[DW_SDG]"
+                  description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\CARGA DIM EMPLOYEE\Insert Destination.Inputs[Entrada de destino de OLE DB]"
+                  errorOrTruncationOperation="Insertar"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Entrada de destino de OLE DB">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\CARGA DIM EMPLOYEE\Insert Destination.Inputs[Entrada de destino de OLE DB].Columns[EMPLOYEE_ID]"
+                      cachedDataType="i4"
+                      cachedName="EMPLOYEE_ID"
+                      externalMetadataColumnId="Package\CARGA DIM EMPLOYEE\Insert Destination.Inputs[Entrada de destino de OLE DB].ExternalColumns[EMPLOYEE_ID]"
+                      lineageId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de origen de OLE DB].Columns[EMPLOYEE_ID]" />
+                    <inputColumn
+                      refId="Package\CARGA DIM EMPLOYEE\Insert Destination.Inputs[Entrada de destino de OLE DB].Columns[FULL_NAME]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="FULL_NAME"
+                      externalMetadataColumnId="Package\CARGA DIM EMPLOYEE\Insert Destination.Inputs[Entrada de destino de OLE DB].ExternalColumns[FULL_NAME]"
+                      lineageId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de origen de OLE DB].Columns[FULL_NAME]" />
+                    <inputColumn
+                      refId="Package\CARGA DIM EMPLOYEE\Insert Destination.Inputs[Entrada de destino de OLE DB].Columns[GENDER]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="GENDER"
+                      externalMetadataColumnId="Package\CARGA DIM EMPLOYEE\Insert Destination.Inputs[Entrada de destino de OLE DB].ExternalColumns[GENDER]"
+                      lineageId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de origen de OLE DB].Columns[GENDER]" />
+                    <inputColumn
+                      refId="Package\CARGA DIM EMPLOYEE\Insert Destination.Inputs[Entrada de destino de OLE DB].Columns[CATEGORY]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="CATEGORY"
+                      externalMetadataColumnId="Package\CARGA DIM EMPLOYEE\Insert Destination.Inputs[Entrada de destino de OLE DB].ExternalColumns[CATEGORY]"
+                      lineageId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de origen de OLE DB].Columns[CATEGORY]" />
+                    <inputColumn
+                      refId="Package\CARGA DIM EMPLOYEE\Insert Destination.Inputs[Entrada de destino de OLE DB].Columns[EMPLOYMENT_DATE]"
+                      cachedDataType="dbDate"
+                      cachedName="EMPLOYMENT_DATE"
+                      externalMetadataColumnId="Package\CARGA DIM EMPLOYEE\Insert Destination.Inputs[Entrada de destino de OLE DB].ExternalColumns[EMPLOYMENT_DATE]"
+                      lineageId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de origen de OLE DB].Columns[EMPLOYMENT_DATE]" />
+                    <inputColumn
+                      refId="Package\CARGA DIM EMPLOYEE\Insert Destination.Inputs[Entrada de destino de OLE DB].Columns[BIRTH_DATE]"
+                      cachedDataType="dbDate"
+                      cachedName="BIRTH_DATE"
+                      externalMetadataColumnId="Package\CARGA DIM EMPLOYEE\Insert Destination.Inputs[Entrada de destino de OLE DB].ExternalColumns[BIRTH_DATE]"
+                      lineageId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de origen de OLE DB].Columns[BIRTH_DATE]" />
+                    <inputColumn
+                      refId="Package\CARGA DIM EMPLOYEE\Insert Destination.Inputs[Entrada de destino de OLE DB].Columns[EDUCATION_LEVEL]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="EDUCATION_LEVEL"
+                      externalMetadataColumnId="Package\CARGA DIM EMPLOYEE\Insert Destination.Inputs[Entrada de destino de OLE DB].ExternalColumns[EDUCATION_LEVEL]"
+                      lineageId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de origen de OLE DB].Columns[EDUCATION_LEVEL]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\CARGA DIM EMPLOYEE\Insert Destination.Inputs[Entrada de destino de OLE DB].ExternalColumns[DIM_EMPLOYEE_ID]"
+                      dataType="i4"
+                      name="DIM_EMPLOYEE_ID" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA DIM EMPLOYEE\Insert Destination.Inputs[Entrada de destino de OLE DB].ExternalColumns[EMPLOYEE_ID]"
+                      dataType="i4"
+                      name="EMPLOYEE_ID" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA DIM EMPLOYEE\Insert Destination.Inputs[Entrada de destino de OLE DB].ExternalColumns[FULL_NAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="FULL_NAME" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA DIM EMPLOYEE\Insert Destination.Inputs[Entrada de destino de OLE DB].ExternalColumns[GENDER]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="GENDER" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA DIM EMPLOYEE\Insert Destination.Inputs[Entrada de destino de OLE DB].ExternalColumns[CATEGORY]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="CATEGORY" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA DIM EMPLOYEE\Insert Destination.Inputs[Entrada de destino de OLE DB].ExternalColumns[EMPLOYMENT_DATE]"
+                      dataType="dbDate"
+                      name="EMPLOYMENT_DATE" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA DIM EMPLOYEE\Insert Destination.Inputs[Entrada de destino de OLE DB].ExternalColumns[BIRTH_DATE]"
+                      dataType="dbDate"
+                      name="BIRTH_DATE" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA DIM EMPLOYEE\Insert Destination.Inputs[Entrada de destino de OLE DB].ExternalColumns[EDUCATION_LEVEL]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="EDUCATION_LEVEL" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\CARGA DIM EMPLOYEE\Insert Destination.Outputs[Salida de error de destino de OLE DB]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de destino de OLE DB"
+                  synchronousInputId="Package\CARGA DIM EMPLOYEE\Insert Destination.Inputs[Entrada de destino de OLE DB]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\CARGA DIM EMPLOYEE\Insert Destination.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\CARGA DIM EMPLOYEE\Insert Destination.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\CARGA DIM EMPLOYEE\Insert Destination.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\CARGA DIM EMPLOYEE\Insert Destination.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="Origen de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;7"
+              description="Origen de OLE DB"
+              name="STG EMPLOYEE"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowset">[STG].[STG_EMPLOYEE]</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Comando SQL para ejecutar."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="Variable que contiene el comando SQL para ejecutar."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Fuerza el uso del valor de la propiedad DefaultCodePage al describir datos de caracteres."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="Asignaciones entre los parámetros del comando SQL y las variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[STG_SDG]"
+                  connectionManagerRefId="Package.ConnectionManagers[STG_SDG]"
+                  description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de origen de OLE DB]"
+                  name="Salida de origen de OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de origen de OLE DB].Columns[EMPLOYEE_ID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de origen de OLE DB].ExternalColumns[EMPLOYEE_ID]"
+                      lineageId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de origen de OLE DB].Columns[EMPLOYEE_ID]"
+                      name="EMPLOYEE_ID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de origen de OLE DB].Columns[FULL_NAME]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de origen de OLE DB].ExternalColumns[FULL_NAME]"
+                      length="255"
+                      lineageId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de origen de OLE DB].Columns[FULL_NAME]"
+                      name="FULL_NAME"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de origen de OLE DB].Columns[GENDER]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de origen de OLE DB].ExternalColumns[GENDER]"
+                      length="255"
+                      lineageId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de origen de OLE DB].Columns[GENDER]"
+                      name="GENDER"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de origen de OLE DB].Columns[CATEGORY]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de origen de OLE DB].ExternalColumns[CATEGORY]"
+                      length="255"
+                      lineageId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de origen de OLE DB].Columns[CATEGORY]"
+                      name="CATEGORY"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de origen de OLE DB].Columns[EMPLOYMENT_DATE]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de origen de OLE DB].ExternalColumns[EMPLOYMENT_DATE]"
+                      lineageId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de origen de OLE DB].Columns[EMPLOYMENT_DATE]"
+                      name="EMPLOYMENT_DATE"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de origen de OLE DB].Columns[BIRTH_DATE]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de origen de OLE DB].ExternalColumns[BIRTH_DATE]"
+                      lineageId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de origen de OLE DB].Columns[BIRTH_DATE]"
+                      name="BIRTH_DATE"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de origen de OLE DB].Columns[EDUCATION_LEVEL]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de origen de OLE DB].ExternalColumns[EDUCATION_LEVEL]"
+                      length="1"
+                      lineageId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de origen de OLE DB].Columns[EDUCATION_LEVEL]"
+                      name="EDUCATION_LEVEL"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de origen de OLE DB].ExternalColumns[EMPLOYEE_ID]"
+                      dataType="i4"
+                      name="EMPLOYEE_ID" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de origen de OLE DB].ExternalColumns[FULL_NAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="FULL_NAME" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de origen de OLE DB].ExternalColumns[GENDER]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="GENDER" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de origen de OLE DB].ExternalColumns[CATEGORY]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="CATEGORY" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de origen de OLE DB].ExternalColumns[EMPLOYMENT_DATE]"
+                      dataType="dbDate"
+                      name="EMPLOYMENT_DATE" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de origen de OLE DB].ExternalColumns[BIRTH_DATE]"
+                      dataType="dbDate"
+                      name="BIRTH_DATE" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de origen de OLE DB].ExternalColumns[EDUCATION_LEVEL]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="EDUCATION_LEVEL" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de error de origen de OLE DB]"
+                  isErrorOut="true"
+                  name="Salida de error de origen de OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de error de origen de OLE DB].Columns[EMPLOYEE_ID]"
+                      dataType="i4"
+                      lineageId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de error de origen de OLE DB].Columns[EMPLOYEE_ID]"
+                      name="EMPLOYEE_ID" />
+                    <outputColumn
+                      refId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de error de origen de OLE DB].Columns[FULL_NAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      lineageId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de error de origen de OLE DB].Columns[FULL_NAME]"
+                      name="FULL_NAME" />
+                    <outputColumn
+                      refId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de error de origen de OLE DB].Columns[GENDER]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      lineageId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de error de origen de OLE DB].Columns[GENDER]"
+                      name="GENDER" />
+                    <outputColumn
+                      refId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de error de origen de OLE DB].Columns[CATEGORY]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      lineageId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de error de origen de OLE DB].Columns[CATEGORY]"
+                      name="CATEGORY" />
+                    <outputColumn
+                      refId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de error de origen de OLE DB].Columns[EMPLOYMENT_DATE]"
+                      dataType="dbDate"
+                      lineageId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de error de origen de OLE DB].Columns[EMPLOYMENT_DATE]"
+                      name="EMPLOYMENT_DATE" />
+                    <outputColumn
+                      refId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de error de origen de OLE DB].Columns[BIRTH_DATE]"
+                      dataType="dbDate"
+                      lineageId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de error de origen de OLE DB].Columns[BIRTH_DATE]"
+                      name="BIRTH_DATE" />
+                    <outputColumn
+                      refId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de error de origen de OLE DB].Columns[EDUCATION_LEVEL]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de error de origen de OLE DB].Columns[EDUCATION_LEVEL]"
+                      name="EDUCATION_LEVEL" />
+                    <outputColumn
+                      refId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de error de origen de OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de error de origen de OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de error de origen de OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de error de origen de OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\CARGA DIM EMPLOYEE.Paths[Nueva salida]"
+              endId="Package\CARGA DIM EMPLOYEE\Insert Destination.Inputs[Entrada de destino de OLE DB]"
+              name="Nueva salida"
+              startId="Package\CARGA DIM EMPLOYEE\Dimensión de variación lenta.Outputs[Nueva salida]" />
+            <path
+              refId="Package\CARGA DIM EMPLOYEE.Paths[Salida de actualizaciones de atributos variables]"
+              endId="Package\CARGA DIM EMPLOYEE\Comando de OLE DB.Inputs[Entrada de comando de OLE DB]"
+              name="Salida de actualizaciones de atributos variables"
+              startId="Package\CARGA DIM EMPLOYEE\Dimensión de variación lenta.Outputs[Salida de actualizaciones de atributos variables]" />
+            <path
+              refId="Package\CARGA DIM EMPLOYEE.Paths[Salida de origen de OLE DB]"
+              endId="Package\CARGA DIM EMPLOYEE\Dimensión de variación lenta.Inputs[Entrada de dimensión de variación lenta]"
+              name="Salida de origen de OLE DB"
+              startId="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE.Outputs[Salida de origen de OLE DB]" />
+          </paths>
+        </pipeline>
       </DTS:ObjectData>
     </DTS:Executable>
     <DTS:Executable
@@ -81,7 +1019,426 @@
       <DTS:Variables />
       <DTS:ObjectData>
         <pipeline
-          version="1" />
+          version="1">
+          <components>
+            <component
+              refId="Package\CARGA EMPLOYEE EXCEL\Employee"
+              componentClassID="Microsoft.ExcelSource"
+              contactInfo="Origen de Excel;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;1"
+              description="Origen de Excel"
+              name="Employee"
+              usesDispositions="true"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowset">Employee$</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Comando SQL para ejecutar."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="Variable que contiene el comando SQL para ejecutar."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="La asignación de parámetros del comando SQL a variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\CARGA EMPLOYEE EXCEL\Employee.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Excel Connection Manager]"
+                  connectionManagerRefId="Package.ConnectionManagers[Excel Connection Manager]"
+                  description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\CARGA EMPLOYEE EXCEL\Employee.Outputs[Salida de origen de Excel]"
+                  name="Salida de origen de Excel">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\CARGA EMPLOYEE EXCEL\Employee.Outputs[Salida de origen de Excel].Columns[EMPLOYEE_ID]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA EMPLOYEE EXCEL\Employee.Outputs[Salida de origen de Excel].ExternalColumns[EMPLOYEE_ID]"
+                      lineageId="Package\CARGA EMPLOYEE EXCEL\Employee.Outputs[Salida de origen de Excel].Columns[EMPLOYEE_ID]"
+                      name="EMPLOYEE_ID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA EMPLOYEE EXCEL\Employee.Outputs[Salida de origen de Excel].Columns[FULL_NAME]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA EMPLOYEE EXCEL\Employee.Outputs[Salida de origen de Excel].ExternalColumns[FULL_NAME]"
+                      length="255"
+                      lineageId="Package\CARGA EMPLOYEE EXCEL\Employee.Outputs[Salida de origen de Excel].Columns[FULL_NAME]"
+                      name="FULL_NAME"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA EMPLOYEE EXCEL\Employee.Outputs[Salida de origen de Excel].Columns[CATEGORY]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA EMPLOYEE EXCEL\Employee.Outputs[Salida de origen de Excel].ExternalColumns[CATEGORY]"
+                      length="255"
+                      lineageId="Package\CARGA EMPLOYEE EXCEL\Employee.Outputs[Salida de origen de Excel].Columns[CATEGORY]"
+                      name="CATEGORY"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA EMPLOYEE EXCEL\Employee.Outputs[Salida de origen de Excel].Columns[EMPLOYMENT_DATE]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA EMPLOYEE EXCEL\Employee.Outputs[Salida de origen de Excel].ExternalColumns[EMPLOYMENT_DATE]"
+                      length="255"
+                      lineageId="Package\CARGA EMPLOYEE EXCEL\Employee.Outputs[Salida de origen de Excel].Columns[EMPLOYMENT_DATE]"
+                      name="EMPLOYMENT_DATE"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA EMPLOYEE EXCEL\Employee.Outputs[Salida de origen de Excel].Columns[BIRTH_DATE]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA EMPLOYEE EXCEL\Employee.Outputs[Salida de origen de Excel].ExternalColumns[BIRTH_DATE]"
+                      length="255"
+                      lineageId="Package\CARGA EMPLOYEE EXCEL\Employee.Outputs[Salida de origen de Excel].Columns[BIRTH_DATE]"
+                      name="BIRTH_DATE"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA EMPLOYEE EXCEL\Employee.Outputs[Salida de origen de Excel].Columns[EDUCATION_LEVEL]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA EMPLOYEE EXCEL\Employee.Outputs[Salida de origen de Excel].ExternalColumns[EDUCATION_LEVEL]"
+                      length="255"
+                      lineageId="Package\CARGA EMPLOYEE EXCEL\Employee.Outputs[Salida de origen de Excel].Columns[EDUCATION_LEVEL]"
+                      name="EDUCATION_LEVEL"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA EMPLOYEE EXCEL\Employee.Outputs[Salida de origen de Excel].Columns[GENDER]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA EMPLOYEE EXCEL\Employee.Outputs[Salida de origen de Excel].ExternalColumns[GENDER]"
+                      length="255"
+                      lineageId="Package\CARGA EMPLOYEE EXCEL\Employee.Outputs[Salida de origen de Excel].Columns[GENDER]"
+                      name="GENDER"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\CARGA EMPLOYEE EXCEL\Employee.Outputs[Salida de origen de Excel].ExternalColumns[EMPLOYEE_ID]"
+                      dataType="r8"
+                      name="EMPLOYEE_ID" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA EMPLOYEE EXCEL\Employee.Outputs[Salida de origen de Excel].ExternalColumns[FULL_NAME]"
+                      dataType="wstr"
+                      length="255"
+                      name="FULL_NAME" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA EMPLOYEE EXCEL\Employee.Outputs[Salida de origen de Excel].ExternalColumns[CATEGORY]"
+                      dataType="wstr"
+                      length="255"
+                      name="CATEGORY" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA EMPLOYEE EXCEL\Employee.Outputs[Salida de origen de Excel].ExternalColumns[EMPLOYMENT_DATE]"
+                      dataType="wstr"
+                      length="255"
+                      name="EMPLOYMENT_DATE" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA EMPLOYEE EXCEL\Employee.Outputs[Salida de origen de Excel].ExternalColumns[BIRTH_DATE]"
+                      dataType="wstr"
+                      length="255"
+                      name="BIRTH_DATE" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA EMPLOYEE EXCEL\Employee.Outputs[Salida de origen de Excel].ExternalColumns[EDUCATION_LEVEL]"
+                      dataType="wstr"
+                      length="255"
+                      name="EDUCATION_LEVEL" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA EMPLOYEE EXCEL\Employee.Outputs[Salida de origen de Excel].ExternalColumns[GENDER]"
+                      dataType="wstr"
+                      length="255"
+                      name="GENDER" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\CARGA EMPLOYEE EXCEL\Employee.Outputs[Salida de error de origen de Excel]"
+                  isErrorOut="true"
+                  name="Salida de error de origen de Excel">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\CARGA EMPLOYEE EXCEL\Employee.Outputs[Salida de error de origen de Excel].Columns[EMPLOYEE_ID]"
+                      dataType="r8"
+                      lineageId="Package\CARGA EMPLOYEE EXCEL\Employee.Outputs[Salida de error de origen de Excel].Columns[EMPLOYEE_ID]"
+                      name="EMPLOYEE_ID" />
+                    <outputColumn
+                      refId="Package\CARGA EMPLOYEE EXCEL\Employee.Outputs[Salida de error de origen de Excel].Columns[FULL_NAME]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\CARGA EMPLOYEE EXCEL\Employee.Outputs[Salida de error de origen de Excel].Columns[FULL_NAME]"
+                      name="FULL_NAME" />
+                    <outputColumn
+                      refId="Package\CARGA EMPLOYEE EXCEL\Employee.Outputs[Salida de error de origen de Excel].Columns[CATEGORY]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\CARGA EMPLOYEE EXCEL\Employee.Outputs[Salida de error de origen de Excel].Columns[CATEGORY]"
+                      name="CATEGORY" />
+                    <outputColumn
+                      refId="Package\CARGA EMPLOYEE EXCEL\Employee.Outputs[Salida de error de origen de Excel].Columns[EMPLOYMENT_DATE]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\CARGA EMPLOYEE EXCEL\Employee.Outputs[Salida de error de origen de Excel].Columns[EMPLOYMENT_DATE]"
+                      name="EMPLOYMENT_DATE" />
+                    <outputColumn
+                      refId="Package\CARGA EMPLOYEE EXCEL\Employee.Outputs[Salida de error de origen de Excel].Columns[BIRTH_DATE]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\CARGA EMPLOYEE EXCEL\Employee.Outputs[Salida de error de origen de Excel].Columns[BIRTH_DATE]"
+                      name="BIRTH_DATE" />
+                    <outputColumn
+                      refId="Package\CARGA EMPLOYEE EXCEL\Employee.Outputs[Salida de error de origen de Excel].Columns[EDUCATION_LEVEL]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\CARGA EMPLOYEE EXCEL\Employee.Outputs[Salida de error de origen de Excel].Columns[EDUCATION_LEVEL]"
+                      name="EDUCATION_LEVEL" />
+                    <outputColumn
+                      refId="Package\CARGA EMPLOYEE EXCEL\Employee.Outputs[Salida de error de origen de Excel].Columns[GENDER]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\CARGA EMPLOYEE EXCEL\Employee.Outputs[Salida de error de origen de Excel].Columns[GENDER]"
+                      name="GENDER" />
+                    <outputColumn
+                      refId="Package\CARGA EMPLOYEE EXCEL\Employee.Outputs[Salida de error de origen de Excel].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\CARGA EMPLOYEE EXCEL\Employee.Outputs[Salida de error de origen de Excel].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\CARGA EMPLOYEE EXCEL\Employee.Outputs[Salida de error de origen de Excel].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\CARGA EMPLOYEE EXCEL\Employee.Outputs[Salida de error de origen de Excel].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\CARGA EMPLOYEE EXCEL\ODS EMPLOYEE"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="Destino de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;4"
+              description="Destino de OLE DB"
+              name="ODS EMPLOYEE"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowset">[ODS].[EMPLOYEE]</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Comando SQL para ejecutar."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Fuerza el uso del valor de la propiedad DefaultCodePage al describir datos de caracteres."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si los valores proporcionados para columnas de identidad se van a copiar al destino. Si es False, los valores de las columnas de identidad se generan automáticamente en el destino. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si las columnas que contienen NULL tendrán NULL insertado en el destino. Si es False, las columnas que contienen NULL tendrán sus valores predeterminados insertados en el destino. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica opciones para usar con la carga rápida. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica cuándo se emiten confirmaciones durante la inserción de datos. El valor 0 especifica que se emitirá una confirmación al final de la inserción de datos. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\CARGA EMPLOYEE EXCEL\ODS EMPLOYEE.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[STG_SDG]"
+                  connectionManagerRefId="Package.ConnectionManagers[STG_SDG]"
+                  description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\CARGA EMPLOYEE EXCEL\ODS EMPLOYEE.Inputs[Entrada de destino de OLE DB]"
+                  errorOrTruncationOperation="Insertar"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Entrada de destino de OLE DB">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\CARGA EMPLOYEE EXCEL\ODS EMPLOYEE.Inputs[Entrada de destino de OLE DB].Columns[EMPLOYEE_ID]"
+                      cachedDataType="r8"
+                      cachedName="EMPLOYEE_ID"
+                      externalMetadataColumnId="Package\CARGA EMPLOYEE EXCEL\ODS EMPLOYEE.Inputs[Entrada de destino de OLE DB].ExternalColumns[EMPLOYEE_ID]"
+                      lineageId="Package\CARGA EMPLOYEE EXCEL\Employee.Outputs[Salida de origen de Excel].Columns[EMPLOYEE_ID]" />
+                    <inputColumn
+                      refId="Package\CARGA EMPLOYEE EXCEL\ODS EMPLOYEE.Inputs[Entrada de destino de OLE DB].Columns[FULL_NAME]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="FULL_NAME"
+                      externalMetadataColumnId="Package\CARGA EMPLOYEE EXCEL\ODS EMPLOYEE.Inputs[Entrada de destino de OLE DB].ExternalColumns[FULL_NAME]"
+                      lineageId="Package\CARGA EMPLOYEE EXCEL\Employee.Outputs[Salida de origen de Excel].Columns[FULL_NAME]" />
+                    <inputColumn
+                      refId="Package\CARGA EMPLOYEE EXCEL\ODS EMPLOYEE.Inputs[Entrada de destino de OLE DB].Columns[CATEGORY]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="CATEGORY"
+                      externalMetadataColumnId="Package\CARGA EMPLOYEE EXCEL\ODS EMPLOYEE.Inputs[Entrada de destino de OLE DB].ExternalColumns[CATEGORY]"
+                      lineageId="Package\CARGA EMPLOYEE EXCEL\Employee.Outputs[Salida de origen de Excel].Columns[CATEGORY]" />
+                    <inputColumn
+                      refId="Package\CARGA EMPLOYEE EXCEL\ODS EMPLOYEE.Inputs[Entrada de destino de OLE DB].Columns[EMPLOYMENT_DATE]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="EMPLOYMENT_DATE"
+                      externalMetadataColumnId="Package\CARGA EMPLOYEE EXCEL\ODS EMPLOYEE.Inputs[Entrada de destino de OLE DB].ExternalColumns[EMPLOYMENT_DATE]"
+                      lineageId="Package\CARGA EMPLOYEE EXCEL\Employee.Outputs[Salida de origen de Excel].Columns[EMPLOYMENT_DATE]" />
+                    <inputColumn
+                      refId="Package\CARGA EMPLOYEE EXCEL\ODS EMPLOYEE.Inputs[Entrada de destino de OLE DB].Columns[BIRTH_DATE]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="BIRTH_DATE"
+                      externalMetadataColumnId="Package\CARGA EMPLOYEE EXCEL\ODS EMPLOYEE.Inputs[Entrada de destino de OLE DB].ExternalColumns[BIRTH_DATE]"
+                      lineageId="Package\CARGA EMPLOYEE EXCEL\Employee.Outputs[Salida de origen de Excel].Columns[BIRTH_DATE]" />
+                    <inputColumn
+                      refId="Package\CARGA EMPLOYEE EXCEL\ODS EMPLOYEE.Inputs[Entrada de destino de OLE DB].Columns[EDUCATION_LEVEL]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="EDUCATION_LEVEL"
+                      externalMetadataColumnId="Package\CARGA EMPLOYEE EXCEL\ODS EMPLOYEE.Inputs[Entrada de destino de OLE DB].ExternalColumns[EDUCATION_LEVEL]"
+                      lineageId="Package\CARGA EMPLOYEE EXCEL\Employee.Outputs[Salida de origen de Excel].Columns[EDUCATION_LEVEL]" />
+                    <inputColumn
+                      refId="Package\CARGA EMPLOYEE EXCEL\ODS EMPLOYEE.Inputs[Entrada de destino de OLE DB].Columns[GENDER]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="GENDER"
+                      externalMetadataColumnId="Package\CARGA EMPLOYEE EXCEL\ODS EMPLOYEE.Inputs[Entrada de destino de OLE DB].ExternalColumns[GENDER]"
+                      lineageId="Package\CARGA EMPLOYEE EXCEL\Employee.Outputs[Salida de origen de Excel].Columns[GENDER]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\CARGA EMPLOYEE EXCEL\ODS EMPLOYEE.Inputs[Entrada de destino de OLE DB].ExternalColumns[EMPLOYEE_ID]"
+                      dataType="i4"
+                      name="EMPLOYEE_ID" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA EMPLOYEE EXCEL\ODS EMPLOYEE.Inputs[Entrada de destino de OLE DB].ExternalColumns[FULL_NAME]"
+                      dataType="wstr"
+                      length="255"
+                      name="FULL_NAME" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA EMPLOYEE EXCEL\ODS EMPLOYEE.Inputs[Entrada de destino de OLE DB].ExternalColumns[GENDER]"
+                      dataType="wstr"
+                      length="255"
+                      name="GENDER" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA EMPLOYEE EXCEL\ODS EMPLOYEE.Inputs[Entrada de destino de OLE DB].ExternalColumns[CATEGORY]"
+                      dataType="wstr"
+                      length="255"
+                      name="CATEGORY" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA EMPLOYEE EXCEL\ODS EMPLOYEE.Inputs[Entrada de destino de OLE DB].ExternalColumns[EMPLOYMENT_DATE]"
+                      dataType="wstr"
+                      length="255"
+                      name="EMPLOYMENT_DATE" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA EMPLOYEE EXCEL\ODS EMPLOYEE.Inputs[Entrada de destino de OLE DB].ExternalColumns[BIRTH_DATE]"
+                      dataType="wstr"
+                      length="255"
+                      name="BIRTH_DATE" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA EMPLOYEE EXCEL\ODS EMPLOYEE.Inputs[Entrada de destino de OLE DB].ExternalColumns[EDUCATION_LEVEL]"
+                      dataType="wstr"
+                      length="1"
+                      name="EDUCATION_LEVEL" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\CARGA EMPLOYEE EXCEL\ODS EMPLOYEE.Outputs[Salida de error de destino de OLE DB]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de destino de OLE DB"
+                  synchronousInputId="Package\CARGA EMPLOYEE EXCEL\ODS EMPLOYEE.Inputs[Entrada de destino de OLE DB]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\CARGA EMPLOYEE EXCEL\ODS EMPLOYEE.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\CARGA EMPLOYEE EXCEL\ODS EMPLOYEE.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\CARGA EMPLOYEE EXCEL\ODS EMPLOYEE.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\CARGA EMPLOYEE EXCEL\ODS EMPLOYEE.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\CARGA EMPLOYEE EXCEL.Paths[Salida de origen de Excel]"
+              endId="Package\CARGA EMPLOYEE EXCEL\ODS EMPLOYEE.Inputs[Entrada de destino de OLE DB]"
+              name="Salida de origen de Excel"
+              startId="Package\CARGA EMPLOYEE EXCEL\Employee.Outputs[Salida de origen de Excel]" />
+          </paths>
+        </pipeline>
       </DTS:ObjectData>
     </DTS:Executable>
     <DTS:Executable
@@ -96,7 +1453,453 @@
       <DTS:Variables />
       <DTS:ObjectData>
         <pipeline
-          version="1" />
+          version="1">
+          <components>
+            <component
+              refId="Package\CARGA STG EMPLOYEE\ODS EMPLOYEE"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="Origen de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;7"
+              description="Origen de OLE DB"
+              name="ODS EMPLOYEE"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Comando SQL para ejecutar."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT  
+	 EMPLOYEE_ID	
+	,CAST(FULL_NAME AS VARCHAR(255))							AS FULL_NAME
+	,CAST(GENDER AS VARCHAR(255))								AS GENDER
+	,CAST(CATEGORY AS VARCHAR(255))								AS CATEGORY  
+	,TRY_CAST(CONVERT(VARCHAR, EMPLOYMENT_DATE, 101) AS DATE)	AS EMPLOYMENT_DATE 
+	,TRY_CAST(CONVERT(VARCHAR, BIRTH_DATE, 101) AS DATE)		AS BIRTH_DATE 
+	,CAST(EDUCATION_LEVEL AS CHAR(1))							AS EDUCATION_LEVEL 
+FROM  STG_SDG.ODS.EMPLOYEE
+WHERE EMPLOYEE_ID IS NOT NULL</property>
+                <property
+                  dataType="System.String"
+                  description="Variable que contiene el comando SQL para ejecutar."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Fuerza el uso del valor de la propiedad DefaultCodePage al describir datos de caracteres."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="Asignaciones entre los parámetros del comando SQL y las variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\CARGA STG EMPLOYEE\ODS EMPLOYEE.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DW_SDG]"
+                  connectionManagerRefId="Package.ConnectionManagers[DW_SDG]"
+                  description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\CARGA STG EMPLOYEE\ODS EMPLOYEE.Outputs[Salida de origen de OLE DB]"
+                  name="Salida de origen de OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\CARGA STG EMPLOYEE\ODS EMPLOYEE.Outputs[Salida de origen de OLE DB].Columns[EMPLOYEE_ID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA STG EMPLOYEE\ODS EMPLOYEE.Outputs[Salida de origen de OLE DB].ExternalColumns[EMPLOYEE_ID]"
+                      lineageId="Package\CARGA STG EMPLOYEE\ODS EMPLOYEE.Outputs[Salida de origen de OLE DB].Columns[EMPLOYEE_ID]"
+                      name="EMPLOYEE_ID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA STG EMPLOYEE\ODS EMPLOYEE.Outputs[Salida de origen de OLE DB].Columns[FULL_NAME]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA STG EMPLOYEE\ODS EMPLOYEE.Outputs[Salida de origen de OLE DB].ExternalColumns[FULL_NAME]"
+                      length="255"
+                      lineageId="Package\CARGA STG EMPLOYEE\ODS EMPLOYEE.Outputs[Salida de origen de OLE DB].Columns[FULL_NAME]"
+                      name="FULL_NAME"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA STG EMPLOYEE\ODS EMPLOYEE.Outputs[Salida de origen de OLE DB].Columns[GENDER]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA STG EMPLOYEE\ODS EMPLOYEE.Outputs[Salida de origen de OLE DB].ExternalColumns[GENDER]"
+                      length="255"
+                      lineageId="Package\CARGA STG EMPLOYEE\ODS EMPLOYEE.Outputs[Salida de origen de OLE DB].Columns[GENDER]"
+                      name="GENDER"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA STG EMPLOYEE\ODS EMPLOYEE.Outputs[Salida de origen de OLE DB].Columns[CATEGORY]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA STG EMPLOYEE\ODS EMPLOYEE.Outputs[Salida de origen de OLE DB].ExternalColumns[CATEGORY]"
+                      length="255"
+                      lineageId="Package\CARGA STG EMPLOYEE\ODS EMPLOYEE.Outputs[Salida de origen de OLE DB].Columns[CATEGORY]"
+                      name="CATEGORY"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA STG EMPLOYEE\ODS EMPLOYEE.Outputs[Salida de origen de OLE DB].Columns[EMPLOYMENT_DATE]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA STG EMPLOYEE\ODS EMPLOYEE.Outputs[Salida de origen de OLE DB].ExternalColumns[EMPLOYMENT_DATE]"
+                      lineageId="Package\CARGA STG EMPLOYEE\ODS EMPLOYEE.Outputs[Salida de origen de OLE DB].Columns[EMPLOYMENT_DATE]"
+                      name="EMPLOYMENT_DATE"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA STG EMPLOYEE\ODS EMPLOYEE.Outputs[Salida de origen de OLE DB].Columns[BIRTH_DATE]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA STG EMPLOYEE\ODS EMPLOYEE.Outputs[Salida de origen de OLE DB].ExternalColumns[BIRTH_DATE]"
+                      lineageId="Package\CARGA STG EMPLOYEE\ODS EMPLOYEE.Outputs[Salida de origen de OLE DB].Columns[BIRTH_DATE]"
+                      name="BIRTH_DATE"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA STG EMPLOYEE\ODS EMPLOYEE.Outputs[Salida de origen de OLE DB].Columns[EDUCATION_LEVEL]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA STG EMPLOYEE\ODS EMPLOYEE.Outputs[Salida de origen de OLE DB].ExternalColumns[EDUCATION_LEVEL]"
+                      length="1"
+                      lineageId="Package\CARGA STG EMPLOYEE\ODS EMPLOYEE.Outputs[Salida de origen de OLE DB].Columns[EDUCATION_LEVEL]"
+                      name="EDUCATION_LEVEL"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG EMPLOYEE\ODS EMPLOYEE.Outputs[Salida de origen de OLE DB].ExternalColumns[EMPLOYEE_ID]"
+                      dataType="i4"
+                      name="EMPLOYEE_ID" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG EMPLOYEE\ODS EMPLOYEE.Outputs[Salida de origen de OLE DB].ExternalColumns[FULL_NAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="FULL_NAME" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG EMPLOYEE\ODS EMPLOYEE.Outputs[Salida de origen de OLE DB].ExternalColumns[GENDER]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="GENDER" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG EMPLOYEE\ODS EMPLOYEE.Outputs[Salida de origen de OLE DB].ExternalColumns[CATEGORY]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="CATEGORY" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG EMPLOYEE\ODS EMPLOYEE.Outputs[Salida de origen de OLE DB].ExternalColumns[EMPLOYMENT_DATE]"
+                      dataType="dbDate"
+                      name="EMPLOYMENT_DATE" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG EMPLOYEE\ODS EMPLOYEE.Outputs[Salida de origen de OLE DB].ExternalColumns[BIRTH_DATE]"
+                      dataType="dbDate"
+                      name="BIRTH_DATE" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG EMPLOYEE\ODS EMPLOYEE.Outputs[Salida de origen de OLE DB].ExternalColumns[EDUCATION_LEVEL]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="EDUCATION_LEVEL" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\CARGA STG EMPLOYEE\ODS EMPLOYEE.Outputs[Salida de error de origen de OLE DB]"
+                  isErrorOut="true"
+                  name="Salida de error de origen de OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\CARGA STG EMPLOYEE\ODS EMPLOYEE.Outputs[Salida de error de origen de OLE DB].Columns[EMPLOYEE_ID]"
+                      dataType="i4"
+                      lineageId="Package\CARGA STG EMPLOYEE\ODS EMPLOYEE.Outputs[Salida de error de origen de OLE DB].Columns[EMPLOYEE_ID]"
+                      name="EMPLOYEE_ID" />
+                    <outputColumn
+                      refId="Package\CARGA STG EMPLOYEE\ODS EMPLOYEE.Outputs[Salida de error de origen de OLE DB].Columns[FULL_NAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      lineageId="Package\CARGA STG EMPLOYEE\ODS EMPLOYEE.Outputs[Salida de error de origen de OLE DB].Columns[FULL_NAME]"
+                      name="FULL_NAME" />
+                    <outputColumn
+                      refId="Package\CARGA STG EMPLOYEE\ODS EMPLOYEE.Outputs[Salida de error de origen de OLE DB].Columns[GENDER]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      lineageId="Package\CARGA STG EMPLOYEE\ODS EMPLOYEE.Outputs[Salida de error de origen de OLE DB].Columns[GENDER]"
+                      name="GENDER" />
+                    <outputColumn
+                      refId="Package\CARGA STG EMPLOYEE\ODS EMPLOYEE.Outputs[Salida de error de origen de OLE DB].Columns[CATEGORY]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      lineageId="Package\CARGA STG EMPLOYEE\ODS EMPLOYEE.Outputs[Salida de error de origen de OLE DB].Columns[CATEGORY]"
+                      name="CATEGORY" />
+                    <outputColumn
+                      refId="Package\CARGA STG EMPLOYEE\ODS EMPLOYEE.Outputs[Salida de error de origen de OLE DB].Columns[EMPLOYMENT_DATE]"
+                      dataType="dbDate"
+                      lineageId="Package\CARGA STG EMPLOYEE\ODS EMPLOYEE.Outputs[Salida de error de origen de OLE DB].Columns[EMPLOYMENT_DATE]"
+                      name="EMPLOYMENT_DATE" />
+                    <outputColumn
+                      refId="Package\CARGA STG EMPLOYEE\ODS EMPLOYEE.Outputs[Salida de error de origen de OLE DB].Columns[BIRTH_DATE]"
+                      dataType="dbDate"
+                      lineageId="Package\CARGA STG EMPLOYEE\ODS EMPLOYEE.Outputs[Salida de error de origen de OLE DB].Columns[BIRTH_DATE]"
+                      name="BIRTH_DATE" />
+                    <outputColumn
+                      refId="Package\CARGA STG EMPLOYEE\ODS EMPLOYEE.Outputs[Salida de error de origen de OLE DB].Columns[EDUCATION_LEVEL]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\CARGA STG EMPLOYEE\ODS EMPLOYEE.Outputs[Salida de error de origen de OLE DB].Columns[EDUCATION_LEVEL]"
+                      name="EDUCATION_LEVEL" />
+                    <outputColumn
+                      refId="Package\CARGA STG EMPLOYEE\ODS EMPLOYEE.Outputs[Salida de error de origen de OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\CARGA STG EMPLOYEE\ODS EMPLOYEE.Outputs[Salida de error de origen de OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\CARGA STG EMPLOYEE\ODS EMPLOYEE.Outputs[Salida de error de origen de OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\CARGA STG EMPLOYEE\ODS EMPLOYEE.Outputs[Salida de error de origen de OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\CARGA STG EMPLOYEE\STG EMPLOYEE"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="Destino de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;4"
+              description="Destino de OLE DB"
+              name="STG EMPLOYEE"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowset">[STG].[STG_EMPLOYEE]</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Comando SQL para ejecutar."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Fuerza el uso del valor de la propiedad DefaultCodePage al describir datos de caracteres."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si los valores proporcionados para columnas de identidad se van a copiar al destino. Si es False, los valores de las columnas de identidad se generan automáticamente en el destino. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si las columnas que contienen NULL tendrán NULL insertado en el destino. Si es False, las columnas que contienen NULL tendrán sus valores predeterminados insertados en el destino. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica opciones para usar con la carga rápida. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica cuándo se emiten confirmaciones durante la inserción de datos. El valor 0 especifica que se emitirá una confirmación al final de la inserción de datos. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\CARGA STG EMPLOYEE\STG EMPLOYEE.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[STG_SDG]"
+                  connectionManagerRefId="Package.ConnectionManagers[STG_SDG]"
+                  description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\CARGA STG EMPLOYEE\STG EMPLOYEE.Inputs[Entrada de destino de OLE DB]"
+                  errorOrTruncationOperation="Insertar"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Entrada de destino de OLE DB">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\CARGA STG EMPLOYEE\STG EMPLOYEE.Inputs[Entrada de destino de OLE DB].Columns[EMPLOYEE_ID]"
+                      cachedDataType="i4"
+                      cachedName="EMPLOYEE_ID"
+                      externalMetadataColumnId="Package\CARGA STG EMPLOYEE\STG EMPLOYEE.Inputs[Entrada de destino de OLE DB].ExternalColumns[EMPLOYEE_ID]"
+                      lineageId="Package\CARGA STG EMPLOYEE\ODS EMPLOYEE.Outputs[Salida de origen de OLE DB].Columns[EMPLOYEE_ID]" />
+                    <inputColumn
+                      refId="Package\CARGA STG EMPLOYEE\STG EMPLOYEE.Inputs[Entrada de destino de OLE DB].Columns[FULL_NAME]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="FULL_NAME"
+                      externalMetadataColumnId="Package\CARGA STG EMPLOYEE\STG EMPLOYEE.Inputs[Entrada de destino de OLE DB].ExternalColumns[FULL_NAME]"
+                      lineageId="Package\CARGA STG EMPLOYEE\ODS EMPLOYEE.Outputs[Salida de origen de OLE DB].Columns[FULL_NAME]" />
+                    <inputColumn
+                      refId="Package\CARGA STG EMPLOYEE\STG EMPLOYEE.Inputs[Entrada de destino de OLE DB].Columns[GENDER]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="GENDER"
+                      externalMetadataColumnId="Package\CARGA STG EMPLOYEE\STG EMPLOYEE.Inputs[Entrada de destino de OLE DB].ExternalColumns[GENDER]"
+                      lineageId="Package\CARGA STG EMPLOYEE\ODS EMPLOYEE.Outputs[Salida de origen de OLE DB].Columns[GENDER]" />
+                    <inputColumn
+                      refId="Package\CARGA STG EMPLOYEE\STG EMPLOYEE.Inputs[Entrada de destino de OLE DB].Columns[CATEGORY]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="CATEGORY"
+                      externalMetadataColumnId="Package\CARGA STG EMPLOYEE\STG EMPLOYEE.Inputs[Entrada de destino de OLE DB].ExternalColumns[CATEGORY]"
+                      lineageId="Package\CARGA STG EMPLOYEE\ODS EMPLOYEE.Outputs[Salida de origen de OLE DB].Columns[CATEGORY]" />
+                    <inputColumn
+                      refId="Package\CARGA STG EMPLOYEE\STG EMPLOYEE.Inputs[Entrada de destino de OLE DB].Columns[EMPLOYMENT_DATE]"
+                      cachedDataType="dbDate"
+                      cachedName="EMPLOYMENT_DATE"
+                      externalMetadataColumnId="Package\CARGA STG EMPLOYEE\STG EMPLOYEE.Inputs[Entrada de destino de OLE DB].ExternalColumns[EMPLOYMENT_DATE]"
+                      lineageId="Package\CARGA STG EMPLOYEE\ODS EMPLOYEE.Outputs[Salida de origen de OLE DB].Columns[EMPLOYMENT_DATE]" />
+                    <inputColumn
+                      refId="Package\CARGA STG EMPLOYEE\STG EMPLOYEE.Inputs[Entrada de destino de OLE DB].Columns[BIRTH_DATE]"
+                      cachedDataType="dbDate"
+                      cachedName="BIRTH_DATE"
+                      externalMetadataColumnId="Package\CARGA STG EMPLOYEE\STG EMPLOYEE.Inputs[Entrada de destino de OLE DB].ExternalColumns[BIRTH_DATE]"
+                      lineageId="Package\CARGA STG EMPLOYEE\ODS EMPLOYEE.Outputs[Salida de origen de OLE DB].Columns[BIRTH_DATE]" />
+                    <inputColumn
+                      refId="Package\CARGA STG EMPLOYEE\STG EMPLOYEE.Inputs[Entrada de destino de OLE DB].Columns[EDUCATION_LEVEL]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="EDUCATION_LEVEL"
+                      externalMetadataColumnId="Package\CARGA STG EMPLOYEE\STG EMPLOYEE.Inputs[Entrada de destino de OLE DB].ExternalColumns[EDUCATION_LEVEL]"
+                      lineageId="Package\CARGA STG EMPLOYEE\ODS EMPLOYEE.Outputs[Salida de origen de OLE DB].Columns[EDUCATION_LEVEL]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG EMPLOYEE\STG EMPLOYEE.Inputs[Entrada de destino de OLE DB].ExternalColumns[EMPLOYEE_ID]"
+                      dataType="i4"
+                      name="EMPLOYEE_ID" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG EMPLOYEE\STG EMPLOYEE.Inputs[Entrada de destino de OLE DB].ExternalColumns[FULL_NAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="FULL_NAME" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG EMPLOYEE\STG EMPLOYEE.Inputs[Entrada de destino de OLE DB].ExternalColumns[GENDER]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="GENDER" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG EMPLOYEE\STG EMPLOYEE.Inputs[Entrada de destino de OLE DB].ExternalColumns[CATEGORY]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="CATEGORY" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG EMPLOYEE\STG EMPLOYEE.Inputs[Entrada de destino de OLE DB].ExternalColumns[EMPLOYMENT_DATE]"
+                      dataType="dbDate"
+                      name="EMPLOYMENT_DATE" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG EMPLOYEE\STG EMPLOYEE.Inputs[Entrada de destino de OLE DB].ExternalColumns[BIRTH_DATE]"
+                      dataType="dbDate"
+                      name="BIRTH_DATE" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG EMPLOYEE\STG EMPLOYEE.Inputs[Entrada de destino de OLE DB].ExternalColumns[EDUCATION_LEVEL]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="EDUCATION_LEVEL" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\CARGA STG EMPLOYEE\STG EMPLOYEE.Outputs[Salida de error de destino de OLE DB]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de destino de OLE DB"
+                  synchronousInputId="Package\CARGA STG EMPLOYEE\STG EMPLOYEE.Inputs[Entrada de destino de OLE DB]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\CARGA STG EMPLOYEE\STG EMPLOYEE.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\CARGA STG EMPLOYEE\STG EMPLOYEE.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\CARGA STG EMPLOYEE\STG EMPLOYEE.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\CARGA STG EMPLOYEE\STG EMPLOYEE.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\CARGA STG EMPLOYEE.Paths[Salida de origen de OLE DB]"
+              endId="Package\CARGA STG EMPLOYEE\STG EMPLOYEE.Inputs[Entrada de destino de OLE DB]"
+              name="Salida de origen de OLE DB"
+              startId="Package\CARGA STG EMPLOYEE\ODS EMPLOYEE.Outputs[Salida de origen de OLE DB]" />
+          </paths>
+        </pipeline>
       </DTS:ObjectData>
     </DTS:Executable>
     <DTS:Executable
@@ -117,7 +1920,7 @@
           SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
           <SQLTask:ResultBinding
             SQLTask:ResultName="PARAMETER_RUTA"
-            SQLTask:DtsVariableName="User::PARAMETER_RUTA" />
+            SQLTask:DtsVariableName="User::PARAMETER_RUTA1" />
         </SQLTask:SqlTaskData>
       </DTS:ObjectData>
     </DTS:Executable>
@@ -213,15 +2016,19 @@
         <NodeLayout
           Size="205,42"
           Id="Package\CARGA DIM EMPLOYEE"
-          TopLeft="79.444444444444,456" />
-        <NodeLayout
-          Size="207,42"
-          Id="Package\CARGA STG EMPLOYEE"
-          TopLeft="79.666666666667,382" />
+          TopLeft="360.444444444444,301" />
         <NodeLayout
           Size="221,42"
           Id="Package\CARGA EMPLOYEE EXCEL"
-          TopLeft="66.7222222222219,224.444444444444" />
+          TopLeft="362.722222222222,143.444444444444" />
+        <NodeLayout
+          Size="207,42"
+          Id="Package\CARGA STG EMPLOYEE"
+          TopLeft="362.666666666667,218" />
+        <NodeLayout
+          Size="160,42"
+          Id="Package\OBTIENE RUTA"
+          TopLeft="103,60" />
         <NodeLayout
           Size="232,42"
           Id="Package\TRUNCATE  ODS EMPLOYEE"
@@ -229,25 +2036,21 @@
         <NodeLayout
           Size="228,42"
           Id="Package\TRUNCATE STG EMPLOYEE"
-          TopLeft="66.7222222222219,304.666666666666" />
-        <NodeLayout
-          Size="160,42"
-          Id="Package\OBTIENE RUTA"
-          TopLeft="103,60" />
+          TopLeft="58.7222222222219,214.666666666666" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint]"
-          TopLeft="176.611111111111,183.911110449897">
+          TopLeft="292,163.677777447171">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,40.5333339945473"
+              EndConnector="70.7222222222219,0"
               Start="0,0"
-              End="0,33.0333339945473">
+              End="63.2222222222219,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,33.0333339945473" />
+                    End="63.2222222222219,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -258,18 +2061,30 @@
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 1]"
-          TopLeft="178.972222222222,266.444444444444">
+          TopLeft="473.222222222222,185.444444444444">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,38.222222222222"
+              EndConnector="-300.5,29.222222222222"
               Start="0,0"
-              End="0,30.722222222222">
+              End="-300.5,21.722222222222">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,30.722222222222" />
+                    End="0,10.611111111111" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,10.611111111111"
+                    Point2="0,14.611111111111"
+                    Point3="-4,14.611111111111" />
+                  <mssgle:LineSegment
+                    End="-296.5,14.611111111111" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-296.5,14.611111111111"
+                    Point2="-300.5,14.611111111111"
+                    Point3="-300.5,18.611111111111" />
+                  <mssgle:LineSegment
+                    End="-300.5,21.722222222222" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -280,18 +2095,18 @@
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 2]"
-          TopLeft="182.555555555555,424">
+          TopLeft="464.555555555555,260">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,32"
+              EndConnector="0,41"
               Start="0,0"
-              End="0,24.5">
+              End="0,33.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,24.5" />
+                    End="0,33.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -302,18 +2117,18 @@
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 3]"
-          TopLeft="181.944444444444,346.666666666666">
+          TopLeft="286.722222222222,237.333333333333">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,35.333333333334"
+              EndConnector="75.9444444444451,0"
               Start="0,0"
-              End="0,27.833333333334">
+              End="68.4444444444451,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,27.833333333334" />
+                    End="68.4444444444451,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -344,27 +2159,6 @@
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <AnnotationLayout
-          Text="FALTA"
-          ParentId="Package"
-          FontInfo="{assembly:Null}"
-          Size="60,60"
-          Id="5cc5f550-3543-43b3-98da-dc8090bcc968"
-          TopLeft="306,224" />
-        <AnnotationLayout
-          Text="FALTA"
-          ParentId="Package"
-          FontInfo="{assembly:Null}"
-          Size="60,40"
-          Id="0894a9e9-dbdb-4ee5-a954-8e90c03ada92"
-          TopLeft="308,385" />
-        <AnnotationLayout
-          Text="FALTA"
-          ParentId="Package"
-          FontInfo="{assembly:Null}"
-          Size="60,40"
-          Id="b5b106fa-01da-40cd-b1ca-0fbd0a89fb19"
-          TopLeft="307,457" />
       </GraphLayout>
     </LayoutInfo>
   </Package>
@@ -375,94 +2169,14 @@
         Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="165,42"
-          Id="48"
-          TopLeft="112.5,211.5" />
-        <NodeLayout
-          Size="162,42"
-          Id="72"
-          TopLeft="243,5.5" />
-        <NodeLayout
-          Size="185,42"
-          Id="2"
-          TopLeft="338.5,211.5" />
+          Id="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE"
+          TopLeft="241.5,5.5" />
         <NodeLayout
           Size="220,42"
-          Id="21"
+          Id="Package\CARGA DIM EMPLOYEE\Dimensión de variación lenta"
           TopLeft="214,107.5" />
         <EdgeLayout
-          Id="97"
-          TopLeft="359.333333333333,149.5">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="71.6666666666667,62"
-              Start="0,0"
-              End="71.6666666666667,54.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,21.0685920577617" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,21.0685920577617"
-                    Point2="0,25.0685920577617"
-                    Point3="4,25.0685920577617" />
-                  <mssgle:LineSegment
-                    End="67.6666666666667,25.0685920577617" />
-                  <mssgle:CubicBezierSegment
-                    Point1="67.6666666666667,25.0685920577617"
-                    Point2="71.6666666666667,25.0685920577617"
-                    Point3="71.6666666666667,29.0685920577617" />
-                  <mssgle:LineSegment
-                    End="71.6666666666667,54.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-68.4199088541667,30.0685920577617,208.506484375,9.7490234375"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="96"
-          TopLeft="288.666666666667,149.5">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="-93.6666666666666,62"
-              Start="0,0"
-              End="-93.6666666666666,54.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,21.0685920577617" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,21.0685920577617"
-                    Point2="0,25.0685920577617"
-                    Point3="-4,25.0685920577617" />
-                  <mssgle:LineSegment
-                    End="-89.6666666666666,25.0685920577617" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-89.6666666666666,25.0685920577617"
-                    Point2="-93.6666666666666,25.0685920577617"
-                    Point3="-93.6666666666666,29.0685920577617" />
-                  <mssgle:LineSegment
-                    End="-93.6666666666666,54.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-75.1216927083333,30.0685920577617,56.57671875,9.7490234375"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="98"
+          Id="Package\CARGA DIM EMPLOYEE.Paths[Salida de origen de OLE DB]"
           TopLeft="324,47.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -483,43 +2197,83 @@
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-      </GraphLayout>
-    </LayoutInfo>
-  </TaskHost>
-  <TaskHost
-    design-time-name="Package\CARGA STG EMPLOYEE">
-    <LayoutInfo>
-      <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="162,42"
-          Id="26"
-          TopLeft="268,184" />
-        <NodeLayout
-          Size="160,42"
-          Id="2"
-          TopLeft="275,64" />
+          Size="165,42"
+          Id="Package\CARGA DIM EMPLOYEE\Insert Destination"
+          TopLeft="105.5,213.5" />
         <EdgeLayout
-          Id="49"
-          TopLeft="352,106">
+          Id="Package\CARGA DIM EMPLOYEE.Paths[Nueva salida]"
+          TopLeft="288.666666666667,149.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,78"
+              EndConnector="-100.666666666667,64"
               Start="0,0"
-              End="0,70.5">
+              End="-100.666666666667,56.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,70.5" />
+                    End="0,21.8772563176895" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,21.8772563176895"
+                    Point2="0,25.8772563176895"
+                    Point3="-4,25.8772563176895" />
+                  <mssgle:LineSegment
+                    End="-96.6666666666667,25.8772563176895" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-96.6666666666667,25.8772563176895"
+                    Point2="-100.666666666667,25.8772563176895"
+                    Point3="-100.666666666667,29.8772563176895" />
+                  <mssgle:LineSegment
+                    End="-100.666666666667,56.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
+              BoundingBox="-78.6216927083333,30.8772563176895,56.57671875,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="185,42"
+          Id="Package\CARGA DIM EMPLOYEE\Comando de OLE DB"
+          TopLeft="331.5,213.5" />
+        <EdgeLayout
+          Id="Package\CARGA DIM EMPLOYEE.Paths[Salida de actualizaciones de atributos variables]"
+          TopLeft="359.333333333333,149.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="64.6666666666667,64"
+              Start="0,0"
+              End="64.6666666666667,56.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,21.8772563176895" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,21.8772563176895"
+                    Point2="0,25.8772563176895"
+                    Point3="4,25.8772563176895" />
+                  <mssgle:LineSegment
+                    End="60.6666666666667,25.8772563176895" />
+                  <mssgle:CubicBezierSegment
+                    Point1="60.6666666666667,25.8772563176895"
+                    Point2="64.6666666666667,25.8772563176895"
+                    Point3="64.6666666666667,29.8772563176895" />
+                  <mssgle:LineSegment
+                    End="64.6666666666667,56.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-71.9199088541667,30.8772563176895,208.506484375,9.7490234375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
@@ -530,41 +2284,210 @@
     design-time-name="Package\CARGA EMPLOYEE EXCEL">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="196,42"
-          Id="25"
-          TopLeft="108,39" />
+          Size="128,42"
+          Id="Package\CARGA EMPLOYEE EXCEL\Employee"
+          TopLeft="353,91" />
         <NodeLayout
-          Size="163,42"
-          Id="2"
-          TopLeft="128.166653984123,152.066668884489" />
+          Size="166,42"
+          Id="Package\CARGA EMPLOYEE EXCEL\ODS EMPLOYEE"
+          TopLeft="331,234" />
         <EdgeLayout
-          Id="46"
-          TopLeft="207.833326992062,81">
+          Id="Package\CARGA EMPLOYEE EXCEL.Paths[Salida de origen de Excel]"
+          TopLeft="415.5,133">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,71.066668884489"
+              EndConnector="0,101"
               Start="0,0"
-              End="0,63.566668884489">
+              End="0,93.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,63.566668884489" />
+                    End="0,93.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\CARGA EMPLOYEE EXCEL\Employee">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\CARGA EMPLOYEE EXCEL\ODS EMPLOYEE">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\CARGA STG EMPLOYEE">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="165,42"
+          Id="Package\CARGA STG EMPLOYEE\STG EMPLOYEE"
+          TopLeft="285,204" />
+        <NodeLayout
+          Size="166,42"
+          Id="Package\CARGA STG EMPLOYEE\ODS EMPLOYEE"
+          TopLeft="287,60" />
+        <EdgeLayout
+          Id="Package\CARGA STG EMPLOYEE.Paths[Salida de origen de OLE DB]"
+          TopLeft="368.75,102">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,102"
+              Start="0,0"
+              End="0,94.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,94.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\CARGA STG EMPLOYEE\ODS EMPLOYEE">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\CARGA STG EMPLOYEE\STG EMPLOYEE">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\CARGA DIM EMPLOYEE\STG EMPLOYEE">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\CARGA DIM EMPLOYEE\Dimensión de variación lenta">
+    <Properties>
+      <Property>
+        <Name>SCDMetadata</Name>
+        <Value
+          type="q2:string">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SCDWizardMetadata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionID&gt;{FB1BF3B8-3FBC-48A0-9F38-0E618DC4FEA4}&lt;/ConnectionID&gt;
+  &lt;TableName&gt;[DW].[DIM_EMPLOYEE]&lt;/TableName&gt;
+  &lt;InputToColumnsCollection&gt;
+    &lt;InputColumnToDBColumn&gt;
+      &lt;IdentificationString&gt;STG EMPLOYEE.Salidas[Salida de origen de OLE DB].Columnas[BIRTH_DATE]&lt;/IdentificationString&gt;
+      &lt;ColumnName&gt;BIRTH_DATE&lt;/ColumnName&gt;
+      &lt;KeyType&gt;None&lt;/KeyType&gt;
+      &lt;ChangeType&gt;ChangingAttribute&lt;/ChangeType&gt;
+    &lt;/InputColumnToDBColumn&gt;
+    &lt;InputColumnToDBColumn&gt;
+      &lt;IdentificationString&gt;STG EMPLOYEE.Salidas[Salida de origen de OLE DB].Columnas[CATEGORY]&lt;/IdentificationString&gt;
+      &lt;ColumnName&gt;CATEGORY&lt;/ColumnName&gt;
+      &lt;KeyType&gt;None&lt;/KeyType&gt;
+      &lt;ChangeType&gt;ChangingAttribute&lt;/ChangeType&gt;
+    &lt;/InputColumnToDBColumn&gt;
+    &lt;InputColumnToDBColumn&gt;
+      &lt;IdentificationString&gt;STG EMPLOYEE.Salidas[Salida de origen de OLE DB].Columnas[EDUCATION_LEVEL]&lt;/IdentificationString&gt;
+      &lt;ColumnName&gt;EDUCATION_LEVEL&lt;/ColumnName&gt;
+      &lt;KeyType&gt;None&lt;/KeyType&gt;
+      &lt;ChangeType&gt;ChangingAttribute&lt;/ChangeType&gt;
+    &lt;/InputColumnToDBColumn&gt;
+    &lt;InputColumnToDBColumn&gt;
+      &lt;IdentificationString&gt;STG EMPLOYEE.Salidas[Salida de origen de OLE DB].Columnas[EMPLOYEE_ID]&lt;/IdentificationString&gt;
+      &lt;ColumnName&gt;EMPLOYEE_ID&lt;/ColumnName&gt;
+      &lt;KeyType&gt;BusinessKey&lt;/KeyType&gt;
+      &lt;ChangeType&gt;None&lt;/ChangeType&gt;
+    &lt;/InputColumnToDBColumn&gt;
+    &lt;InputColumnToDBColumn&gt;
+      &lt;IdentificationString&gt;STG EMPLOYEE.Salidas[Salida de origen de OLE DB].Columnas[EMPLOYMENT_DATE]&lt;/IdentificationString&gt;
+      &lt;ColumnName&gt;EMPLOYMENT_DATE&lt;/ColumnName&gt;
+      &lt;KeyType&gt;None&lt;/KeyType&gt;
+      &lt;ChangeType&gt;ChangingAttribute&lt;/ChangeType&gt;
+    &lt;/InputColumnToDBColumn&gt;
+    &lt;InputColumnToDBColumn&gt;
+      &lt;IdentificationString&gt;STG EMPLOYEE.Salidas[Salida de origen de OLE DB].Columnas[FULL_NAME]&lt;/IdentificationString&gt;
+      &lt;ColumnName&gt;FULL_NAME&lt;/ColumnName&gt;
+      &lt;KeyType&gt;None&lt;/KeyType&gt;
+      &lt;ChangeType&gt;ChangingAttribute&lt;/ChangeType&gt;
+    &lt;/InputColumnToDBColumn&gt;
+    &lt;InputColumnToDBColumn&gt;
+      &lt;IdentificationString&gt;STG EMPLOYEE.Salidas[Salida de origen de OLE DB].Columnas[GENDER]&lt;/IdentificationString&gt;
+      &lt;ColumnName&gt;GENDER&lt;/ColumnName&gt;
+      &lt;KeyType&gt;None&lt;/KeyType&gt;
+      &lt;ChangeType&gt;ChangingAttribute&lt;/ChangeType&gt;
+    &lt;/InputColumnToDBColumn&gt;
+  &lt;/InputToColumnsCollection&gt;
+  &lt;GeneratedComponentsIdentificationStrings&gt;
+    &lt;anyType xsi:type="xsd:string"&gt;Insert Destination&lt;/anyType&gt;
+    &lt;anyType xsi:type="xsd:string"&gt;Comando de OLE DB&lt;/anyType&gt;
+  &lt;/GeneratedComponentsIdentificationStrings&gt;
+  &lt;FailFixedAttribute&gt;false&lt;/FailFixedAttribute&gt;
+  &lt;FailChangeAttribute&gt;false&lt;/FailChangeAttribute&gt;
+  &lt;UseStartEndDate&gt;false&lt;/UseStartEndDate&gt;
+  &lt;CurrentIndicatorColumn /&gt;
+  &lt;InferredIndicatorColumn /&gt;
+  &lt;ValueCurrent /&gt;
+  &lt;ValueExpired /&gt;
+  &lt;StartDateColumn /&gt;
+  &lt;EndDateColumn /&gt;
+  &lt;DateVariable /&gt;
+  &lt;EnableInferredSupport&gt;false&lt;/EnableInferredSupport&gt;
+&lt;/SCDWizardMetadata&gt;</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
 </Objects>]]></DTS:DesignTimeProperties>
 </DTS:Executable>

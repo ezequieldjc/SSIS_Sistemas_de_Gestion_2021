@@ -11,8 +11,8 @@
   DTS:LocaleID="11274"
   DTS:ObjectName="Package1"
   DTS:PackageType="5"
-  DTS:VersionBuild="21"
-  DTS:VersionGUID="{76804120-99B2-4CF4-AF32-75D70B7F5986}">
+  DTS:VersionBuild="23"
+  DTS:VersionGUID="{7E12C9A0-4356-4F33-BD80-6C64D7EC8C65}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -2511,6 +2511,7 @@ FROM (
       DTS:refId="Package\OBTIENE RUTA XML_R"
       DTS:CreationName="Microsoft.ExecuteSQLTask"
       DTS:Description="Execute SQL Task"
+      DTS:Disabled="True"
       DTS:DTSID="{df28c4f1-1dce-47b5-9275-9e1cdfd6b558}"
       DTS:ExecutableType="Microsoft.ExecuteSQLTask"
       DTS:LocaleID="-1"
@@ -2533,6 +2534,7 @@ FROM (
       DTS:refId="Package\OBTIENE RUTA XML_W"
       DTS:CreationName="Microsoft.ExecuteSQLTask"
       DTS:Description="Execute SQL Task"
+      DTS:Disabled="True"
       DTS:DTSID="{6e79111b-7b9b-4826-9e15-f44b93af084d}"
       DTS:ExecutableType="Microsoft.ExecuteSQLTask"
       DTS:LocaleID="-1"
@@ -2820,13 +2822,6 @@ FROM (
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <AnnotationLayout
-          Text="HACER UNION ALL"
-          ParentId="Package"
-          FontInfo="{assembly:Null}"
-          Size="130,40"
-          Id="f985b4ae-86ac-4425-8c6f-c9c7cc2eb914"
-          TopLeft="345,49" />
       </GraphLayout>
     </LayoutInfo>
   </Package>
