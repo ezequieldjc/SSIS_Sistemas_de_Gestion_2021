@@ -14,6 +14,11 @@
     <Manifest>
       <DTSPackages>
         <DtsPackage FormatVersion="8">
+          <Name>Carga Dim_Employee.dtsx</Name>
+          <FullPath>Carga Dim_Employee.dtsx</FullPath>
+          <References />
+        </DtsPackage>
+        <DtsPackage FormatVersion="8">
           <Name>Carga_Dim_Customer.dtsx</Name>
           <FullPath>Carga_Dim_Customer.dtsx</FullPath>
           <References />
@@ -34,8 +39,8 @@
           <References />
         </DtsPackage>
         <DtsPackage FormatVersion="8">
-          <Name>Carga Dim_Employee.dtsx</Name>
-          <FullPath>Carga Dim_Employee.dtsx</FullPath>
+          <Name>Carga_Dim_Tiempo.dtsx</Name>
+          <FullPath>Carga_Dim_Tiempo.dtsx</FullPath>
           <References />
         </DtsPackage>
       </DTSPackages>
