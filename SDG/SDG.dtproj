@@ -24,6 +24,11 @@
           <References />
         </DtsPackage>
         <DtsPackage FormatVersion="8">
+          <Name>Carga_Dim_Tiempo_Holidays.dtsx</Name>
+          <FullPath>Carga_Dim_Tiempo_Holidays.dtsx</FullPath>
+          <References />
+        </DtsPackage>
+        <DtsPackage FormatVersion="8">
           <Name>Carga_Productos.dtsx</Name>
           <FullPath>Carga_Productos.dtsx</FullPath>
           <References />
@@ -39,8 +44,8 @@
           <References />
         </DtsPackage>
         <DtsPackage FormatVersion="8">
-          <Name>Carga_Dim_Tiempo.dtsx</Name>
-          <FullPath>Carga_Dim_Tiempo.dtsx</FullPath>
+          <Name>Carga_Sales.dtsx</Name>
+          <FullPath>Carga_Sales.dtsx</FullPath>
           <References />
         </DtsPackage>
       </DTSPackages>

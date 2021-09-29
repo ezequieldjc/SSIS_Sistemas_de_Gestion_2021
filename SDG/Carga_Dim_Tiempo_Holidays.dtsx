@@ -5,39 +5,27 @@
   DTS:CreationName="Microsoft.Package"
   DTS:CreatorComputerName="DESKTOP-1HP4R3R"
   DTS:CreatorName="DESKTOP-1HP4R3R\genti"
-  DTS:DTSID="{D19F42E7-07AA-4D36-94B7-901DB3166EB1}"
+  DTS:DTSID="{80016A33-BBDC-4891-9CB9-E2F92C59F5A6}"
   DTS:ExecutableType="Microsoft.Package"
   DTS:LastModifiedProductVersion="15.0.2000.170"
   DTS:LocaleID="11274"
-  DTS:ObjectName="Package1"
+  DTS:ObjectName="Carga_Dim_Tiempo_Holidays"
   DTS:PackageType="5"
-  DTS:VersionBuild="9"
-  DTS:VersionGUID="{7B7A8D3E-42F9-4E47-85C5-CA21BBE34616}">
+  DTS:VersionBuild="11"
+  DTS:VersionGUID="{7FB11A32-4FE3-4217-A1D3-7307A453E00B}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
     <DTS:ConnectionManager
-      DTS:refId="Package.ConnectionManagers[DESKTOP-1HP4R3R\MSSQLSERVERDEV.DW_SDG]"
+      DTS:refId="Package.ConnectionManagers[DW_SDG]"
       DTS:CreationName="OLEDB"
       DTS:DTSID="{5D1AA6B2-559C-4B0F-8217-83C457EE03FB}"
-      DTS:ObjectName="DESKTOP-1HP4R3R\MSSQLSERVERDEV.DW_SDG">
+      DTS:ObjectName="DW_SDG">
       <DTS:ObjectData>
         <DTS:ConnectionManager
           DTS:ConnectRetryCount="1"
           DTS:ConnectRetryInterval="5"
           DTS:ConnectionString="Data Source=DESKTOP-1HP4R3R\MSSQLSERVERDEV;Initial Catalog=DW_SDG;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
-      </DTS:ObjectData>
-    </DTS:ConnectionManager>
-    <DTS:ConnectionManager
-      DTS:refId="Package.ConnectionManagers[DESKTOP-1HP4R3R\MSSQLSERVERDEV.STG_SDG]"
-      DTS:CreationName="OLEDB"
-      DTS:DTSID="{9B28D502-C252-4706-BB1A-A8F458532866}"
-      DTS:ObjectName="DESKTOP-1HP4R3R\MSSQLSERVERDEV.STG_SDG">
-      <DTS:ObjectData>
-        <DTS:ConnectionManager
-          DTS:ConnectRetryCount="1"
-          DTS:ConnectRetryInterval="5"
-          DTS:ConnectionString="Data Source=DESKTOP-1HP4R3R\MSSQLSERVERDEV;Initial Catalog=STG_SDG;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
     <DTS:ConnectionManager
@@ -49,7 +37,19 @@
         <DTS:ConnectionManager
           DTS:ConnectRetryCount="0"
           DTS:ConnectRetryInterval="0"
-          DTS:ConnectionString="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Users\genti\Documents\SISTEMAS\UTN\5 AÑO\Sistema de Gestión\TP DW\Datos\Holidays.xls;Extended Properties=&quot;Excel 8.0;HDR=YES&quot;;" />
+          DTS:ConnectionString="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Users\genti\Documents\SISTEMAS\UTN\5 AÑO\Sistema de Gestión\TP DW\Datos\Holidays.xls;Extended Properties=&quot;EXCEL 8.0;HDR=YES&quot;;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[STG_SDG]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{9B28D502-C252-4706-BB1A-A8F458532866}"
+      DTS:ObjectName="STG_SDG">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=DESKTOP-1HP4R3R\MSSQLSERVERDEV;Initial Catalog=STG_SDG;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
   </DTS:ConnectionManagers>
@@ -145,8 +145,8 @@
               <connections>
                 <connection
                   refId="Package\CARGA HOLIDAYS EXCEL\ODS HOLIDAYS.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[DESKTOP-1HP4R3R\MSSQLSERVERDEV.STG_SDG]"
-                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-1HP4R3R\MSSQLSERVERDEV.STG_SDG]"
+                  connectionManagerID="Package.ConnectionManagers[STG_SDG]"
+                  connectionManagerRefId="Package.ConnectionManagers[STG_SDG]"
                   description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
                   name="OleDbConnection" />
               </connections>
@@ -409,8 +409,8 @@ FROM STG_SDG.ODS.HOLIDAYS</property>
               <connections>
                 <connection
                   refId="Package\CARGA STG HOLIDAYS\ODS HOLIDAYS.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[DESKTOP-1HP4R3R\MSSQLSERVERDEV.STG_SDG]"
-                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-1HP4R3R\MSSQLSERVERDEV.STG_SDG]"
+                  connectionManagerID="Package.ConnectionManagers[STG_SDG]"
+                  connectionManagerRefId="Package.ConnectionManagers[STG_SDG]"
                   description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
                   name="OleDbConnection" />
               </connections>
@@ -547,8 +547,8 @@ FROM STG_SDG.ODS.HOLIDAYS</property>
               <connections>
                 <connection
                   refId="Package\CARGA STG HOLIDAYS\STG HOLIDAYS.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[DESKTOP-1HP4R3R\MSSQLSERVERDEV.STG_SDG]"
-                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-1HP4R3R\MSSQLSERVERDEV.STG_SDG]"
+                  connectionManagerID="Package.ConnectionManagers[STG_SDG]"
+                  connectionManagerRefId="Package.ConnectionManagers[STG_SDG]"
                   description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
                   name="OleDbConnection" />
               </connections>
@@ -739,6 +739,10 @@ FROM STG_SDG.ODS.HOLIDAYS</property>
       <GraphLayout
         Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
+          Size="198,42"
+          Id="Package\ACTUALIZA HOLIDAYS"
+          TopLeft="369,298" />
+        <NodeLayout
           Size="216,42"
           Id="Package\CARGA HOLIDAYS EXCEL"
           TopLeft="364,143.444444444444" />
@@ -815,6 +819,28 @@ FROM STG_SDG.ODS.HOLIDAYS</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="466.472222222223,260">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,38"
+              Start="0,0"
+              End="0,30.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,30.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 3]"
           TopLeft="283,237.333333333333">
           <EdgeLayout.Curve>
@@ -870,32 +896,6 @@ FROM STG_SDG.ODS.HOLIDAYS</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="198,42"
-          Id="Package\ACTUALIZA HOLIDAYS"
-          TopLeft="369,298" />
-        <EdgeLayout
-          Id="Package.PrecedenceConstraints[Constraint 2]"
-          TopLeft="466.472222222223,260">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,38"
-              Start="0,0"
-              End="0,30.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,30.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </Package>
@@ -937,6 +937,32 @@ FROM STG_SDG.ODS.HOLIDAYS</property>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\CARGA HOLIDAYS EXCEL\ODS HOLIDAYS">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\CARGA HOLIDAYS EXCEL\Origen de Excel">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
   <TaskHost
     design-time-name="Package\CARGA STG HOLIDAYS">
     <LayoutInfo>
@@ -975,32 +1001,6 @@ FROM STG_SDG.ODS.HOLIDAYS</property>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
-  <PipelineComponentMetadata
-    design-time-name="Package\CARGA HOLIDAYS EXCEL\Origen de Excel">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\CARGA HOLIDAYS EXCEL\ODS HOLIDAYS">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
   <PipelineComponentMetadata
     design-time-name="Package\CARGA STG HOLIDAYS\ODS HOLIDAYS">
     <Properties>
