@@ -11,8 +11,8 @@
   DTS:LocaleID="11274"
   DTS:ObjectName="Package1"
   DTS:PackageType="5"
-  DTS:VersionBuild="4"
-  DTS:VersionGUID="{293167D7-E5C7-4086-A3B2-73B1DA0535B5}">
+  DTS:VersionBuild="10"
+  DTS:VersionGUID="{969DBB2F-8CB5-40F4-8BDC-90B9E8A6CFF1}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -998,8 +998,41 @@ INNER JOIN [sales].[dbo].[billing_detail] AS DET ON B.BILLING_ID=DET.BILLING_ID<
           SQLTask:SqlStatementSource="TRUNCATE  TABLE  STG_SDG.STG.STG_FACT_SALES" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\VALIDA DIM TIEMPO"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{1199cfa0-fb36-47d7-a380-e5a7b76110ac}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="VALIDA DIM TIEMPO"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{A459D8BD-CEA4-422C-8875-D4E1D414077A}"
+          SQLTask:SqlStatementSource="INSERT INTO DW.DIM_TIME (TIME_ID, [TIME_DATE], MONTH_NUMBER, YEAR_NUMBER)&#xA;SELECT &#xA;&#x9; YEAR_NUMBER *10000+ MONTH_NUMBER*100+ DAY_NUMBER AS TIME_ID&#xA;&#x9;,TIME_DATE &#xA;&#x9;,MONTH_NUMBER&#xA;&#x9;,YEAR_NUMBER &#xA;FROM (&#xA;&#x9;SELECT &#xA;&#x9;&#x9; TIME_DATE&#xA;&#x9;&#x9;,DAY(TIME_DATE) AS DAY_NUMBER&#xA;&#x9;&#x9;,MONTH(TIME_DATE) AS MONTH_NUMBER&#xA;&#x9;&#x9;,YEAR(TIME_DATE) AS YEAR_NUMBER &#xA;&#x9;FROM (&#xA;&#x9;&#x9;&#x9;SELECT DISTINCT CAST([DATE] AS DATE) AS TIME_DATE&#xA;&#x9;&#x9;&#x9;FROM STG_SDG.STG.STG_FACT_SALES AS F&#xA;&#x9;&#x9;&#x9;LEFT JOIN DW_SDG.DW.DIM_TIME AS T ON T.TIME_DATE=F.[DATE]&#xA;&#x9;&#x9;&#x9;WHERE T.TIME_DATE IS NULL &#xA;&#x9;&#x9;) AS X&#xA;&#x9;) AS X&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
   </DTS:Executables>
   <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{6AE715B6-2E58-4368-A5F5-3F133BE0654A}"
+      DTS:From="Package\TRUNCATE TABLE FACT_SALES"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\VALIDA DIM TIEMPO" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{4E40A120-15FD-44E3-8C71-2A87835B3DCC}"
+      DTS:From="Package\VALIDA DIM TIEMPO"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\CARGA FACT_SALES" />
     <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
       DTS:CreationName=""
@@ -1016,14 +1049,6 @@ INNER JOIN [sales].[dbo].[billing_detail] AS DET ON B.BILLING_ID=DET.BILLING_ID<
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 3"
       DTS:To="Package\TRUNCATE TABLE FACT_SALES" />
-    <DTS:PrecedenceConstraint
-      DTS:refId="Package.PrecedenceConstraints[Constraint 4]"
-      DTS:CreationName=""
-      DTS:DTSID="{a297c949-21c9-4eb1-a895-a3551a499c36}"
-      DTS:From="Package\TRUNCATE TABLE FACT_SALES"
-      DTS:LogicalAnd="True"
-      DTS:ObjectName="Constraint 4"
-      DTS:To="Package\CARGA FACT_SALES" />
   </DTS:PrecedenceConstraints>
   <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
 <!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
@@ -1036,11 +1061,11 @@ INNER JOIN [sales].[dbo].[billing_detail] AS DET ON B.BILLING_ID=DET.BILLING_ID<
     design-time-name="Package">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="191,42"
           Id="Package\CARGA FACT_SALES"
-          TopLeft="487.777763737572,205" />
+          TopLeft="338.777763737572,357" />
         <NodeLayout
           Size="246,42"
           Id="Package\CARGA STG STG_FACT_SALES"
@@ -1048,7 +1073,7 @@ INNER JOIN [sales].[dbo].[billing_detail] AS DET ON B.BILLING_ID=DET.BILLING_ID<
         <NodeLayout
           Size="250,42"
           Id="Package\TRUNCATE TABLE FACT_SALES"
-          TopLeft="130.833319591152,203.511112777922" />
+          TopLeft="311.833319591152,210.511112777922" />
         <NodeLayout
           Size="304,42"
           Id="Package\TRUNCATE TABLE STG STG_FACT_SALES"
@@ -1081,48 +1106,26 @@ INNER JOIN [sales].[dbo].[billing_detail] AS DET ON B.BILLING_ID=DET.BILLING_ID<
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-354.94444414642,49"
+              EndConnector="-173.94444414642,56"
               Start="0,0"
-              End="-354.94444414642,41.5">
+              End="-173.94444414642,48.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,20.5" />
+                    End="0,24" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,20.5"
-                    Point2="0,24.5"
-                    Point3="-4,24.5" />
+                    Point1="0,24"
+                    Point2="0,28"
+                    Point3="-4,28" />
                   <mssgle:LineSegment
-                    End="-350.94444414642,24.5" />
+                    End="-169.94444414642,28" />
                   <mssgle:CubicBezierSegment
-                    Point1="-350.94444414642,24.5"
-                    Point2="-354.94444414642,24.5"
-                    Point3="-354.94444414642,28.5" />
+                    Point1="-169.94444414642,28"
+                    Point2="-173.94444414642,28"
+                    Point3="-173.94444414642,32" />
                   <mssgle:LineSegment
-                    End="-354.94444414642,41.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package.PrecedenceConstraints[Constraint 4]"
-          TopLeft="380.833319591152,225.255556388961">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="106.94444414642,0"
-              Start="0,0"
-              End="99.44444414642,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="99.44444414642,0" />
+                    End="-173.94444414642,48.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -1132,12 +1135,60 @@ INNER JOIN [sales].[dbo].[billing_detail] AS DET ON B.BILLING_ID=DET.BILLING_ID<
           </EdgeLayout.Labels>
         </EdgeLayout>
         <AnnotationLayout
-          Text="Debería cargarse los datos borrando por un rango de fechas en teoría"
+          Text="Debería utilizarse un rango de fechas en teoría"
           ParentId="Package"
           FontInfo="{assembly:Null}"
-          Size="398,40"
+          Size="275,40"
           Id="51e39d2c-75e9-4385-bb9d-35a43e304be0"
-          TopLeft="56,173" />
+          TopLeft="302,236" />
+        <NodeLayout
+          Size="250,42"
+          Id="Package\VALIDA DIM TIEMPO"
+          TopLeft="309,283" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="435.416659795576,252.511112777922">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,30.488887222078"
+              Start="0,0"
+              End="0,22.988887222078">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.988887222078" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="434.138881868786,325">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,32"
+              Start="0,0"
+              End="0,24.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </Package>
@@ -1145,7 +1196,7 @@ INNER JOIN [sales].[dbo].[billing_detail] AS DET ON B.BILLING_ID=DET.BILLING_ID<
     design-time-name="Package\CARGA FACT_SALES">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="149,42"
           Id="Package\CARGA FACT_SALES\FACT_SALES"
@@ -1173,7 +1224,9 @@ INNER JOIN [sales].[dbo].[billing_detail] AS DET ON B.BILLING_ID=DET.BILLING_ID<
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -1211,13 +1264,13 @@ INNER JOIN [sales].[dbo].[billing_detail] AS DET ON B.BILLING_ID=DET.BILLING_ID<
       <GraphLayout
         Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="141,42"
-          Id="Package\CARGA STG STG_FACT_SALES\ODS SALES"
-          TopLeft="258,71" />
-        <NodeLayout
           Size="203,42"
           Id="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES"
           TopLeft="232,201" />
+        <NodeLayout
+          Size="141,42"
+          Id="Package\CARGA STG STG_FACT_SALES\ODS SALES"
+          TopLeft="258,71" />
         <EdgeLayout
           Id="Package\CARGA STG STG_FACT_SALES.Paths[Salida de origen de OLE DB]"
           TopLeft="331,113">
