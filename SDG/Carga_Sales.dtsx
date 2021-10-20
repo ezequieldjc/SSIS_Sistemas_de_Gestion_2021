@@ -11,8 +11,8 @@
   DTS:LocaleID="11274"
   DTS:ObjectName="Package1"
   DTS:PackageType="5"
-  DTS:VersionBuild="10"
-  DTS:VersionGUID="{969DBB2F-8CB5-40F4-8BDC-90B9E8A6CFF1}">
+  DTS:VersionBuild="14"
+  DTS:VersionGUID="{632E69E6-CE4F-4112-803D-AB856C8149E9}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -191,6 +191,14 @@
                       cachedName="EMPLOYEE_ID"
                       externalMetadataColumnId="Package\CARGA FACT_SALES\FACT_SALES.Inputs[Entrada de destino de OLE DB].ExternalColumns[EMPLOYEE_ID]"
                       lineageId="Package\CARGA FACT_SALES\STG STG_FACT_SALES.Outputs[Salida de origen de OLE DB].Columns[EMPLOYEE_ID]" />
+                    <inputColumn
+                      refId="Package\CARGA FACT_SALES\FACT_SALES.Inputs[Entrada de destino de OLE DB].Columns[LITROS]"
+                      cachedDataType="numeric"
+                      cachedName="LITROS"
+                      cachedPrecision="17"
+                      cachedScale="3"
+                      externalMetadataColumnId="Package\CARGA FACT_SALES\FACT_SALES.Inputs[Entrada de destino de OLE DB].ExternalColumns[LITROS]"
+                      lineageId="Package\CARGA FACT_SALES\STG STG_FACT_SALES.Outputs[Salida de origen de OLE DB].Columns[LITROS]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -228,6 +236,12 @@
                       refId="Package\CARGA FACT_SALES\FACT_SALES.Inputs[Entrada de destino de OLE DB].ExternalColumns[EMPLOYEE_ID]"
                       dataType="i4"
                       name="EMPLOYEE_ID" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA FACT_SALES\FACT_SALES.Inputs[Entrada de destino de OLE DB].ExternalColumns[LITROS]"
+                      dataType="numeric"
+                      name="LITROS"
+                      precision="17"
+                      scale="3" />
                   </externalMetadataColumns>
                 </input>
               </inputs>
@@ -391,6 +405,17 @@
                       lineageId="Package\CARGA FACT_SALES\STG STG_FACT_SALES.Outputs[Salida de origen de OLE DB].Columns[EMPLOYEE_ID]"
                       name="EMPLOYEE_ID"
                       truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA FACT_SALES\STG STG_FACT_SALES.Outputs[Salida de origen de OLE DB].Columns[LITROS]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA FACT_SALES\STG STG_FACT_SALES.Outputs[Salida de origen de OLE DB].ExternalColumns[LITROS]"
+                      lineageId="Package\CARGA FACT_SALES\STG STG_FACT_SALES.Outputs[Salida de origen de OLE DB].Columns[LITROS]"
+                      name="LITROS"
+                      precision="17"
+                      scale="3"
+                      truncationRowDisposition="FailComponent" />
                   </outputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -428,6 +453,12 @@
                       refId="Package\CARGA FACT_SALES\STG STG_FACT_SALES.Outputs[Salida de origen de OLE DB].ExternalColumns[EMPLOYEE_ID]"
                       dataType="i4"
                       name="EMPLOYEE_ID" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA FACT_SALES\STG STG_FACT_SALES.Outputs[Salida de origen de OLE DB].ExternalColumns[LITROS]"
+                      dataType="numeric"
+                      name="LITROS"
+                      precision="17"
+                      scale="3" />
                   </externalMetadataColumns>
                 </output>
                 <output
@@ -450,6 +481,13 @@
                       dataType="i4"
                       lineageId="Package\CARGA FACT_SALES\STG STG_FACT_SALES.Outputs[Salida de error de origen de OLE DB].Columns[QUANTITY]"
                       name="QUANTITY" />
+                    <outputColumn
+                      refId="Package\CARGA FACT_SALES\STG STG_FACT_SALES.Outputs[Salida de error de origen de OLE DB].Columns[LITROS]"
+                      dataType="numeric"
+                      lineageId="Package\CARGA FACT_SALES\STG STG_FACT_SALES.Outputs[Salida de error de origen de OLE DB].Columns[LITROS]"
+                      name="LITROS"
+                      precision="17"
+                      scale="3" />
                     <outputColumn
                       refId="Package\CARGA FACT_SALES\STG STG_FACT_SALES.Outputs[Salida de error de origen de OLE DB].Columns[REGION]"
                       codePage="1252"
@@ -552,8 +590,10 @@
       ,B.[DATE]
       ,B.[CUSTOMER_ID]
       ,B.[EMPLOYEE_ID]
+	  ,DP.LITROS_PACKAGE * DET.QUANTITY AS LITROS
 FROM [sales].[dbo].[billing]			  AS B
-INNER JOIN [sales].[dbo].[billing_detail] AS DET ON B.BILLING_ID=DET.BILLING_ID</property>
+INNER JOIN [sales].[dbo].[billing_detail] AS DET ON B.BILLING_ID=DET.BILLING_ID
+LEFT JOIN DW_SDG.DW.DIM_PRODUCT AS DP ON DP.PRODUCT_ID=DET.PRODUCT_ID</property>
                 <property
                   dataType="System.String"
                   description="Variable que contiene el comando SQL para ejecutar."
@@ -663,6 +703,17 @@ INNER JOIN [sales].[dbo].[billing_detail] AS DET ON B.BILLING_ID=DET.BILLING_ID<
                       lineageId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de origen de OLE DB].Columns[EMPLOYEE_ID]"
                       name="EMPLOYEE_ID"
                       truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de origen de OLE DB].Columns[LITROS]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de origen de OLE DB].ExternalColumns[LITROS]"
+                      lineageId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de origen de OLE DB].Columns[LITROS]"
+                      name="LITROS"
+                      precision="23"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
                   </outputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -700,6 +751,12 @@ INNER JOIN [sales].[dbo].[billing_detail] AS DET ON B.BILLING_ID=DET.BILLING_ID<
                       refId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de origen de OLE DB].ExternalColumns[EMPLOYEE_ID]"
                       dataType="i2"
                       name="EMPLOYEE_ID" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de origen de OLE DB].ExternalColumns[LITROS]"
+                      dataType="numeric"
+                      name="LITROS"
+                      precision="23"
+                      scale="2" />
                   </externalMetadataColumns>
                 </output>
                 <output
@@ -749,6 +806,13 @@ INNER JOIN [sales].[dbo].[billing_detail] AS DET ON B.BILLING_ID=DET.BILLING_ID<
                       dataType="i2"
                       lineageId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de error de origen de OLE DB].Columns[EMPLOYEE_ID]"
                       name="EMPLOYEE_ID" />
+                    <outputColumn
+                      refId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de error de origen de OLE DB].Columns[LITROS]"
+                      dataType="numeric"
+                      lineageId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de error de origen de OLE DB].Columns[LITROS]"
+                      name="LITROS"
+                      precision="23"
+                      scale="2" />
                     <outputColumn
                       refId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de error de origen de OLE DB].Columns[ErrorCode]"
                       dataType="i4"
@@ -888,6 +952,14 @@ INNER JOIN [sales].[dbo].[billing_detail] AS DET ON B.BILLING_ID=DET.BILLING_ID<
                       cachedName="DATE"
                       externalMetadataColumnId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES.Inputs[Entrada de destino de OLE DB].ExternalColumns[DATE]"
                       lineageId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de origen de OLE DB].Columns[DATE]" />
+                    <inputColumn
+                      refId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES.Inputs[Entrada de destino de OLE DB].Columns[LITROS]"
+                      cachedDataType="numeric"
+                      cachedName="LITROS"
+                      cachedPrecision="23"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES.Inputs[Entrada de destino de OLE DB].ExternalColumns[LITROS]"
+                      lineageId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de origen de OLE DB].Columns[LITROS]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -925,6 +997,12 @@ INNER JOIN [sales].[dbo].[billing_detail] AS DET ON B.BILLING_ID=DET.BILLING_ID<
                       refId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES.Inputs[Entrada de destino de OLE DB].ExternalColumns[EMPLOYEE_ID]"
                       dataType="i4"
                       name="EMPLOYEE_ID" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES.Inputs[Entrada de destino de OLE DB].ExternalColumns[LITROS]"
+                      dataType="numeric"
+                      name="LITROS"
+                      precision="17"
+                      scale="3" />
                   </externalMetadataColumns>
                 </input>
               </inputs>
@@ -1078,6 +1156,54 @@ INNER JOIN [sales].[dbo].[billing_detail] AS DET ON B.BILLING_ID=DET.BILLING_ID<
           Size="304,42"
           Id="Package\TRUNCATE TABLE STG STG_FACT_SALES"
           TopLeft="130.833319591152,110.511112777922" />
+        <NodeLayout
+          Size="250,42"
+          Id="Package\VALIDA DIM TIEMPO"
+          TopLeft="309,283" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="435.416659795576,252.511112777922">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,30.488887222078"
+              Start="0,0"
+              End="0,22.988887222078">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.988887222078" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="434.138881868786,325">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,32"
+              Start="0,0"
+              End="0,24.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 2]"
           TopLeft="434.833319591152,132.511112777922">
@@ -1141,54 +1267,6 @@ INNER JOIN [sales].[dbo].[billing_detail] AS DET ON B.BILLING_ID=DET.BILLING_ID<
           Size="275,40"
           Id="51e39d2c-75e9-4385-bb9d-35a43e304be0"
           TopLeft="302,236" />
-        <NodeLayout
-          Size="250,42"
-          Id="Package\VALIDA DIM TIEMPO"
-          TopLeft="309,283" />
-        <EdgeLayout
-          Id="Package.PrecedenceConstraints[Constraint]"
-          TopLeft="435.416659795576,252.511112777922">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,30.488887222078"
-              Start="0,0"
-              End="0,22.988887222078">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,22.988887222078" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package.PrecedenceConstraints[Constraint 1]"
-          TopLeft="434.138881868786,325">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,32"
-              Start="0,0"
-              End="0,24.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,24.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </Package>
@@ -1196,7 +1274,7 @@ INNER JOIN [sales].[dbo].[billing_detail] AS DET ON B.BILLING_ID=DET.BILLING_ID<
     design-time-name="Package\CARGA FACT_SALES">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="149,42"
           Id="Package\CARGA FACT_SALES\FACT_SALES"
@@ -1224,9 +1302,7 @@ INNER JOIN [sales].[dbo].[billing_detail] AS DET ON B.BILLING_ID=DET.BILLING_ID<
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>

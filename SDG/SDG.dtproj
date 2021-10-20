@@ -39,13 +39,13 @@
           <References />
         </DtsPackage>
         <DtsPackage FormatVersion="8">
-          <Name>Carga_Stock.dtsx</Name>
-          <FullPath>Carga_Stock.dtsx</FullPath>
+          <Name>Carga_Sales.dtsx</Name>
+          <FullPath>Carga_Sales.dtsx</FullPath>
           <References />
         </DtsPackage>
         <DtsPackage FormatVersion="8">
-          <Name>Carga_Sales.dtsx</Name>
-          <FullPath>Carga_Sales.dtsx</FullPath>
+          <Name>Carga_Stock.dtsx</Name>
+          <FullPath>Carga_Stock.dtsx</FullPath>
           <References />
         </DtsPackage>
       </DTSPackages>
