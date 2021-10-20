@@ -11,11 +11,26 @@
   DTS:LocaleID="11274"
   DTS:ObjectName="Package1"
   DTS:PackageType="5"
-  DTS:VersionBuild="14"
-  DTS:VersionGUID="{632E69E6-CE4F-4112-803D-AB856C8149E9}">
+  DTS:VersionBuild="18"
+  DTS:VersionGUID="{90A88864-40EC-4018-9AC2-B99B5225C405}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[DBMySQL32.root]"
+      DTS:CreationName="ODBC"
+      DTS:DTSID="{56FA7B30-F06E-4E19-A0D2-55AE96CD4AB0}"
+      DTS:ObjectName="DBMySQL32.root">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="uid=root;Dsn=DBMySQL32;">
+          <DTS:Password
+            DTS:Name="pwd"
+            Sensitive="1"
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAtgtGhRbqI0ORLTzTLyH4MAAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAACJvhe2Drf9sCJj0cmA7WVB/L9Ipe9vEu2TrLt9G1WfGgAAAAAOgAAAAAIAACAAAAAHonKVIof3hDnDGZzLJ6IbQmzsqE+7l6zSc9+D1vFV1yAAAADppdoInbu3OPAgZChFxV64J4J6t5SATohGMFjDECjsW0AAAAC/1Hai23kMGMNA43+IgWUB+6xpJXvObq1daVO/Zsg5zJPEyvyqLgO8Il7L5elGbR08RjNw7vLa4jeePmaRqvva</DTS:Password>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
     <DTS:ConnectionManager
       DTS:refId="Package.ConnectionManagers[DESKTOP-1HP4R3R\MSSQLSERVERDEV.DW_SDG]"
       DTS:CreationName="OLEDB"
@@ -295,7 +310,17 @@
                   dataType="System.String"
                   description="Comando SQL para ejecutar."
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT B.BILLING_ID
+      ,B.PRODUCT_ID
+      ,B.QUANTITY
+      ,B.REGION
+      ,B.BRANCH_ID
+      ,B.DATE
+      ,B.CUSTOMER_ID
+      ,B.EMPLOYEE_ID
+	  ,DP.LITROS_PACKAGE * B.QUANTITY AS LITROS
+FROM STG_SDG.STG.STG_FACT_SALES			  AS B 
+LEFT JOIN DW_SDG.DW.DIM_PRODUCT AS DP ON DP.PRODUCT_ID=B.PRODUCT_ID</property>
                 <property
                   dataType="System.String"
                   description="Variable que contiene el comando SQL para ejecutar."
@@ -312,7 +337,7 @@
                   dataType="System.Int32"
                   description="Especifica el modo utilizado para obtener acceso a la base de datos."
                   name="AccessMode"
-                  typeConverter="AccessMode">0</property>
+                  typeConverter="AccessMode">2</property>
                 <property
                   dataType="System.String"
                   description="Asignaciones entre los parámetros del comando SQL y las variables."
@@ -457,8 +482,8 @@
                       refId="Package\CARGA FACT_SALES\STG STG_FACT_SALES.Outputs[Salida de origen de OLE DB].ExternalColumns[LITROS]"
                       dataType="numeric"
                       name="LITROS"
-                      precision="17"
-                      scale="3" />
+                      precision="28"
+                      scale="2" />
                   </externalMetadataColumns>
                 </output>
                 <output
@@ -486,8 +511,8 @@
                       dataType="numeric"
                       lineageId="Package\CARGA FACT_SALES\STG STG_FACT_SALES.Outputs[Salida de error de origen de OLE DB].Columns[LITROS]"
                       name="LITROS"
-                      precision="17"
-                      scale="3" />
+                      precision="28"
+                      scale="2" />
                     <outputColumn
                       refId="Package\CARGA FACT_SALES\STG STG_FACT_SALES.Outputs[Salida de error de origen de OLE DB].Columns[REGION]"
                       codePage="1252"
@@ -558,271 +583,148 @@
           version="1">
           <components>
             <component
-              refId="Package\CARGA STG STG_FACT_SALES\ODS SALES"
-              componentClassID="Microsoft.OLEDBSource"
-              contactInfo="Origen de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;7"
-              description="Origen de OLE DB"
-              name="ODS SALES"
-              usesDispositions="true"
-              version="7">
-              <properties>
-                <property
-                  dataType="System.Int32"
-                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
-                  name="CommandTimeout">0</property>
-                <property
-                  dataType="System.String"
-                  description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
-                  name="OpenRowset">[ODS].[STOCK]</property>
-                <property
-                  dataType="System.String"
-                  description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
-                  name="OpenRowsetVariable"></property>
-                <property
-                  dataType="System.String"
-                  description="Comando SQL para ejecutar."
-                  name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT B.[BILLING_ID]
-      ,DET.[PRODUCT_ID]
-      ,DET.[QUANTITY] 
-      ,B.[REGION]
-      ,B.[BRANCH_ID]
-      ,B.[DATE]
-      ,B.[CUSTOMER_ID]
-      ,B.[EMPLOYEE_ID]
-	  ,DP.LITROS_PACKAGE * DET.QUANTITY AS LITROS
-FROM [sales].[dbo].[billing]			  AS B
-INNER JOIN [sales].[dbo].[billing_detail] AS DET ON B.BILLING_ID=DET.BILLING_ID
-LEFT JOIN DW_SDG.DW.DIM_PRODUCT AS DP ON DP.PRODUCT_ID=DET.PRODUCT_ID</property>
-                <property
-                  dataType="System.String"
-                  description="Variable que contiene el comando SQL para ejecutar."
-                  name="SqlCommandVariable"></property>
-                <property
-                  dataType="System.Int32"
-                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
-                  name="DefaultCodePage">1252</property>
-                <property
-                  dataType="System.Boolean"
-                  description="Fuerza el uso del valor de la propiedad DefaultCodePage al describir datos de caracteres."
-                  name="AlwaysUseDefaultCodePage">false</property>
-                <property
-                  dataType="System.Int32"
-                  description="Especifica el modo utilizado para obtener acceso a la base de datos."
-                  name="AccessMode"
-                  typeConverter="AccessMode">2</property>
-                <property
-                  dataType="System.String"
-                  description="Asignaciones entre los parámetros del comando SQL y las variables."
-                  name="ParameterMapping"></property>
-              </properties>
-              <connections>
-                <connection
-                  refId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[DESKTOP-1HP4R3R\MSSQLSERVERDEV.sales]"
-                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-1HP4R3R\MSSQLSERVERDEV.sales]"
-                  description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
-                  name="OleDbConnection" />
-              </connections>
+              refId="Package\CARGA STG STG_FACT_SALES\Conversión de datos"
+              componentClassID="Microsoft.DataConvert"
+              contactInfo="Conversión de datos;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;0"
+              description="Conversión de datos"
+              name="Conversión de datos"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\CARGA STG STG_FACT_SALES\Conversión de datos.Inputs[Entrada de conversión de datos]"
+                  name="Entrada de conversión de datos">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\CARGA STG STG_FACT_SALES\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[PRODUCT_ID]"
+                      cachedDataType="i2"
+                      cachedName="PRODUCT_ID"
+                      lineageId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de origen de ODBC].Columns[PRODUCT_ID]" />
+                    <inputColumn
+                      refId="Package\CARGA STG STG_FACT_SALES\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[QUANTITY]"
+                      cachedDataType="i2"
+                      cachedName="QUANTITY"
+                      lineageId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de origen de ODBC].Columns[QUANTITY]" />
+                    <inputColumn
+                      refId="Package\CARGA STG STG_FACT_SALES\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[CUSTOMER_ID]"
+                      cachedDataType="i2"
+                      cachedName="CUSTOMER_ID"
+                      lineageId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de origen de ODBC].Columns[CUSTOMER_ID]" />
+                    <inputColumn
+                      refId="Package\CARGA STG STG_FACT_SALES\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[EMPLOYEE_ID]"
+                      cachedDataType="i2"
+                      cachedName="EMPLOYEE_ID"
+                      lineageId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de origen de ODBC].Columns[EMPLOYEE_ID]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
               <outputs>
                 <output
-                  refId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de origen de OLE DB]"
-                  name="Salida de origen de OLE DB">
+                  refId="Package\CARGA STG STG_FACT_SALES\Conversión de datos.Outputs[Salida de conversión de datos]"
+                  exclusionGroup="1"
+                  name="Salida de conversión de datos"
+                  synchronousInputId="Package\CARGA STG STG_FACT_SALES\Conversión de datos.Inputs[Entrada de conversión de datos]">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de origen de OLE DB].Columns[PRODUCT_ID]"
+                      refId="Package\CARGA STG STG_FACT_SALES\Conversión de datos.Outputs[Salida de conversión de datos].Columns[PRODUCT_ID_int]"
                       dataType="i4"
                       errorOrTruncationOperation="Conversión"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de origen de OLE DB].ExternalColumns[PRODUCT_ID]"
-                      lineageId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de origen de OLE DB].Columns[PRODUCT_ID]"
-                      name="PRODUCT_ID"
-                      truncationRowDisposition="FailComponent" />
+                      lineageId="Package\CARGA STG STG_FACT_SALES\Conversión de datos.Outputs[Salida de conversión de datos].Columns[PRODUCT_ID_int]"
+                      name="PRODUCT_ID_int"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
+                          name="SourceInputColumnLineageID">#{Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de origen de ODBC].Columns[PRODUCT_ID]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
                     <outputColumn
-                      refId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de origen de OLE DB].Columns[BILLING_ID]"
+                      refId="Package\CARGA STG STG_FACT_SALES\Conversión de datos.Outputs[Salida de conversión de datos].Columns[QUANTITY_int]"
                       dataType="i4"
                       errorOrTruncationOperation="Conversión"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de origen de OLE DB].ExternalColumns[BILLING_ID]"
-                      lineageId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de origen de OLE DB].Columns[BILLING_ID]"
-                      name="BILLING_ID"
-                      truncationRowDisposition="FailComponent" />
+                      lineageId="Package\CARGA STG STG_FACT_SALES\Conversión de datos.Outputs[Salida de conversión de datos].Columns[QUANTITY_int]"
+                      name="QUANTITY_int"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
+                          name="SourceInputColumnLineageID">#{Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de origen de ODBC].Columns[QUANTITY]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
                     <outputColumn
-                      refId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de origen de OLE DB].Columns[QUANTITY]"
-                      dataType="i2"
-                      errorOrTruncationOperation="Conversión"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de origen de OLE DB].ExternalColumns[QUANTITY]"
-                      lineageId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de origen de OLE DB].Columns[QUANTITY]"
-                      name="QUANTITY"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de origen de OLE DB].Columns[REGION]"
-                      codePage="1252"
-                      dataType="str"
-                      errorOrTruncationOperation="Conversión"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de origen de OLE DB].ExternalColumns[REGION]"
-                      length="45"
-                      lineageId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de origen de OLE DB].Columns[REGION]"
-                      name="REGION"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de origen de OLE DB].Columns[BRANCH_ID]"
+                      refId="Package\CARGA STG STG_FACT_SALES\Conversión de datos.Outputs[Salida de conversión de datos].Columns[CUSTOMER_ID_int]"
                       dataType="i4"
                       errorOrTruncationOperation="Conversión"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de origen de OLE DB].ExternalColumns[BRANCH_ID]"
-                      lineageId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de origen de OLE DB].Columns[BRANCH_ID]"
-                      name="BRANCH_ID"
-                      truncationRowDisposition="FailComponent" />
+                      lineageId="Package\CARGA STG STG_FACT_SALES\Conversión de datos.Outputs[Salida de conversión de datos].Columns[CUSTOMER_ID_int]"
+                      name="CUSTOMER_ID_int"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
+                          name="SourceInputColumnLineageID">#{Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de origen de ODBC].Columns[CUSTOMER_ID]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
                     <outputColumn
-                      refId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de origen de OLE DB].Columns[DATE]"
-                      dataType="dbTimeStamp"
+                      refId="Package\CARGA STG STG_FACT_SALES\Conversión de datos.Outputs[Salida de conversión de datos].Columns[EMPLOYEE_ID_int]"
+                      dataType="i4"
                       errorOrTruncationOperation="Conversión"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de origen de OLE DB].ExternalColumns[DATE]"
-                      lineageId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de origen de OLE DB].Columns[DATE]"
-                      name="DATE"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de origen de OLE DB].Columns[CUSTOMER_ID]"
-                      dataType="i2"
-                      errorOrTruncationOperation="Conversión"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de origen de OLE DB].ExternalColumns[CUSTOMER_ID]"
-                      lineageId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de origen de OLE DB].Columns[CUSTOMER_ID]"
-                      name="CUSTOMER_ID"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de origen de OLE DB].Columns[EMPLOYEE_ID]"
-                      dataType="i2"
-                      errorOrTruncationOperation="Conversión"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de origen de OLE DB].ExternalColumns[EMPLOYEE_ID]"
-                      lineageId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de origen de OLE DB].Columns[EMPLOYEE_ID]"
-                      name="EMPLOYEE_ID"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de origen de OLE DB].Columns[LITROS]"
-                      dataType="numeric"
-                      errorOrTruncationOperation="Conversión"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de origen de OLE DB].ExternalColumns[LITROS]"
-                      lineageId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de origen de OLE DB].Columns[LITROS]"
-                      name="LITROS"
-                      precision="23"
-                      scale="2"
-                      truncationRowDisposition="FailComponent" />
+                      lineageId="Package\CARGA STG STG_FACT_SALES\Conversión de datos.Outputs[Salida de conversión de datos].Columns[EMPLOYEE_ID_int]"
+                      name="EMPLOYEE_ID_int"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
+                          name="SourceInputColumnLineageID">#{Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de origen de ODBC].Columns[EMPLOYEE_ID]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
                   </outputColumns>
-                  <externalMetadataColumns
-                    isUsed="True">
-                    <externalMetadataColumn
-                      refId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de origen de OLE DB].ExternalColumns[PRODUCT_ID]"
-                      dataType="i2"
-                      name="PRODUCT_ID" />
-                    <externalMetadataColumn
-                      refId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de origen de OLE DB].ExternalColumns[BILLING_ID]"
-                      dataType="i4"
-                      name="BILLING_ID" />
-                    <externalMetadataColumn
-                      refId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de origen de OLE DB].ExternalColumns[QUANTITY]"
-                      dataType="i2"
-                      name="QUANTITY" />
-                    <externalMetadataColumn
-                      refId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de origen de OLE DB].ExternalColumns[REGION]"
-                      codePage="1252"
-                      dataType="str"
-                      length="45"
-                      name="REGION" />
-                    <externalMetadataColumn
-                      refId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de origen de OLE DB].ExternalColumns[BRANCH_ID]"
-                      dataType="i4"
-                      name="BRANCH_ID" />
-                    <externalMetadataColumn
-                      refId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de origen de OLE DB].ExternalColumns[DATE]"
-                      dataType="dbTimeStamp"
-                      name="DATE" />
-                    <externalMetadataColumn
-                      refId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de origen de OLE DB].ExternalColumns[CUSTOMER_ID]"
-                      dataType="i2"
-                      name="CUSTOMER_ID" />
-                    <externalMetadataColumn
-                      refId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de origen de OLE DB].ExternalColumns[EMPLOYEE_ID]"
-                      dataType="i2"
-                      name="EMPLOYEE_ID" />
-                    <externalMetadataColumn
-                      refId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de origen de OLE DB].ExternalColumns[LITROS]"
-                      dataType="numeric"
-                      name="LITROS"
-                      precision="23"
-                      scale="2" />
-                  </externalMetadataColumns>
+                  <externalMetadataColumns />
                 </output>
                 <output
-                  refId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de error de origen de OLE DB]"
+                  refId="Package\CARGA STG STG_FACT_SALES\Conversión de datos.Outputs[Salida de error de conversión de datos]"
+                  exclusionGroup="1"
                   isErrorOut="true"
-                  name="Salida de error de origen de OLE DB">
+                  name="Salida de error de conversión de datos"
+                  synchronousInputId="Package\CARGA STG STG_FACT_SALES\Conversión de datos.Inputs[Entrada de conversión de datos]">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de error de origen de OLE DB].Columns[BILLING_ID]"
+                      refId="Package\CARGA STG STG_FACT_SALES\Conversión de datos.Outputs[Salida de error de conversión de datos].Columns[ErrorCode]"
                       dataType="i4"
-                      lineageId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de error de origen de OLE DB].Columns[BILLING_ID]"
-                      name="BILLING_ID" />
-                    <outputColumn
-                      refId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de error de origen de OLE DB].Columns[PRODUCT_ID]"
-                      dataType="i2"
-                      lineageId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de error de origen de OLE DB].Columns[PRODUCT_ID]"
-                      name="PRODUCT_ID" />
-                    <outputColumn
-                      refId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de error de origen de OLE DB].Columns[QUANTITY]"
-                      dataType="i2"
-                      lineageId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de error de origen de OLE DB].Columns[QUANTITY]"
-                      name="QUANTITY" />
-                    <outputColumn
-                      refId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de error de origen de OLE DB].Columns[REGION]"
-                      codePage="1252"
-                      dataType="str"
-                      length="45"
-                      lineageId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de error de origen de OLE DB].Columns[REGION]"
-                      name="REGION" />
-                    <outputColumn
-                      refId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de error de origen de OLE DB].Columns[BRANCH_ID]"
-                      dataType="i4"
-                      lineageId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de error de origen de OLE DB].Columns[BRANCH_ID]"
-                      name="BRANCH_ID" />
-                    <outputColumn
-                      refId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de error de origen de OLE DB].Columns[DATE]"
-                      dataType="dbTimeStamp"
-                      lineageId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de error de origen de OLE DB].Columns[DATE]"
-                      name="DATE" />
-                    <outputColumn
-                      refId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de error de origen de OLE DB].Columns[CUSTOMER_ID]"
-                      dataType="i2"
-                      lineageId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de error de origen de OLE DB].Columns[CUSTOMER_ID]"
-                      name="CUSTOMER_ID" />
-                    <outputColumn
-                      refId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de error de origen de OLE DB].Columns[EMPLOYEE_ID]"
-                      dataType="i2"
-                      lineageId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de error de origen de OLE DB].Columns[EMPLOYEE_ID]"
-                      name="EMPLOYEE_ID" />
-                    <outputColumn
-                      refId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de error de origen de OLE DB].Columns[LITROS]"
-                      dataType="numeric"
-                      lineageId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de error de origen de OLE DB].Columns[LITROS]"
-                      name="LITROS"
-                      precision="23"
-                      scale="2" />
-                    <outputColumn
-                      refId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de error de origen de OLE DB].Columns[ErrorCode]"
-                      dataType="i4"
-                      lineageId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de error de origen de OLE DB].Columns[ErrorCode]"
+                      lineageId="Package\CARGA STG STG_FACT_SALES\Conversión de datos.Outputs[Salida de error de conversión de datos].Columns[ErrorCode]"
                       name="ErrorCode"
                       specialFlags="1" />
                     <outputColumn
-                      refId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de error de origen de OLE DB].Columns[ErrorColumn]"
+                      refId="Package\CARGA STG STG_FACT_SALES\Conversión de datos.Outputs[Salida de error de conversión de datos].Columns[ErrorColumn]"
                       dataType="i4"
-                      lineageId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de error de origen de OLE DB].Columns[ErrorColumn]"
+                      lineageId="Package\CARGA STG STG_FACT_SALES\Conversión de datos.Outputs[Salida de error de conversión de datos].Columns[ErrorColumn]"
                       name="ErrorColumn"
                       specialFlags="2" />
                   </outputColumns>
@@ -831,11 +733,263 @@ LEFT JOIN DW_SDG.DW.DIM_PRODUCT AS DP ON DP.PRODUCT_ID=DET.PRODUCT_ID</property>
               </outputs>
             </component>
             <component
-              refId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES"
+              refId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL"
+              componentClassID="Microsoft.SSISODBCSrc"
+              contactInfo="Origen ODBC;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;1"
+              description="Origen ODBC"
+              name="SALES MYSQL"
+              usesDispositions="true"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Nombre de la tabla que debe recuperarse."
+                  expressionType="Notify"
+                  name="TableName"></property>
+                <property
+                  dataType="System.String"
+                  description="Comando SQL para ejecutar."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT B.BILLING_ID
+      ,DET.PRODUCT_ID
+      ,DET.QUANTITY
+      ,B.REGION
+      ,B.BRANCH_ID
+      ,B.DATE
+      ,B.CUSTOMER_ID
+      ,B.EMPLOYEE_ID 
+FROM sales.billing			  AS B
+INNER JOIN sales.billing_detail AS DET ON B.BILLING_ID=DET.BILLING_ID</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifique el número de filas recuperadas por lote."
+                  expressionType="Notify"
+                  name="BatchSize">1000</property>
+                <property
+                  dataType="System.Int32"
+                  description="Determina la asignación del tamaño de los fragmentos de las columnas LOB"
+                  expressionType="Notify"
+                  name="LobChunkSize">32768</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determina la manera en la que el componente expone las columnas CHAR. Si es False, las columnas CHAR se exponen como cadenas byte o multibyte (DT_STR); si es True, las columnas CHAR se exponen como cadenas de tipo ancho (DT_WSTR)."
+                  expressionType="Notify"
+                  name="ExposeCharColumnsAsUnicode">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos que se debe esperar para que una instrucción SQL se ejecute antes de volver a la aplicación."
+                  expressionType="Notify"
+                  name="StatementTimeout">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Página de códigos que se usará cuando la información de la página de códigos no esté disponible en el origen de datos."
+                  expressionType="Notify"
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Int32"
+                  description="Método usado para recuperar datos."
+                  expressionType="Notify"
+                  name="FetchMethod">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Tipo de datos ODBC C para el enlace de datos numéricos."
+                  expressionType="Notify"
+                  name="BindNumericAs">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Determina la manera en la que el componente enlazará columnas de tipos de cadena byte o multibyte (es decir, SQL_CHAR, SQL_VARCHAR, SQL_LONGVARCHAR). Las opciones son Unicode (SQL_C_WCHAR) y ANSI (SQL_C_CHAR)."
+                  expressionType="Notify"
+                  name="BindCharColumnsAs">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Modo usado para obtener acceso a la base de datos."
+                  expressionType="Notify"
+                  name="AccessMode"
+                  typeConverter="AccessMode">1</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Connections[ODBCConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DBMySQL32.root]"
+                  connectionManagerRefId="Package.ConnectionManagers[DBMySQL32.root]"
+                  description="Conexión de runtime de ODBC usada para acceder a la base de datos."
+                  name="ODBCConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de origen de ODBC]"
+                  errorRowDisposition="FailComponent"
+                  name="Salida de origen de ODBC"
+                  truncationRowDisposition="FailComponent">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de origen de ODBC].Columns[BILLING_ID]"
+                      dataType="i4"
+                      externalMetadataColumnId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de origen de ODBC].ExternalColumns[BILLING_ID]"
+                      lineageId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de origen de ODBC].Columns[BILLING_ID]"
+                      name="BILLING_ID" />
+                    <outputColumn
+                      refId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de origen de ODBC].Columns[PRODUCT_ID]"
+                      dataType="i2"
+                      externalMetadataColumnId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de origen de ODBC].ExternalColumns[PRODUCT_ID]"
+                      lineageId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de origen de ODBC].Columns[PRODUCT_ID]"
+                      name="PRODUCT_ID" />
+                    <outputColumn
+                      refId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de origen de ODBC].Columns[QUANTITY]"
+                      dataType="i2"
+                      externalMetadataColumnId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de origen de ODBC].ExternalColumns[QUANTITY]"
+                      lineageId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de origen de ODBC].Columns[QUANTITY]"
+                      name="QUANTITY" />
+                    <outputColumn
+                      refId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de origen de ODBC].Columns[REGION]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de origen de ODBC].ExternalColumns[REGION]"
+                      length="45"
+                      lineageId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de origen de ODBC].Columns[REGION]"
+                      name="REGION" />
+                    <outputColumn
+                      refId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de origen de ODBC].Columns[BRANCH_ID]"
+                      dataType="i4"
+                      externalMetadataColumnId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de origen de ODBC].ExternalColumns[BRANCH_ID]"
+                      lineageId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de origen de ODBC].Columns[BRANCH_ID]"
+                      name="BRANCH_ID" />
+                    <outputColumn
+                      refId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de origen de ODBC].Columns[DATE]"
+                      dataType="dbTimeStamp"
+                      externalMetadataColumnId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de origen de ODBC].ExternalColumns[DATE]"
+                      lineageId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de origen de ODBC].Columns[DATE]"
+                      name="DATE" />
+                    <outputColumn
+                      refId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de origen de ODBC].Columns[CUSTOMER_ID]"
+                      dataType="i2"
+                      externalMetadataColumnId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de origen de ODBC].ExternalColumns[CUSTOMER_ID]"
+                      lineageId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de origen de ODBC].Columns[CUSTOMER_ID]"
+                      name="CUSTOMER_ID" />
+                    <outputColumn
+                      refId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de origen de ODBC].Columns[EMPLOYEE_ID]"
+                      dataType="i2"
+                      externalMetadataColumnId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de origen de ODBC].ExternalColumns[EMPLOYEE_ID]"
+                      lineageId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de origen de ODBC].Columns[EMPLOYEE_ID]"
+                      name="EMPLOYEE_ID" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de origen de ODBC].ExternalColumns[BILLING_ID]"
+                      dataType="i4"
+                      name="BILLING_ID" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de origen de ODBC].ExternalColumns[PRODUCT_ID]"
+                      dataType="i2"
+                      name="PRODUCT_ID" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de origen de ODBC].ExternalColumns[QUANTITY]"
+                      dataType="i2"
+                      name="QUANTITY" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de origen de ODBC].ExternalColumns[REGION]"
+                      codePage="1252"
+                      dataType="str"
+                      length="45"
+                      name="REGION" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de origen de ODBC].ExternalColumns[BRANCH_ID]"
+                      dataType="i4"
+                      name="BRANCH_ID" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de origen de ODBC].ExternalColumns[DATE]"
+                      dataType="dbTimeStamp"
+                      name="DATE" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de origen de ODBC].ExternalColumns[CUSTOMER_ID]"
+                      dataType="i2"
+                      name="CUSTOMER_ID" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de origen de ODBC].ExternalColumns[EMPLOYEE_ID]"
+                      dataType="i2"
+                      name="EMPLOYEE_ID" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de error de origen de ODBC]"
+                  isErrorOut="true"
+                  name="Salida de error de origen de ODBC">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de error de origen de ODBC].Columns[BILLING_ID]"
+                      dataType="i4"
+                      externalMetadataColumnId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de origen de ODBC].ExternalColumns[BILLING_ID]"
+                      lineageId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de error de origen de ODBC].Columns[BILLING_ID]"
+                      name="BILLING_ID" />
+                    <outputColumn
+                      refId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de error de origen de ODBC].Columns[PRODUCT_ID]"
+                      dataType="i2"
+                      externalMetadataColumnId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de origen de ODBC].ExternalColumns[PRODUCT_ID]"
+                      lineageId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de error de origen de ODBC].Columns[PRODUCT_ID]"
+                      name="PRODUCT_ID" />
+                    <outputColumn
+                      refId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de error de origen de ODBC].Columns[QUANTITY]"
+                      dataType="i2"
+                      externalMetadataColumnId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de origen de ODBC].ExternalColumns[QUANTITY]"
+                      lineageId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de error de origen de ODBC].Columns[QUANTITY]"
+                      name="QUANTITY" />
+                    <outputColumn
+                      refId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de error de origen de ODBC].Columns[REGION]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de origen de ODBC].ExternalColumns[REGION]"
+                      length="45"
+                      lineageId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de error de origen de ODBC].Columns[REGION]"
+                      name="REGION" />
+                    <outputColumn
+                      refId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de error de origen de ODBC].Columns[BRANCH_ID]"
+                      dataType="i4"
+                      externalMetadataColumnId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de origen de ODBC].ExternalColumns[BRANCH_ID]"
+                      lineageId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de error de origen de ODBC].Columns[BRANCH_ID]"
+                      name="BRANCH_ID" />
+                    <outputColumn
+                      refId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de error de origen de ODBC].Columns[DATE]"
+                      dataType="dbTimeStamp"
+                      externalMetadataColumnId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de origen de ODBC].ExternalColumns[DATE]"
+                      lineageId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de error de origen de ODBC].Columns[DATE]"
+                      name="DATE" />
+                    <outputColumn
+                      refId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de error de origen de ODBC].Columns[CUSTOMER_ID]"
+                      dataType="i2"
+                      externalMetadataColumnId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de origen de ODBC].ExternalColumns[CUSTOMER_ID]"
+                      lineageId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de error de origen de ODBC].Columns[CUSTOMER_ID]"
+                      name="CUSTOMER_ID" />
+                    <outputColumn
+                      refId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de error de origen de ODBC].Columns[EMPLOYEE_ID]"
+                      dataType="i2"
+                      externalMetadataColumnId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de origen de ODBC].ExternalColumns[EMPLOYEE_ID]"
+                      lineageId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de error de origen de ODBC].Columns[EMPLOYEE_ID]"
+                      name="EMPLOYEE_ID" />
+                    <outputColumn
+                      refId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de error de origen de ODBC].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de error de origen de ODBC].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de error de origen de ODBC].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de error de origen de ODBC].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES 1"
               componentClassID="Microsoft.OLEDBDestination"
               contactInfo="Destino de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;4"
               description="Destino de OLE DB"
-              name="STG STG_FACT_SALES"
+              name="STG STG_FACT_SALES 1"
               usesDispositions="true"
               version="4">
               <properties>
@@ -888,7 +1042,7 @@ LEFT JOIN DW_SDG.DW.DIM_PRODUCT AS DP ON DP.PRODUCT_ID=DET.PRODUCT_ID</property>
               </properties>
               <connections>
                 <connection
-                  refId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES.Connections[OleDbConnection]"
+                  refId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES 1.Connections[OleDbConnection]"
                   connectionManagerID="Package.ConnectionManagers[DESKTOP-1HP4R3R\MSSQLSERVERDEV.STG_SDG]"
                   connectionManagerRefId="Package.ConnectionManagers[DESKTOP-1HP4R3R\MSSQLSERVERDEV.STG_SDG]"
                   description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
@@ -896,109 +1050,101 @@ LEFT JOIN DW_SDG.DW.DIM_PRODUCT AS DP ON DP.PRODUCT_ID=DET.PRODUCT_ID</property>
               </connections>
               <inputs>
                 <input
-                  refId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES.Inputs[Entrada de destino de OLE DB]"
+                  refId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES 1.Inputs[Entrada de destino de OLE DB]"
                   errorOrTruncationOperation="Insertar"
                   errorRowDisposition="FailComponent"
                   hasSideEffects="true"
                   name="Entrada de destino de OLE DB">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES.Inputs[Entrada de destino de OLE DB].Columns[PRODUCT_ID]"
-                      cachedDataType="i4"
-                      cachedName="PRODUCT_ID"
-                      externalMetadataColumnId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES.Inputs[Entrada de destino de OLE DB].ExternalColumns[PRODUCT_ID]"
-                      lineageId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de origen de OLE DB].Columns[PRODUCT_ID]" />
+                      refId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES 1.Inputs[Entrada de destino de OLE DB].Columns[DATE]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="DATE"
+                      externalMetadataColumnId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES 1.Inputs[Entrada de destino de OLE DB].ExternalColumns[DATE]"
+                      lineageId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de origen de ODBC].Columns[DATE]" />
                     <inputColumn
-                      refId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES.Inputs[Entrada de destino de OLE DB].Columns[BILLING_ID]"
+                      refId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES 1.Inputs[Entrada de destino de OLE DB].Columns[BILLING_ID]"
                       cachedDataType="i4"
                       cachedName="BILLING_ID"
-                      externalMetadataColumnId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES.Inputs[Entrada de destino de OLE DB].ExternalColumns[BILLING_ID]"
-                      lineageId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de origen de OLE DB].Columns[BILLING_ID]" />
+                      externalMetadataColumnId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES 1.Inputs[Entrada de destino de OLE DB].ExternalColumns[BILLING_ID]"
+                      lineageId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de origen de ODBC].Columns[BILLING_ID]" />
                     <inputColumn
-                      refId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES.Inputs[Entrada de destino de OLE DB].Columns[QUANTITY]"
-                      cachedDataType="i2"
-                      cachedName="QUANTITY"
-                      externalMetadataColumnId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES.Inputs[Entrada de destino de OLE DB].ExternalColumns[QUANTITY]"
-                      lineageId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de origen de OLE DB].Columns[QUANTITY]" />
+                      refId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES 1.Inputs[Entrada de destino de OLE DB].Columns[PRODUCT_ID_int]"
+                      cachedDataType="i4"
+                      cachedName="PRODUCT_ID_int"
+                      externalMetadataColumnId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES 1.Inputs[Entrada de destino de OLE DB].ExternalColumns[PRODUCT_ID]"
+                      lineageId="Package\CARGA STG STG_FACT_SALES\Conversión de datos.Outputs[Salida de conversión de datos].Columns[PRODUCT_ID_int]" />
                     <inputColumn
-                      refId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES.Inputs[Entrada de destino de OLE DB].Columns[REGION]"
+                      refId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES 1.Inputs[Entrada de destino de OLE DB].Columns[QUANTITY_int]"
+                      cachedDataType="i4"
+                      cachedName="QUANTITY_int"
+                      externalMetadataColumnId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES 1.Inputs[Entrada de destino de OLE DB].ExternalColumns[QUANTITY]"
+                      lineageId="Package\CARGA STG STG_FACT_SALES\Conversión de datos.Outputs[Salida de conversión de datos].Columns[QUANTITY_int]" />
+                    <inputColumn
+                      refId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES 1.Inputs[Entrada de destino de OLE DB].Columns[REGION]"
                       cachedCodepage="1252"
                       cachedDataType="str"
                       cachedLength="45"
                       cachedName="REGION"
-                      externalMetadataColumnId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES.Inputs[Entrada de destino de OLE DB].ExternalColumns[REGION]"
-                      lineageId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de origen de OLE DB].Columns[REGION]" />
+                      externalMetadataColumnId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES 1.Inputs[Entrada de destino de OLE DB].ExternalColumns[REGION]"
+                      lineageId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de origen de ODBC].Columns[REGION]" />
                     <inputColumn
-                      refId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES.Inputs[Entrada de destino de OLE DB].Columns[BRANCH_ID]"
+                      refId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES 1.Inputs[Entrada de destino de OLE DB].Columns[BRANCH_ID]"
                       cachedDataType="i4"
                       cachedName="BRANCH_ID"
-                      externalMetadataColumnId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES.Inputs[Entrada de destino de OLE DB].ExternalColumns[BRANCH_ID]"
-                      lineageId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de origen de OLE DB].Columns[BRANCH_ID]" />
+                      externalMetadataColumnId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES 1.Inputs[Entrada de destino de OLE DB].ExternalColumns[BRANCH_ID]"
+                      lineageId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de origen de ODBC].Columns[BRANCH_ID]" />
                     <inputColumn
-                      refId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES.Inputs[Entrada de destino de OLE DB].Columns[CUSTOMER_ID]"
-                      cachedDataType="i2"
-                      cachedName="CUSTOMER_ID"
-                      externalMetadataColumnId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES.Inputs[Entrada de destino de OLE DB].ExternalColumns[CUSTOMER_ID]"
-                      lineageId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de origen de OLE DB].Columns[CUSTOMER_ID]" />
+                      refId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES 1.Inputs[Entrada de destino de OLE DB].Columns[CUSTOMER_ID_int]"
+                      cachedDataType="i4"
+                      cachedName="CUSTOMER_ID_int"
+                      externalMetadataColumnId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES 1.Inputs[Entrada de destino de OLE DB].ExternalColumns[CUSTOMER_ID]"
+                      lineageId="Package\CARGA STG STG_FACT_SALES\Conversión de datos.Outputs[Salida de conversión de datos].Columns[CUSTOMER_ID_int]" />
                     <inputColumn
-                      refId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES.Inputs[Entrada de destino de OLE DB].Columns[EMPLOYEE_ID]"
-                      cachedDataType="i2"
-                      cachedName="EMPLOYEE_ID"
-                      externalMetadataColumnId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES.Inputs[Entrada de destino de OLE DB].ExternalColumns[EMPLOYEE_ID]"
-                      lineageId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de origen de OLE DB].Columns[EMPLOYEE_ID]" />
-                    <inputColumn
-                      refId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES.Inputs[Entrada de destino de OLE DB].Columns[DATE]"
-                      cachedDataType="dbTimeStamp"
-                      cachedName="DATE"
-                      externalMetadataColumnId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES.Inputs[Entrada de destino de OLE DB].ExternalColumns[DATE]"
-                      lineageId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de origen de OLE DB].Columns[DATE]" />
-                    <inputColumn
-                      refId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES.Inputs[Entrada de destino de OLE DB].Columns[LITROS]"
-                      cachedDataType="numeric"
-                      cachedName="LITROS"
-                      cachedPrecision="23"
-                      cachedScale="2"
-                      externalMetadataColumnId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES.Inputs[Entrada de destino de OLE DB].ExternalColumns[LITROS]"
-                      lineageId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de origen de OLE DB].Columns[LITROS]" />
+                      refId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES 1.Inputs[Entrada de destino de OLE DB].Columns[EMPLOYEE_ID_int]"
+                      cachedDataType="i4"
+                      cachedName="EMPLOYEE_ID_int"
+                      externalMetadataColumnId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES 1.Inputs[Entrada de destino de OLE DB].ExternalColumns[EMPLOYEE_ID]"
+                      lineageId="Package\CARGA STG STG_FACT_SALES\Conversión de datos.Outputs[Salida de conversión de datos].Columns[EMPLOYEE_ID_int]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
                     <externalMetadataColumn
-                      refId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES.Inputs[Entrada de destino de OLE DB].ExternalColumns[PRODUCT_ID]"
+                      refId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES 1.Inputs[Entrada de destino de OLE DB].ExternalColumns[PRODUCT_ID]"
                       dataType="i4"
                       name="PRODUCT_ID" />
                     <externalMetadataColumn
-                      refId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES.Inputs[Entrada de destino de OLE DB].ExternalColumns[BILLING_ID]"
+                      refId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES 1.Inputs[Entrada de destino de OLE DB].ExternalColumns[BILLING_ID]"
                       dataType="i4"
                       name="BILLING_ID" />
                     <externalMetadataColumn
-                      refId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES.Inputs[Entrada de destino de OLE DB].ExternalColumns[QUANTITY]"
+                      refId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES 1.Inputs[Entrada de destino de OLE DB].ExternalColumns[QUANTITY]"
                       dataType="i4"
                       name="QUANTITY" />
                     <externalMetadataColumn
-                      refId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES.Inputs[Entrada de destino de OLE DB].ExternalColumns[REGION]"
+                      refId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES 1.Inputs[Entrada de destino de OLE DB].ExternalColumns[REGION]"
                       codePage="1252"
                       dataType="str"
                       length="50"
                       name="REGION" />
                     <externalMetadataColumn
-                      refId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES.Inputs[Entrada de destino de OLE DB].ExternalColumns[BRANCH_ID]"
+                      refId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES 1.Inputs[Entrada de destino de OLE DB].ExternalColumns[BRANCH_ID]"
                       dataType="i4"
                       name="BRANCH_ID" />
                     <externalMetadataColumn
-                      refId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES.Inputs[Entrada de destino de OLE DB].ExternalColumns[DATE]"
+                      refId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES 1.Inputs[Entrada de destino de OLE DB].ExternalColumns[DATE]"
                       dataType="dbTimeStamp"
                       name="DATE" />
                     <externalMetadataColumn
-                      refId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES.Inputs[Entrada de destino de OLE DB].ExternalColumns[CUSTOMER_ID]"
+                      refId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES 1.Inputs[Entrada de destino de OLE DB].ExternalColumns[CUSTOMER_ID]"
                       dataType="i4"
                       name="CUSTOMER_ID" />
                     <externalMetadataColumn
-                      refId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES.Inputs[Entrada de destino de OLE DB].ExternalColumns[EMPLOYEE_ID]"
+                      refId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES 1.Inputs[Entrada de destino de OLE DB].ExternalColumns[EMPLOYEE_ID]"
                       dataType="i4"
                       name="EMPLOYEE_ID" />
                     <externalMetadataColumn
-                      refId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES.Inputs[Entrada de destino de OLE DB].ExternalColumns[LITROS]"
+                      refId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES 1.Inputs[Entrada de destino de OLE DB].ExternalColumns[LITROS]"
                       dataType="numeric"
                       name="LITROS"
                       precision="17"
@@ -1008,22 +1154,22 @@ LEFT JOIN DW_SDG.DW.DIM_PRODUCT AS DP ON DP.PRODUCT_ID=DET.PRODUCT_ID</property>
               </inputs>
               <outputs>
                 <output
-                  refId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES.Outputs[Salida de error de destino de OLE DB]"
+                  refId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES 1.Outputs[Salida de error de destino de OLE DB]"
                   exclusionGroup="1"
                   isErrorOut="true"
                   name="Salida de error de destino de OLE DB"
-                  synchronousInputId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES.Inputs[Entrada de destino de OLE DB]">
+                  synchronousInputId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES 1.Inputs[Entrada de destino de OLE DB]">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                      refId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES 1.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
                       dataType="i4"
-                      lineageId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                      lineageId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES 1.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
                       name="ErrorCode"
                       specialFlags="1" />
                     <outputColumn
-                      refId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      refId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES 1.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
                       dataType="i4"
-                      lineageId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      lineageId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES 1.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
                       name="ErrorColumn"
                       specialFlags="2" />
                   </outputColumns>
@@ -1034,10 +1180,15 @@ LEFT JOIN DW_SDG.DW.DIM_PRODUCT AS DP ON DP.PRODUCT_ID=DET.PRODUCT_ID</property>
           </components>
           <paths>
             <path
-              refId="Package\CARGA STG STG_FACT_SALES.Paths[Salida de origen de OLE DB]"
-              endId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES.Inputs[Entrada de destino de OLE DB]"
-              name="Salida de origen de OLE DB"
-              startId="Package\CARGA STG STG_FACT_SALES\ODS SALES.Outputs[Salida de origen de OLE DB]" />
+              refId="Package\CARGA STG STG_FACT_SALES.Paths[Salida de conversión de datos]"
+              endId="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES 1.Inputs[Entrada de destino de OLE DB]"
+              name="Salida de conversión de datos"
+              startId="Package\CARGA STG STG_FACT_SALES\Conversión de datos.Outputs[Salida de conversión de datos]" />
+            <path
+              refId="Package\CARGA STG STG_FACT_SALES.Paths[Salida de origen de ODBC]"
+              endId="Package\CARGA STG STG_FACT_SALES\Conversión de datos.Inputs[Entrada de conversión de datos]"
+              name="Salida de origen de ODBC"
+              startId="Package\CARGA STG STG_FACT_SALES\SALES MYSQL.Outputs[Salida de origen de ODBC]" />
           </paths>
         </pipeline>
       </DTS:ObjectData>
@@ -1159,21 +1310,21 @@ LEFT JOIN DW_SDG.DW.DIM_PRODUCT AS DP ON DP.PRODUCT_ID=DET.PRODUCT_ID</property>
         <NodeLayout
           Size="250,42"
           Id="Package\VALIDA DIM TIEMPO"
-          TopLeft="309,283" />
+          TopLeft="309,289" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint]"
           TopLeft="435.416659795576,252.511112777922">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,30.488887222078"
+              EndConnector="0,36.488887222078"
               Start="0,0"
-              End="0,22.988887222078">
+              End="0,28.988887222078">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,22.988887222078" />
+                    End="0,28.988887222078" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -1184,18 +1335,18 @@ LEFT JOIN DW_SDG.DW.DIM_PRODUCT AS DP ON DP.PRODUCT_ID=DET.PRODUCT_ID</property>
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 1]"
-          TopLeft="434.138881868786,325">
+          TopLeft="434.138881868786,331">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,32"
+              EndConnector="0,26"
               Start="0,0"
-              End="0,24.5">
+              End="0,18.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,24.5" />
+                    End="0,18.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -1276,13 +1427,13 @@ LEFT JOIN DW_SDG.DW.DIM_PRODUCT AS DP ON DP.PRODUCT_ID=DET.PRODUCT_ID</property>
       <GraphLayout
         Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="149,42"
-          Id="Package\CARGA FACT_SALES\FACT_SALES"
-          TopLeft="239,190" />
-        <NodeLayout
           Size="203,42"
           Id="Package\CARGA FACT_SALES\STG STG_FACT_SALES"
           TopLeft="205,66" />
+        <NodeLayout
+          Size="149,42"
+          Id="Package\CARGA FACT_SALES\FACT_SALES"
+          TopLeft="239,190" />
         <EdgeLayout
           Id="Package\CARGA FACT_SALES.Paths[Salida de origen de OLE DB]"
           TopLeft="310,108">
@@ -1338,29 +1489,62 @@ LEFT JOIN DW_SDG.DW.DIM_PRODUCT AS DP ON DP.PRODUCT_ID=DET.PRODUCT_ID</property>
     design-time-name="Package\CARGA STG STG_FACT_SALES">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="203,42"
-          Id="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES"
-          TopLeft="232,201" />
+          Size="156,42"
+          Id="Package\CARGA STG STG_FACT_SALES\SALES MYSQL"
+          TopLeft="222,55" />
+        <AnnotationLayout
+          Text="https://www.mssqltips.com/sqlservertip/5570/export-mysql-data-to-excel-using-sql-server-integration-services/"
+          ParentId="Package\CARGA STG STG_FACT_SALES"
+          FontInfo="{assembly:Null}"
+          Size="621,40"
+          Id="34b8e324-1411-4db4-9f87-25a457cb5bf0"
+          TopLeft="60,0" />
         <NodeLayout
-          Size="141,42"
-          Id="Package\CARGA STG STG_FACT_SALES\ODS SALES"
-          TopLeft="258,71" />
+          Size="213,42"
+          Id="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES 1"
+          TopLeft="193,247" />
+        <NodeLayout
+          Size="180,42"
+          Id="Package\CARGA STG STG_FACT_SALES\Conversión de datos"
+          TopLeft="213,148" />
         <EdgeLayout
-          Id="Package\CARGA STG STG_FACT_SALES.Paths[Salida de origen de OLE DB]"
-          TopLeft="331,113">
+          Id="Package\CARGA STG STG_FACT_SALES.Paths[Salida de origen de ODBC]"
+          TopLeft="301.5,97">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,88"
+              EndConnector="0,51"
               Start="0,0"
-              End="0,80.5">
+              End="0,43.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,80.5" />
+                    End="0,43.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\CARGA STG STG_FACT_SALES.Paths[Salida de conversión de datos]"
+          TopLeft="301.25,190">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,57"
+              Start="0,0"
+              End="0,49.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,49.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -1373,7 +1557,7 @@ LEFT JOIN DW_SDG.DW.DIM_PRODUCT AS DP ON DP.PRODUCT_ID=DET.PRODUCT_ID</property>
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\CARGA STG STG_FACT_SALES\ODS SALES">
+    design-time-name="Package\CARGA STG STG_FACT_SALES\SALES MYSQL">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -1381,7 +1565,7 @@ LEFT JOIN DW_SDG.DW.DIM_PRODUCT AS DP ON DP.PRODUCT_ID=DET.PRODUCT_ID</property>
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES">
+    design-time-name="Package\CARGA STG STG_FACT_SALES\STG STG_FACT_SALES 1">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
