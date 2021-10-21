@@ -5,15 +5,15 @@
   DTS:CreationName="Microsoft.Package"
   DTS:CreatorComputerName="TBI-NBK-40"
   DTS:CreatorName="TECH-BI\edjemdjemian"
-  DTS:DTSID="{A8D2A87B-576C-4C3F-BFE3-355CFC35F345}"
+  DTS:DTSID="{209BDD57-4CC9-4A31-B353-F8D93545BBAA}"
   DTS:EnableConfig="True"
   DTS:ExecutableType="Microsoft.Package"
   DTS:LastModifiedProductVersion="15.0.2000.170"
   DTS:LocaleID="1033"
-  DTS:ObjectName="Package1"
+  DTS:ObjectName="Carga_Dim_Productos"
   DTS:PackageType="5"
-  DTS:VersionBuild="26"
-  DTS:VersionGUID="{13288971-8F3B-4DB9-8C25-595C218F60F2}">
+  DTS:VersionBuild="27"
+  DTS:VersionGUID="{19739926-2E0E-4CF5-A03A-7FB0CC14DB26}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>

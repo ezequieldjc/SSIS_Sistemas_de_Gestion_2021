@@ -29,23 +29,23 @@
           <References />
         </DtsPackage>
         <DtsPackage FormatVersion="8">
-          <Name>Carga_Productos.dtsx</Name>
-          <FullPath>Carga_Productos.dtsx</FullPath>
+          <Name>Carga_Dim_Productos.dtsx</Name>
+          <FullPath>Carga_Dim_Productos.dtsx</FullPath>
           <References />
         </DtsPackage>
         <DtsPackage FormatVersion="8">
-          <Name>Carga_Regions.dtsx</Name>
-          <FullPath>Carga_Regions.dtsx</FullPath>
+          <Name>Carga_Dim_Regions.dtsx</Name>
+          <FullPath>Carga_Dim_Regions.dtsx</FullPath>
           <References />
         </DtsPackage>
         <DtsPackage FormatVersion="8">
-          <Name>Carga_Sales.dtsx</Name>
-          <FullPath>Carga_Sales.dtsx</FullPath>
+          <Name>Carga_Fact_Sales.dtsx</Name>
+          <FullPath>Carga_Fact_Sales.dtsx</FullPath>
           <References />
         </DtsPackage>
         <DtsPackage FormatVersion="8">
-          <Name>Carga_Stock.dtsx</Name>
-          <FullPath>Carga_Stock.dtsx</FullPath>
+          <Name>Carga_Fact_Stock.dtsx</Name>
+          <FullPath>Carga_Fact_Stock.dtsx</FullPath>
           <References />
         </DtsPackage>
       </DTSPackages>

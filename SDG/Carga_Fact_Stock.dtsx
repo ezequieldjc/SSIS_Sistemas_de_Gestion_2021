@@ -5,14 +5,14 @@
   DTS:CreationName="Microsoft.Package"
   DTS:CreatorComputerName="TBI-NBK-40"
   DTS:CreatorName="TECH-BI\edjemdjemian"
-  DTS:DTSID="{5555BF41-3E70-4C09-9959-FA8DFDC8A611}"
+  DTS:DTSID="{0501EE45-CC12-4E55-B73D-79F5CEF391B6}"
   DTS:ExecutableType="Microsoft.Package"
   DTS:LastModifiedProductVersion="15.0.2000.170"
   DTS:LocaleID="1033"
-  DTS:ObjectName="Carga_Stock"
+  DTS:ObjectName="Carga_Fact_Stock"
   DTS:PackageType="5"
-  DTS:VersionBuild="41"
-  DTS:VersionGUID="{B20799A9-B65E-4E9D-8188-0F71B6FD4049}">
+  DTS:VersionBuild="42"
+  DTS:VersionGUID="{A2F909CB-9792-4D64-8098-5D15FC786C06}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -1186,6 +1186,10 @@
           Id="Package\CARGA STG STG_FACT_STOCK"
           TopLeft="509.777763737572,217.511112777922" />
         <NodeLayout
+          Size="160,42"
+          Id="Package\OBTIENE RUTA"
+          TopLeft="194,53" />
+        <NodeLayout
           Size="252,42"
           Id="Package\TRUNCATE TABLE FACT_STOCK"
           TopLeft="152.833319591152,308.511112777922" />
@@ -1331,24 +1335,6 @@
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <AnnotationLayout
-          Text="Debería cargarse los datos borrando por un rango de fechas en teoría"
-          ParentId="Package"
-          FontInfo="{assembly:Null}"
-          Size="398,40"
-          Id="871e4e74-ba3b-40f1-aad4-0fab0ddd56b5"
-          TopLeft="78,278" />
-        <AnnotationLayout
-          Text="FALTA CASTEAR LA FECHA"
-          ParentId="Package"
-          FontInfo="{assembly:Null}"
-          Size="168,40"
-          Id="278c9b7e-ee9c-4c55-94a4-936f4aaf7a33"
-          TopLeft="661,181" />
-        <NodeLayout
-          Size="160,42"
-          Id="Package\OBTIENE RUTA"
-          TopLeft="194,53" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 5]"
           TopLeft="274.416659795576,95">
@@ -1371,6 +1357,20 @@
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
+        <AnnotationLayout
+          Text="Debería cargarse los datos borrando por un rango de fechas en teoría"
+          ParentId="Package"
+          FontInfo="{assembly:Null}"
+          Size="398,40"
+          Id="871e4e74-ba3b-40f1-aad4-0fab0ddd56b5"
+          TopLeft="78,278" />
+        <AnnotationLayout
+          Text="FALTA CASTEAR LA FECHA"
+          ParentId="Package"
+          FontInfo="{assembly:Null}"
+          Size="168,40"
+          Id="278c9b7e-ee9c-4c55-94a4-936f4aaf7a33"
+          TopLeft="661,181" />
       </GraphLayout>
     </LayoutInfo>
   </Package>

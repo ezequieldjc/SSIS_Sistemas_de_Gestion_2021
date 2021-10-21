@@ -5,14 +5,14 @@
   DTS:CreationName="Microsoft.Package"
   DTS:CreatorComputerName="TBI-NBK-40"
   DTS:CreatorName="TECH-BI\edjemdjemian"
-  DTS:DTSID="{20F0F5F4-0F79-4FC1-80C5-514B79A21B1F}"
+  DTS:DTSID="{C5BFF9E6-EEEB-4D45-8AD1-01178A6C837C}"
   DTS:ExecutableType="Microsoft.Package"
   DTS:LastModifiedProductVersion="15.0.2000.170"
   DTS:LocaleID="1033"
-  DTS:ObjectName="Package1"
+  DTS:ObjectName="Carga_Dim_Regions"
   DTS:PackageType="5"
-  DTS:VersionBuild="14"
-  DTS:VersionGUID="{9AEEF023-5E49-412A-8ADB-3167E1863287}">
+  DTS:VersionBuild="15"
+  DTS:VersionGUID="{AE7ED58B-83E5-4081-A50F-D2183BD523CB}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -1709,6 +1709,10 @@
           Id="Package\CARGA STG REGIONS"
           TopLeft="425.833321710428,187.48889032152" />
         <NodeLayout
+          Size="160,42"
+          Id="Package\OBTIENE RUTA"
+          TopLeft="205.499988377095,11.48889032152" />
+        <NodeLayout
           Size="219,42"
           Id="Package\TRUNCATE ODS REGIONS"
           TopLeft="171.499988377095,99.0666672314538" />
@@ -1816,10 +1820,6 @@
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="160,42"
-          Id="Package\OBTIENE RUTA"
-          TopLeft="205.499988377095,11.48889032152" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 4]"
           TopLeft="283.249988377095,53.48889032152">
