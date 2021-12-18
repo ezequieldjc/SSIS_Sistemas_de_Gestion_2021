@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="Carga_Fact_Stock"
   DTS:PackageType="5"
-  DTS:VersionBuild="42"
-  DTS:VersionGUID="{A2F909CB-9792-4D64-8098-5D15FC786C06}">
+  DTS:VersionBuild="43"
+  DTS:VersionGUID="{7B446BD4-09BB-4953-A787-67C89C075052}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -106,6 +106,7 @@
       DTS:refId="Package\CARGA FACT_STOCK"
       DTS:CreationName="Microsoft.Pipeline"
       DTS:Description="Data Flow Task"
+      DTS:Disabled="True"
       DTS:DTSID="{3782a4dc-7f03-4c64-a050-e11147ce7699}"
       DTS:ExecutableType="Microsoft.Pipeline"
       DTS:LocaleID="-1"
@@ -416,6 +417,7 @@
       DTS:refId="Package\CARGA ODS STOCK"
       DTS:CreationName="Microsoft.Pipeline"
       DTS:Description="Data Flow Task"
+      DTS:Disabled="True"
       DTS:DTSID="{AAFE946D-9A9F-4B4D-8A1F-20138D5BF84F}"
       DTS:ExecutableType="Microsoft.Pipeline"
       DTS:LocaleID="-1"
@@ -731,6 +733,7 @@
       DTS:refId="Package\CARGA STG STG_FACT_STOCK"
       DTS:CreationName="Microsoft.Pipeline"
       DTS:Description="Data Flow Task"
+      DTS:Disabled="True"
       DTS:DTSID="{fc87e11b-bdfe-4b83-9549-1935c4686ab8}"
       DTS:ExecutableType="Microsoft.Pipeline"
       DTS:LocaleID="-1"
@@ -1041,6 +1044,7 @@
       DTS:refId="Package\OBTIENE RUTA"
       DTS:CreationName="Microsoft.ExecuteSQLTask"
       DTS:Description="Execute SQL Task"
+      DTS:Disabled="True"
       DTS:DTSID="{2707abce-0148-4aec-b211-85a6a353b4f8}"
       DTS:ExecutableType="Microsoft.ExecuteSQLTask"
       DTS:LocaleID="-1"
@@ -1063,6 +1067,7 @@
       DTS:refId="Package\TRUNCATE TABLE FACT_STOCK"
       DTS:CreationName="Microsoft.ExecuteSQLTask"
       DTS:Description="Execute SQL Task"
+      DTS:Disabled="True"
       DTS:DTSID="{079a7220-fa8d-469c-ae4d-a22ac2bd8d19}"
       DTS:ExecutableType="Microsoft.ExecuteSQLTask"
       DTS:LocaleID="-1"
@@ -1080,6 +1085,7 @@
       DTS:refId="Package\TRUNCATE TABLE ODS STOCK"
       DTS:CreationName="Microsoft.ExecuteSQLTask"
       DTS:Description="Execute SQL Task"
+      DTS:Disabled="True"
       DTS:DTSID="{6BBF8372-9442-441F-9C82-6996E3DCFCB0}"
       DTS:ExecutableType="Microsoft.ExecuteSQLTask"
       DTS:LocaleID="-1"
@@ -1097,6 +1103,7 @@
       DTS:refId="Package\TRUNCATE TABLE STG STG_FACT_STOCK"
       DTS:CreationName="Microsoft.ExecuteSQLTask"
       DTS:Description="Execute SQL Task"
+      DTS:Disabled="True"
       DTS:DTSID="{1e0b4e48-f3db-4500-86dc-24cd1f0ea266}"
       DTS:ExecutableType="Microsoft.ExecuteSQLTask"
       DTS:LocaleID="-1"

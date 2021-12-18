@@ -1,4 +1,4 @@
-﻿<?xml version="1.0"?>
+<?xml version="1.0"?>
 <DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
   DTS:refId="Package"
   DTS:CreationDate="9/23/2021 11:17:30 PM"
@@ -12,7 +12,7 @@
   DTS:ObjectName="Carga_Dim_Regions"
   DTS:PackageType="5"
   DTS:VersionBuild="15"
-  DTS:VersionGUID="{AE7ED58B-83E5-4081-A50F-D2183BD523CB}">
+  DTS:VersionGUID="{F54033C6-E203-407D-8999-376FE456C9CB}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0"?>
+<?xml version="1.0"?>
 <DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
   DTS:refId="Package"
   DTS:CreationDate="9/23/2021 10:14:16 PM"
@@ -6,14 +6,13 @@
   DTS:CreatorComputerName="TBI-NBK-40"
   DTS:CreatorName="TECH-BI\edjemdjemian"
   DTS:DTSID="{209BDD57-4CC9-4A31-B353-F8D93545BBAA}"
-  DTS:EnableConfig="True"
   DTS:ExecutableType="Microsoft.Package"
   DTS:LastModifiedProductVersion="15.0.2000.170"
   DTS:LocaleID="1033"
   DTS:ObjectName="Carga_Dim_Productos"
   DTS:PackageType="5"
   DTS:VersionBuild="28"
-  DTS:VersionGUID="{797FD35A-2929-4810-A86F-12E0AE1559E7}">
+  DTS:VersionGUID="{07D20AC6-1290-4442-A838-2407E6140088}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -90,14 +89,6 @@
       </DTS:ObjectData>
     </DTS:ConnectionManager>
   </DTS:ConnectionManagers>
-  <DTS:Configurations>
-    <DTS:Configuration
-      DTS:ConfigurationString="C:\Users\genti\source\repos\SSIS_Sistemas_de_Gestion_2021\SDG\SdGPackageConfiguration.dtsConfig"
-      DTS:ConfigurationType="1"
-      DTS:CreationName=""
-      DTS:DTSID="{3E8E8ABF-D0E1-464E-A7A9-E155BCBDEE38}"
-      DTS:ObjectName="Configuration 1" />
-  </DTS:Configurations>
   <DTS:Variables>
     <DTS:Variable
       DTS:CreationName=""
