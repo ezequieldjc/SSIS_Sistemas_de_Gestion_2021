@@ -11,8 +11,8 @@
   DTS:LocaleID="11274"
   DTS:ObjectName="Package1"
   DTS:PackageType="5"
-  DTS:VersionBuild="3"
-  DTS:VersionGUID="{C7D23A19-07E5-4FCA-A827-37D86D4DB19B}">
+  DTS:VersionBuild="4"
+  DTS:VersionGUID="{300CDEB7-93C6-476E-929A-0ED7C7DA7585}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -31,7 +31,7 @@
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
           SQLTask:Connection="{F16069F5-75BA-47A0-9669-81E799955D28}"
-          SQLTask:SqlStatementSource="declare @FechaDesde date;&#xA;declare @FechaHasta date; &#xA; SET @FechaDesde = getdate()-30;  &#xA; SET @FechaHasta = getdate(); &#xA;&#xA;&#xA;&#x9;&#x9;INSERT INTO DW_SDG.DW.[DW_Procesos](&#xA;&#x9;&#x9;&#x9;  [Modulo]&#xA;&#x9;&#x9;&#x9;, [Package]&#xA;&#x9;&#x9;&#x9;, [Fecha_Desde_Proceso]&#xA;&#x9;&#x9;&#x9;, [Fecha_Hasta_Proceso]&#xA;&#x9;&#x9;&#x9;, [Estado]&#xA;            )&#xA;            SELECT                  &#xA;&#x9;&#x9;&#x9;&#x9; 'FACT_SALES'&#x9;&#x9;&#x9;&#x9;&#x9;as Modulo &#xA;&#x9;&#x9;&#x9;&#x9;, 'CARGA FACT_SALES.DTSX'&#x9;&#x9;as Package&#xA;&#x9;&#x9;&#x9;&#x9;, DATEADD(DAY, -1, @FechaDesde)&#x9;as [Fecha_Desde_Proceso]&#xA;&#x9;&#x9;&#x9;&#x9;, @FechaHasta&#x9;&#x9;&#x9;&#x9;&#x9;as [Fecha_Hasta_Proceso]&#xA;&#x9;&#x9;&#x9;&#x9;,0&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;as estado " xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          SQLTask:SqlStatementSource="declare @FechaDesde date;&#xA;declare @FechaHasta date; &#xA; SET @FechaDesde = '2009-01-01';  &#xA; SET @FechaHasta = '2010-01-01';&#xA;&#xA;&#xA;&#x9;&#x9;INSERT INTO DW_SDG.DW.[DW_Procesos](&#xA;&#x9;&#x9;&#x9;  [Modulo]&#xA;&#x9;&#x9;&#x9;, [Package]&#xA;&#x9;&#x9;&#x9;, [Fecha_Desde_Proceso]&#xA;&#x9;&#x9;&#x9;, [Fecha_Hasta_Proceso]&#xA;&#x9;&#x9;&#x9;, [Estado]&#xA;            )&#xA;            SELECT                  &#xA;&#x9;&#x9;&#x9;&#x9; 'FACT_SALES'&#x9;&#x9;&#x9;&#x9;&#x9;as Modulo &#xA;&#x9;&#x9;&#x9;&#x9;, 'CARGA FACT_SALES.DTSX'&#x9;&#x9;as Package&#xA;&#x9;&#x9;&#x9;&#x9;, DATEADD(DAY, -1, @FechaDesde)&#x9;as [Fecha_Desde_Proceso]&#xA;&#x9;&#x9;&#x9;&#x9;, @FechaHasta&#x9;&#x9;&#x9;&#x9;&#x9;as [Fecha_Hasta_Proceso]&#xA;&#x9;&#x9;&#x9;&#x9;,0&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;as estado " xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
   </DTS:Executables>

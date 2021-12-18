@@ -11,8 +11,8 @@
   DTS:LocaleID="11274"
   DTS:ObjectName="Package1"
   DTS:PackageType="5"
-  DTS:VersionBuild="63"
-  DTS:VersionGUID="{4B9110F5-EA87-424B-9065-B9F60B469F16}">
+  DTS:VersionBuild="66"
+  DTS:VersionGUID="{64023CD0-9335-4AEB-8E31-09F1957FF82E}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -27,7 +27,7 @@
           <DTS:Password
             DTS:Name="pwd"
             Sensitive="1"
-            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAbNxQJSGD+kqE+jDHfKCe2QAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAABI7TVdgPCsifIj504fyRTYKKS0AD/BpcWZ4aNA8MxGIAAAAAAOgAAAAAIAACAAAAC5JtVqXhJDNzBWKeinKc+ePrYITkjKp8wRGDvrDDZJaCAAAACOIfUlz+DIMkJUrUQH/LTxLarMcLDvPBjC4YUYYw7N5UAAAAAvlnkBdk7Sgrdk9UygU3NPR4hhg0Ex8Gn+7z13Jk5iwtrhPbySI36FpEd0sBaqZV0Tox377/8Z45iDYJo7yluf</DTS:Password>
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAbNxQJSGD+kqE+jDHfKCe2QAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAACZ0J/cFqAHBV5Snmf+xCuJnnIXKLvYg+ghvwiLSzQ0rQAAAAAOgAAAAAIAACAAAADJONvZy458GoRM1J3qKpZtOO1yc0Cm0tBj7J42rzYj6SAAAABz0IXHcgJsBY7dBVjMYwd4O9lqTzO4EIuO4y93d/xTKUAAAACzB8DCghS/VFe3ZKKJ/kFaxaZXVP6lf+HchYPO2sTeeKYOvNqDQTuSw/pgW2DUWTb+Edo2X0wLtWd7T6TLVRhm</DTS:Password>
         </DTS:ConnectionManager>
       </DTS:ObjectData>
     </DTS:ConnectionManager>
@@ -348,12 +348,6 @@
                           cachedName="DIM_PRODUCT_ID"
                           externalMetadataColumnId="Package\Foreach Loop Container\CARGA FACT_SALES\FACT_SALES.Inputs[Entrada de destino de OLE DB].ExternalColumns[DIM_PRODUCT_ID]"
                           lineageId="Package\Foreach Loop Container\CARGA FACT_SALES\STG STG_FACT_SALES.Outputs[Salida de origen de OLE DB].Columns[DIM_PRODUCT_ID]" />
-                        <inputColumn
-                          refId="Package\Foreach Loop Container\CARGA FACT_SALES\FACT_SALES.Inputs[Entrada de destino de OLE DB].Columns[DIM_REGION_ID]"
-                          cachedDataType="i4"
-                          cachedName="DIM_REGION_ID"
-                          externalMetadataColumnId="Package\Foreach Loop Container\CARGA FACT_SALES\FACT_SALES.Inputs[Entrada de destino de OLE DB].ExternalColumns[DIM_REGION_ID]"
-                          lineageId="Package\Foreach Loop Container\CARGA FACT_SALES\STG STG_FACT_SALES.Outputs[Salida de origen de OLE DB].Columns[DIM_REGION_ID]" />
                       </inputColumns>
                       <externalMetadataColumns
                         isUsed="True">
@@ -437,10 +431,6 @@
                           refId="Package\Foreach Loop Container\CARGA FACT_SALES\FACT_SALES.Inputs[Entrada de destino de OLE DB].ExternalColumns[DIM_PRODUCT_ID]"
                           dataType="i4"
                           name="DIM_PRODUCT_ID" />
-                        <externalMetadataColumn
-                          refId="Package\Foreach Loop Container\CARGA FACT_SALES\FACT_SALES.Inputs[Entrada de destino de OLE DB].ExternalColumns[DIM_REGION_ID]"
-                          dataType="i4"
-                          name="DIM_REGION_ID" />
                       </externalMetadataColumns>
                     </input>
                   </inputs>
@@ -510,8 +500,7 @@
       ,[PERCENTAGE_0]
 	  ,DIM_PRODUCT_ID
 	  ,DIM_CUSTOMER_ID
-	  ,DIM_EMPLOYEE_ID
-	  ,DIM_REGION_ID
+	  ,DIM_EMPLOYEE_ID 
 FROM VW_STG_FACT_SALES
 WHERE [DATE] BETWEEN ? AND ?</property>
                     <property
@@ -714,15 +703,6 @@ WHERE [DATE] BETWEEN ? AND ?</property>
                           lineageId="Package\Foreach Loop Container\CARGA FACT_SALES\STG STG_FACT_SALES.Outputs[Salida de origen de OLE DB].Columns[DATE_ID]"
                           name="DATE_ID"
                           truncationRowDisposition="FailComponent" />
-                        <outputColumn
-                          refId="Package\Foreach Loop Container\CARGA FACT_SALES\STG STG_FACT_SALES.Outputs[Salida de origen de OLE DB].Columns[DIM_REGION_ID]"
-                          dataType="i4"
-                          errorOrTruncationOperation="Conversión"
-                          errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\Foreach Loop Container\CARGA FACT_SALES\STG STG_FACT_SALES.Outputs[Salida de origen de OLE DB].ExternalColumns[DIM_REGION_ID]"
-                          lineageId="Package\Foreach Loop Container\CARGA FACT_SALES\STG STG_FACT_SALES.Outputs[Salida de origen de OLE DB].Columns[DIM_REGION_ID]"
-                          name="DIM_REGION_ID"
-                          truncationRowDisposition="FailComponent" />
                       </outputColumns>
                       <externalMetadataColumns
                         isUsed="True">
@@ -806,10 +786,6 @@ WHERE [DATE] BETWEEN ? AND ?</property>
                           refId="Package\Foreach Loop Container\CARGA FACT_SALES\STG STG_FACT_SALES.Outputs[Salida de origen de OLE DB].ExternalColumns[DATE_ID]"
                           dataType="i4"
                           name="DATE_ID" />
-                        <externalMetadataColumn
-                          refId="Package\Foreach Loop Container\CARGA FACT_SALES\STG STG_FACT_SALES.Outputs[Salida de origen de OLE DB].ExternalColumns[DIM_REGION_ID]"
-                          dataType="i4"
-                          name="DIM_REGION_ID" />
                       </externalMetadataColumns>
                     </output>
                     <output
@@ -915,11 +891,6 @@ WHERE [DATE] BETWEEN ? AND ?</property>
                           lineageId="Package\Foreach Loop Container\CARGA FACT_SALES\STG STG_FACT_SALES.Outputs[Salida de error de origen de OLE DB].Columns[DIM_EMPLOYEE_ID]"
                           name="DIM_EMPLOYEE_ID" />
                         <outputColumn
-                          refId="Package\Foreach Loop Container\CARGA FACT_SALES\STG STG_FACT_SALES.Outputs[Salida de error de origen de OLE DB].Columns[DIM_REGION_ID]"
-                          dataType="i4"
-                          lineageId="Package\Foreach Loop Container\CARGA FACT_SALES\STG STG_FACT_SALES.Outputs[Salida de error de origen de OLE DB].Columns[DIM_REGION_ID]"
-                          name="DIM_REGION_ID" />
-                        <outputColumn
                           refId="Package\Foreach Loop Container\CARGA FACT_SALES\STG STG_FACT_SALES.Outputs[Salida de error de origen de OLE DB].Columns[ErrorCode]"
                           dataType="i4"
                           lineageId="Package\Foreach Loop Container\CARGA FACT_SALES\STG STG_FACT_SALES.Outputs[Salida de error de origen de OLE DB].Columns[ErrorCode]"
@@ -951,7 +922,6 @@ WHERE [DATE] BETWEEN ? AND ?</property>
           DTS:refId="Package\Foreach Loop Container\CARGA STG STG_FACT_SALES"
           DTS:CreationName="Microsoft.Pipeline"
           DTS:Description="Data Flow Task"
-          DTS:Disabled="True"
           DTS:DTSID="{4dc74066-1f25-4cf8-b495-c9b4a29628a8}"
           DTS:ExecutableType="Microsoft.Pipeline"
           DTS:LocaleID="-1"
@@ -1908,7 +1878,6 @@ GROUP BY
           DTS:refId="Package\Foreach Loop Container\TRUNCATE TABLE STG STG_FACT_SALES"
           DTS:CreationName="Microsoft.ExecuteSQLTask"
           DTS:Description="Execute SQL Task"
-          DTS:Disabled="True"
           DTS:DTSID="{6038b17d-68bd-42e8-a889-889d6505eaee}"
           DTS:ExecutableType="Microsoft.ExecuteSQLTask"
           DTS:LocaleID="-1"
@@ -2056,17 +2025,21 @@ GROUP BY
           Id="Package\Foreach Loop Container\CARGA STG STG_FACT_SALES"
           TopLeft="363.555555257531,213.055555555556" />
         <NodeLayout
+          Size="230,42"
+          Id="Package\Foreach Loop Container\DELETE FROM FACT_SALES"
+          TopLeft="202.611111111111,310.055555555555" />
+        <NodeLayout
           Size="133,42"
           Id="Package\Foreach Loop Container\ESTADO 1"
           TopLeft="253.555555555556,22.7777777777779" />
         <NodeLayout
+          Size="133,42"
+          Id="Package\Foreach Loop Container\ESTADO 2"
+          TopLeft="248.611111111111,541.211109444298" />
+        <NodeLayout
           Size="214,42"
           Id="Package\Foreach Loop Container\FECHAS DESDE Y HASTA"
           TopLeft="218.055555555556,109.766664999854" />
-        <NodeLayout
-          Size="230,42"
-          Id="Package\Foreach Loop Container\DELETE FROM FACT_SALES"
-          TopLeft="202.611111111111,310.055555555555" />
         <NodeLayout
           Size="304,42"
           Id="Package\Foreach Loop Container\TRUNCATE TABLE STG STG_FACT_SALES"
@@ -2231,10 +2204,6 @@ GROUP BY
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="133,42"
-          Id="Package\Foreach Loop Container\ESTADO 2"
-          TopLeft="248.611111111111,541.211109444298" />
         <EdgeLayout
           Id="Package\Foreach Loop Container.PrecedenceConstraints[Constraint 6]"
           TopLeft="316.47222207321,506.211109444298">
@@ -2451,9 +2420,9 @@ GROUP BY
           Text="Mejora a hacer: obtener solo los datos del rango a procesar"
           ParentId="Package\Foreach Loop Container\CARGA STG STG_FACT_SALES"
           FontInfo="{assembly:Null}"
-          Size="344,60"
+          Size="344,40"
           Id="96efbd42-9fd0-45c3-8cd3-6cbd68714457"
-          TopLeft="327,76" />
+          TopLeft="326,76" />
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
