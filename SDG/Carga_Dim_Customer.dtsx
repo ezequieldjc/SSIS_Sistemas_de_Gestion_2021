@@ -11,8 +11,8 @@
   DTS:LocaleID="11274"
   DTS:ObjectName="Package1"
   DTS:PackageType="5"
-  DTS:VersionBuild="28"
-  DTS:VersionGUID="{39A44EDE-E9A1-41D5-B1A7-8B96A9FAF1E2}">
+  DTS:VersionBuild="31"
+  DTS:VersionGUID="{2DE462F3-EEBF-4999-A368-2BD850258927}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables>
@@ -1574,6 +1574,7 @@ FROM (
     <DTS:Executable
       DTS:refId="Package\CARGA XMLs CUSTOMER"
       DTS:CreationName="Microsoft.Pipeline"
+      DTS:DelayValidation="True"
       DTS:Description="Data Flow Task"
       DTS:DTSID="{69354ee2-4eeb-40fe-89d3-58394f7e2b9e}"
       DTS:ExecutableType="Microsoft.Pipeline"
@@ -1945,15 +1946,15 @@ FROM (
                   dataType="System.String"
                   description="The XML data used by the XML source adapter."
                   expressionType="Notify"
-                  name="XMLData">C:\Users\genti\Documents\SISTEMAS\UTN\5 AÑO\Sistema de Gestión\TP DW\Datos\Customer_R.xml</property>
+                  name="XMLData"></property>
                 <property
                   dataType="System.String"
                   description="The variable used by the XML source adapter to specify XML data."
-                  name="XMLDataVariable"></property>
+                  name="XMLDataVariable">User::PARAMETER_RUTA_XML_R</property>
                 <property
                   dataType="System.Int32"
                   description="Defines how the XML source adapter gets XML data."
-                  name="AccessMode">0</property>
+                  name="AccessMode">1</property>
                 <property
                   dataType="System.String"
                   description="The XML schema definition used by the XML source adapter."
@@ -2213,15 +2214,15 @@ FROM (
                   dataType="System.String"
                   description="The XML data used by the XML source adapter."
                   expressionType="Notify"
-                  name="XMLData">C:\Users\genti\Documents\SISTEMAS\UTN\5 AÑO\Sistema de Gestión\TP DW\Datos\Customer_W.xml</property>
+                  name="XMLData"></property>
                 <property
                   dataType="System.String"
                   description="The variable used by the XML source adapter to specify XML data."
-                  name="XMLDataVariable"></property>
+                  name="XMLDataVariable">User::PARAMETER_RUTA_XML_W</property>
                 <property
                   dataType="System.Int32"
                   description="Defines how the XML source adapter gets XML data."
-                  name="AccessMode">0</property>
+                  name="AccessMode">1</property>
                 <property
                   dataType="System.String"
                   description="The XML schema definition used by the XML source adapter."
@@ -2485,7 +2486,6 @@ FROM (
       DTS:refId="Package\OBTIENE RUTA XML_R"
       DTS:CreationName="Microsoft.ExecuteSQLTask"
       DTS:Description="Execute SQL Task"
-      DTS:Disabled="True"
       DTS:DTSID="{df28c4f1-1dce-47b5-9275-9e1cdfd6b558}"
       DTS:ExecutableType="Microsoft.ExecuteSQLTask"
       DTS:LocaleID="-1"
@@ -2508,7 +2508,6 @@ FROM (
       DTS:refId="Package\OBTIENE RUTA XML_W"
       DTS:CreationName="Microsoft.ExecuteSQLTask"
       DTS:Description="Execute SQL Task"
-      DTS:Disabled="True"
       DTS:DTSID="{6e79111b-7b9b-4826-9e15-f44b93af084d}"
       DTS:ExecutableType="Microsoft.ExecuteSQLTask"
       DTS:LocaleID="-1"
@@ -2800,7 +2799,7 @@ FROM (
           Text="Deshabilitado búsqueda de rutas para XMLs"
           ParentId="Package"
           FontInfo="{assembly:Null}"
-          Size="262,60"
+          Size="262,40"
           Id="3e68a655-3054-4015-9d9d-8cfb066de432"
           TopLeft="91,56" />
       </GraphLayout>
@@ -2811,6 +2810,14 @@ FROM (
     <LayoutInfo>
       <GraphLayout
         Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="165,42"
+          Id="Package\CARGA DIM CUSTOMER\Insert Destination"
+          TopLeft="5.50000000000006,209.5" />
+        <NodeLayout
+          Size="185,42"
+          Id="Package\CARGA DIM CUSTOMER\Comando de OLE DB"
+          TopLeft="231.5,209.5" />
         <NodeLayout
           Size="220,42"
           Id="Package\CARGA DIM CUSTOMER\Dimensión de variación lenta"
@@ -2838,53 +2845,11 @@ FROM (
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="165,42"
-          Id="Package\CARGA DIM CUSTOMER\Insert Destination"
-          TopLeft="5.50000000000006,209.5" />
-        <EdgeLayout
-          Id="Package\CARGA DIM CUSTOMER.Paths[Nueva salida]"
-          TopLeft="288.666666666667,149.5">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="-200.666666666667,60"
-              Start="0,0"
-              End="-200.666666666667,52.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,20.2599277978339" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,20.2599277978339"
-                    Point2="0,24.2599277978339"
-                    Point3="-4,24.2599277978339" />
-                  <mssgle:LineSegment
-                    End="-196.666666666667,24.2599277978339" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-196.666666666667,24.2599277978339"
-                    Point2="-200.666666666667,24.2599277978339"
-                    Point3="-200.666666666667,28.2599277978339" />
-                  <mssgle:LineSegment
-                    End="-200.666666666667,52.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-128.621692708333,29.2599277978339,56.57671875,9.7490234375"
+              BoundingBox="0,0,0,0"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="185,42"
-          Id="Package\CARGA DIM CUSTOMER\Comando de OLE DB"
-          TopLeft="231.5,209.5" />
         <EdgeLayout
           Id="Package\CARGA DIM CUSTOMER.Paths[Salida de actualizaciones de atributos variables]"
           TopLeft="359.333333333333,149.5">
@@ -2918,6 +2883,42 @@ FROM (
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
               BoundingBox="-121.919908854167,29.2599277978339,208.506484375,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\CARGA DIM CUSTOMER.Paths[Nueva salida]"
+          TopLeft="288.666666666667,149.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-200.666666666667,60"
+              Start="0,0"
+              End="-200.666666666667,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.2599277978339" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,20.2599277978339"
+                    Point2="0,24.2599277978339"
+                    Point3="-4,24.2599277978339" />
+                  <mssgle:LineSegment
+                    End="-196.666666666667,24.2599277978339" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-196.666666666667,24.2599277978339"
+                    Point2="-200.666666666667,24.2599277978339"
+                    Point3="-200.666666666667,28.2599277978339" />
+                  <mssgle:LineSegment
+                    End="-200.666666666667,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-128.621692708333,29.2599277978339,56.57671875,9.7490234375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
@@ -3020,7 +3021,7 @@ FROM (
     design-time-name="Package\CARGA STG CUSTOMER">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="167,42"
           Id="Package\CARGA STG CUSTOMER\STG CUSTOMER"
@@ -3048,7 +3049,9 @@ FROM (
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
