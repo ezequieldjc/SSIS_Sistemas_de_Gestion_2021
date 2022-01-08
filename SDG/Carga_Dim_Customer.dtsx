@@ -11,8 +11,8 @@
   DTS:LocaleID="11274"
   DTS:ObjectName="Package1"
   DTS:PackageType="5"
-  DTS:VersionBuild="31"
-  DTS:VersionGUID="{2DE462F3-EEBF-4999-A368-2BD850258927}">
+  DTS:VersionBuild="32"
+  DTS:VersionGUID="{C5332D63-AAE9-4792-8837-ADAE77C4B3B5}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables>
@@ -2795,13 +2795,6 @@ FROM (
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <AnnotationLayout
-          Text="Deshabilitado búsqueda de rutas para XMLs"
-          ParentId="Package"
-          FontInfo="{assembly:Null}"
-          Size="262,40"
-          Id="3e68a655-3054-4015-9d9d-8cfb066de432"
-          TopLeft="91,56" />
       </GraphLayout>
     </LayoutInfo>
   </Package>
