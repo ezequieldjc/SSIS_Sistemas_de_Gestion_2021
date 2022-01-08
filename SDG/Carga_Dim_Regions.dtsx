@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
   DTS:refId="Package"
   DTS:CreationDate="9/23/2021 11:17:30 PM"
@@ -11,35 +11,11 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="Carga_Dim_Regions"
   DTS:PackageType="5"
-  DTS:VersionBuild="15"
-  DTS:VersionGUID="{F54033C6-E203-407D-8999-376FE456C9CB}">
+  DTS:VersionBuild="16"
+  DTS:VersionGUID="{576FC380-E388-4868-BA04-E988EA02CF7F}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
-    <DTS:ConnectionManager
-      DTS:refId="Package.ConnectionManagers[DW_SDG]"
-      DTS:CreationName="OLEDB"
-      DTS:DTSID="{A140B713-50F7-4644-9EA1-2DDD73AA99AD}"
-      DTS:ObjectName="DW_SDG">
-      <DTS:ObjectData>
-        <DTS:ConnectionManager
-          DTS:ConnectRetryCount="1"
-          DTS:ConnectRetryInterval="5"
-          DTS:ConnectionString="Data Source=DESKTOP-1HP4R3R\MSSQLSERVERDEV;Initial Catalog=DW_SDG;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
-      </DTS:ObjectData>
-    </DTS:ConnectionManager>
-    <DTS:ConnectionManager
-      DTS:refId="Package.ConnectionManagers[STG_SDG]"
-      DTS:CreationName="OLEDB"
-      DTS:DTSID="{5E25C5B1-B5D8-46E0-8332-56979FB0F2D5}"
-      DTS:ObjectName="STG_SDG">
-      <DTS:ObjectData>
-        <DTS:ConnectionManager
-          DTS:ConnectRetryCount="1"
-          DTS:ConnectRetryInterval="5"
-          DTS:ConnectionString="Data Source=DESKTOP-1HP4R3R\MSSQLSERVERDEV;Initial Catalog=STG_SDG;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
-      </DTS:ObjectData>
-    </DTS:ConnectionManager>
     <DTS:ConnectionManager
       DTS:refId="Package.ConnectionManagers[txt_Regions]"
       DTS:CreationName="FLATFILE"
@@ -152,8 +128,8 @@
               <connections>
                 <connection
                   refId="Package\CARGA DIM_REGIONS\Comando de OLE DB.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[DW_SDG]"
-                  connectionManagerRefId="Package.ConnectionManagers[DW_SDG]"
+                  connectionManagerID="{F16069F5-75BA-47A0-9669-81E799955D28}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DESKTOP-1HP4R3R_MSSQLSERVERDEV.DW_SDG]"
                   description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
                   name="OleDbConnection" />
               </connections>
@@ -337,8 +313,8 @@
               <connections>
                 <connection
                   refId="Package\CARGA DIM_REGIONS\Dimensión de variación lenta.Connections[LookupConnection]"
-                  connectionManagerID="Package.ConnectionManagers[DW_SDG]"
-                  connectionManagerRefId="Package.ConnectionManagers[DW_SDG]"
+                  connectionManagerID="{F16069F5-75BA-47A0-9669-81E799955D28}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DESKTOP-1HP4R3R_MSSQLSERVERDEV.DW_SDG]"
                   description="Define la conexión que se debe usar para búsquedas en la tabla de dimensiones"
                   name="LookupConnection" />
               </connections>
@@ -547,8 +523,8 @@
               <connections>
                 <connection
                   refId="Package\CARGA DIM_REGIONS\Insert Destination.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[DW_SDG]"
-                  connectionManagerRefId="Package.ConnectionManagers[DW_SDG]"
+                  connectionManagerID="{F16069F5-75BA-47A0-9669-81E799955D28}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DESKTOP-1HP4R3R_MSSQLSERVERDEV.DW_SDG]"
                   description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
                   name="OleDbConnection" />
               </connections>
@@ -702,8 +678,8 @@
               <connections>
                 <connection
                   refId="Package\CARGA DIM_REGIONS\STG REGIONS.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[STG_SDG]"
-                  connectionManagerRefId="Package.ConnectionManagers[STG_SDG]"
+                  connectionManagerID="{D407B61B-7BFE-4C4D-8149-DA3FEBD5F7E8}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DESKTOP-1HP4R3R_MSSQLSERVERDEV.STG_SDG]"
                   description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
                   name="OleDbConnection" />
               </connections>
@@ -1106,8 +1082,8 @@
               <connections>
                 <connection
                   refId="Package\CARGA ODS REGIONS\ODS REGIONS.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[STG_SDG]"
-                  connectionManagerRefId="Package.ConnectionManagers[STG_SDG]"
+                  connectionManagerID="{D407B61B-7BFE-4C4D-8149-DA3FEBD5F7E8}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DESKTOP-1HP4R3R_MSSQLSERVERDEV.STG_SDG]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -1282,8 +1258,8 @@
               <connections>
                 <connection
                   refId="Package\CARGA STG REGIONS\ODS REGIONS.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[STG_SDG]"
-                  connectionManagerRefId="Package.ConnectionManagers[STG_SDG]"
+                  connectionManagerID="{D407B61B-7BFE-4C4D-8149-DA3FEBD5F7E8}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DESKTOP-1HP4R3R_MSSQLSERVERDEV.STG_SDG]"
                   description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
                   name="OleDbConnection" />
               </connections>
@@ -1474,8 +1450,8 @@
               <connections>
                 <connection
                   refId="Package\CARGA STG REGIONS\STG REGIONS.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[STG_SDG]"
-                  connectionManagerRefId="Package.ConnectionManagers[STG_SDG]"
+                  connectionManagerID="{D407B61B-7BFE-4C4D-8149-DA3FEBD5F7E8}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DESKTOP-1HP4R3R_MSSQLSERVERDEV.STG_SDG]"
                   description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
                   name="OleDbConnection" />
               </connections>
@@ -1598,7 +1574,7 @@
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
-          SQLTask:Connection="{A140B713-50F7-4644-9EA1-2DDD73AA99AD}"
+          SQLTask:Connection="{F16069F5-75BA-47A0-9669-81E799955D28}"
           SQLTask:SqlStatementSource="SELECT PARAMETER_RUTA FROM DW.DW_PARAMETER WHERE PARAMETER_NAME='TXT_REGIONES'"
           SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
           <SQLTask:ResultBinding
@@ -1620,7 +1596,7 @@
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
-          SQLTask:Connection="{5E25C5B1-B5D8-46E0-8332-56979FB0F2D5}"
+          SQLTask:Connection="{D407B61B-7BFE-4C4D-8149-DA3FEBD5F7E8}"
           SQLTask:SqlStatementSource="TRUNCATE TABLE ODS.REGIONS" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
@@ -1637,7 +1613,7 @@
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
-          SQLTask:Connection="{5E25C5B1-B5D8-46E0-8332-56979FB0F2D5}"
+          SQLTask:Connection="{D407B61B-7BFE-4C4D-8149-DA3FEBD5F7E8}"
           SQLTask:SqlStatementSource="TRUNCATE TABLE STG.STG_REGIONS" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
@@ -1851,17 +1827,9 @@
       <GraphLayout
         Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="165,42"
-          Id="Package\CARGA DIM_REGIONS\Insert Destination"
-          TopLeft="5.50000000000006,209.5" />
-        <NodeLayout
           Size="220,42"
           Id="Package\CARGA DIM_REGIONS\Dimensión de variación lenta"
           TopLeft="214,107.5" />
-        <NodeLayout
-          Size="185,42"
-          Id="Package\CARGA DIM_REGIONS\Comando de OLE DB"
-          TopLeft="231.5,209.5" />
         <NodeLayout
           Size="155,42"
           Id="Package\CARGA DIM_REGIONS\STG REGIONS"
@@ -1885,47 +1853,13 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <EdgeLayout
-          Id="Package\CARGA DIM_REGIONS.Paths[Salida de actualizaciones de atributos variables]"
-          TopLeft="359.333333333333,149.5">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="-35.3333333333333,60"
-              Start="0,0"
-              End="-35.3333333333333,52.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,20.2599277978339" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,20.2599277978339"
-                    Point2="0,24.2599277978339"
-                    Point3="-4,24.2599277978339" />
-                  <mssgle:LineSegment
-                    End="-31.3333333333333,24.2599277978339" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-31.3333333333333,24.2599277978339"
-                    Point2="-35.3333333333333,24.2599277978339"
-                    Point3="-35.3333333333333,28.2599277978339" />
-                  <mssgle:LineSegment
-                    End="-35.3333333333333,52.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-121.919908854167,29.2599277978339,208.506484375,9.7490234375"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
+        <NodeLayout
+          Size="165,42"
+          Id="Package\CARGA DIM_REGIONS\Insert Destination"
+          TopLeft="5.50000000000006,209.5" />
         <EdgeLayout
           Id="Package\CARGA DIM_REGIONS.Paths[Nueva salida]"
           TopLeft="288.666666666667,149.5">
@@ -1962,6 +1896,46 @@
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
+        <NodeLayout
+          Size="185,42"
+          Id="Package\CARGA DIM_REGIONS\Comando de OLE DB"
+          TopLeft="231.5,209.5" />
+        <EdgeLayout
+          Id="Package\CARGA DIM_REGIONS.Paths[Salida de actualizaciones de atributos variables]"
+          TopLeft="359.333333333333,149.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-35.3333333333333,60"
+              Start="0,0"
+              End="-35.3333333333333,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.2599277978339" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,20.2599277978339"
+                    Point2="0,24.2599277978339"
+                    Point3="-4,24.2599277978339" />
+                  <mssgle:LineSegment
+                    End="-31.3333333333333,24.2599277978339" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-31.3333333333333,24.2599277978339"
+                    Point2="-35.3333333333333,24.2599277978339"
+                    Point3="-35.3333333333333,28.2599277978339" />
+                  <mssgle:LineSegment
+                    End="-35.3333333333333,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-121.919908854167,29.2599277978339,208.506484375,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
@@ -1973,7 +1947,7 @@
         <Value
           type="q2:string">&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;SCDWizardMetadata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;ConnectionID&gt;{A140B713-50F7-4644-9EA1-2DDD73AA99AD}&lt;/ConnectionID&gt;
+  &lt;ConnectionID&gt;{F16069F5-75BA-47A0-9669-81E799955D28}&lt;/ConnectionID&gt;
   &lt;TableName&gt;[DW].[DIM_REGION]&lt;/TableName&gt;
   &lt;InputToColumnsCollection&gt;
     &lt;InputColumnToDBColumn&gt;
@@ -2037,7 +2011,7 @@
     design-time-name="Package\CARGA ODS REGIONS">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="156,42"
           Id="Package\CARGA ODS REGIONS\ODS REGIONS"
@@ -2065,9 +2039,7 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -2090,7 +2062,7 @@
     design-time-name="Package\CARGA STG REGIONS">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="156,42"
           Id="Package\CARGA STG REGIONS\ODS REGIONS"
@@ -2118,9 +2090,7 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>

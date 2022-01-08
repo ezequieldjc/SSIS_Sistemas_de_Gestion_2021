@@ -11,8 +11,8 @@
   DTS:LocaleID="11274"
   DTS:ObjectName="Package1"
   DTS:PackageType="5"
-  DTS:VersionBuild="66"
-  DTS:VersionGUID="{64023CD0-9335-4AEB-8E31-09F1957FF82E}">
+  DTS:VersionBuild="68"
+  DTS:VersionGUID="{157DFE05-5AC1-434B-92EE-56F124FD70CD}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -27,32 +27,8 @@
           <DTS:Password
             DTS:Name="pwd"
             Sensitive="1"
-            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAbNxQJSGD+kqE+jDHfKCe2QAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAACZ0J/cFqAHBV5Snmf+xCuJnnIXKLvYg+ghvwiLSzQ0rQAAAAAOgAAAAAIAACAAAADJONvZy458GoRM1J3qKpZtOO1yc0Cm0tBj7J42rzYj6SAAAABz0IXHcgJsBY7dBVjMYwd4O9lqTzO4EIuO4y93d/xTKUAAAACzB8DCghS/VFe3ZKKJ/kFaxaZXVP6lf+HchYPO2sTeeKYOvNqDQTuSw/pgW2DUWTb+Edo2X0wLtWd7T6TLVRhm</DTS:Password>
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAbNxQJSGD+kqE+jDHfKCe2QAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAAC9BkgnI1bs1neeHYiSBKD1rYuhwArgyAIOGxlS2P5AnQAAAAAOgAAAAAIAACAAAABCgJCl955kyW0smujFkA/eRaPZUtgX/2Grm1gpH2s2fCAAAADbhNK30HVngo8/qT3leCdtRbEINYd244lpwPmGJHPsSUAAAABliHY0wnH807pYf3v5X5/EPydQbRRTV088SdVGDjGRer//1ZpmpeTV+5pe3QsfBudiqdBJIkgUE8JJaOBxX40y</DTS:Password>
         </DTS:ConnectionManager>
-      </DTS:ObjectData>
-    </DTS:ConnectionManager>
-    <DTS:ConnectionManager
-      DTS:refId="Package.ConnectionManagers[DESKTOP-1HP4R3R\MSSQLSERVERDEV.sales]"
-      DTS:CreationName="OLEDB"
-      DTS:DTSID="{925B9E3F-E6B0-46B8-BF1B-52D68B87367A}"
-      DTS:ObjectName="DESKTOP-1HP4R3R\MSSQLSERVERDEV.sales">
-      <DTS:ObjectData>
-        <DTS:ConnectionManager
-          DTS:ConnectRetryCount="1"
-          DTS:ConnectRetryInterval="5"
-          DTS:ConnectionString="Data Source=DESKTOP-1HP4R3R\MSSQLSERVERDEV;Initial Catalog=sales;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
-      </DTS:ObjectData>
-    </DTS:ConnectionManager>
-    <DTS:ConnectionManager
-      DTS:refId="Package.ConnectionManagers[DESKTOP-1HP4R3R\SQLEXPRESS2008.TDC history Sales]"
-      DTS:CreationName="OLEDB"
-      DTS:DTSID="{B8686FB0-253F-4BDE-933A-7079A3134D3A}"
-      DTS:ObjectName="DESKTOP-1HP4R3R\SQLEXPRESS2008.TDC history Sales">
-      <DTS:ObjectData>
-        <DTS:ConnectionManager
-          DTS:ConnectRetryCount="1"
-          DTS:ConnectRetryInterval="5"
-          DTS:ConnectionString="Data Source=DESKTOP-1HP4R3R\SQLEXPRESS2008;Initial Catalog=TDC history Sales;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
   </DTS:ConnectionManagers>
@@ -2232,21 +2208,21 @@ GROUP BY
           PanelSize="675,613"
           Size="675,656"
           Id="Package\Foreach Loop Container"
-          TopLeft="83.1111111111111,165.666666666667" />
+          TopLeft="89.7777777777777,144" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint]"
-          TopLeft="421.416666666667,105.888888888889">
+          TopLeft="424.75,105.888888888889">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,59.7777777777781"
+              EndConnector="0,38.1111111111114"
               Start="0,0"
-              End="0,52.2777777777781">
+              End="0,30.6111111111114">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,52.2777777777781" />
+                    End="0,30.6111111111114" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -2262,7 +2238,7 @@ GROUP BY
     design-time-name="Package\Foreach Loop Container\CARGA FACT_SALES">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="203,42"
           Id="Package\Foreach Loop Container\CARGA FACT_SALES\STG STG_FACT_SALES"
@@ -2290,7 +2266,9 @@ GROUP BY
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -2326,7 +2304,7 @@ GROUP BY
     design-time-name="Package\Foreach Loop Container\CARGA STG STG_FACT_SALES">
     <LayoutInfo>
       <GraphLayout
-        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="177,42"
           Id="Package\Foreach Loop Container\CARGA STG STG_FACT_SALES\Columna derivada 1"
@@ -2362,7 +2340,9 @@ GROUP BY
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -2384,7 +2364,9 @@ GROUP BY
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -2406,21 +2388,23 @@ GROUP BY
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <AnnotationLayout
           Text="https://www.mssqltips.com/sqlservertip/5570/export-mysql-data-to-excel-using-sql-server-integration-services/"
           ParentId="Package\Foreach Loop Container\CARGA STG STG_FACT_SALES"
           FontInfo="{assembly:Null}"
-          Size="621,40"
+          Size="621,NaN"
           Id="34b8e324-1411-4db4-9f87-25a457cb5bf0"
           TopLeft="50,11" />
         <AnnotationLayout
           Text="Mejora a hacer: obtener solo los datos del rango a procesar"
           ParentId="Package\Foreach Loop Container\CARGA STG STG_FACT_SALES"
           FontInfo="{assembly:Null}"
-          Size="344,40"
+          Size="344,NaN"
           Id="96efbd42-9fd0-45c3-8cd3-6cbd68714457"
           TopLeft="326,76" />
       </GraphLayout>
