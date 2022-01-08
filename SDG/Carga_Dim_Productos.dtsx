@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
   DTS:refId="Package"
   DTS:CreationDate="9/23/2021 10:14:16 PM"
@@ -11,23 +11,11 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="Carga_Dim_Productos"
   DTS:PackageType="5"
-  DTS:VersionBuild="28"
-  DTS:VersionGUID="{07D20AC6-1290-4442-A838-2407E6140088}">
+  DTS:VersionBuild="29"
+  DTS:VersionGUID="{533ACB36-9CD8-4A1B-8A44-79F6B895597C}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
-    <DTS:ConnectionManager
-      DTS:refId="Package.ConnectionManagers[DW_SDG]"
-      DTS:CreationName="OLEDB"
-      DTS:DTSID="{4DCC8D22-CC1B-4E7E-B81C-341ADE0FD4D5}"
-      DTS:ObjectName="DW_SDG">
-      <DTS:ObjectData>
-        <DTS:ConnectionManager
-          DTS:ConnectRetryCount="1"
-          DTS:ConnectRetryInterval="5"
-          DTS:ConnectionString="Data Source=DESKTOP-1HP4R3R\MSSQLSERVERDEV;Initial Catalog=DW_SDG;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
-      </DTS:ObjectData>
-    </DTS:ConnectionManager>
     <DTS:ConnectionManager
       DTS:refId="Package.ConnectionManagers[ProductosTxt]"
       DTS:CreationName="FLATFILE"
@@ -76,18 +64,6 @@
         </DTS:ConnectionManager>
       </DTS:ObjectData>
     </DTS:ConnectionManager>
-    <DTS:ConnectionManager
-      DTS:refId="Package.ConnectionManagers[STG_SDG]"
-      DTS:CreationName="OLEDB"
-      DTS:DTSID="{78BD0076-EA66-44BF-A72B-AFA6AE0F4B05}"
-      DTS:ObjectName="STG_SDG">
-      <DTS:ObjectData>
-        <DTS:ConnectionManager
-          DTS:ConnectRetryCount="1"
-          DTS:ConnectRetryInterval="5"
-          DTS:ConnectionString="Data Source=DESKTOP-1HP4R3R\MSSQLSERVERDEV;Initial Catalog=STG_SDG;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
-      </DTS:ObjectData>
-    </DTS:ConnectionManager>
   </DTS:ConnectionManagers>
   <DTS:Variables>
     <DTS:Variable
@@ -134,7 +110,7 @@
                   description="Comando SQL para ejecutar."
                   expressionType="Notify"
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">UPDATE [DW].[DIM_PRODUCT] SET [DETAIL] = ?,[LITROS] = ?,[PACKAGE] = ? WHERE [PRODUCT_ID] = ?</property>
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">UPDATE [DW].[DIM_PRODUCT] SET [DETAIL] = ?,[LITROS_PACKAGE] = ?,[PACKAGE] = ? WHERE [PRODUCT_ID] = ?</property>
                 <property
                   dataType="System.Int32"
                   description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
@@ -143,8 +119,8 @@
               <connections>
                 <connection
                   refId="Package\CARGA DIM PRODUCT\Comando de OLE DB.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[DW_SDG]"
-                  connectionManagerRefId="Package.ConnectionManagers[DW_SDG]"
+                  connectionManagerID="{F16069F5-75BA-47A0-9669-81E799955D28}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DESKTOP-1HP4R3R_MSSQLSERVERDEV.DW_SDG]"
                   description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
                   name="OleDbConnection" />
               </connections>
@@ -165,13 +141,13 @@
                       externalMetadataColumnId="Package\CARGA DIM PRODUCT\Comando de OLE DB.Inputs[Entrada de comando de OLE DB].ExternalColumns[Param_0]"
                       lineageId="Package\CARGA DIM PRODUCT\STG_PRODUCT.Outputs[Salida de origen de OLE DB].Columns[DETAIL]" />
                     <inputColumn
-                      refId="Package\CARGA DIM PRODUCT\Comando de OLE DB.Inputs[Entrada de comando de OLE DB].Columns[LITROS]"
+                      refId="Package\CARGA DIM PRODUCT\Comando de OLE DB.Inputs[Entrada de comando de OLE DB].Columns[LITROS_PACKAGE]"
                       cachedDataType="numeric"
-                      cachedName="LITROS"
+                      cachedName="LITROS_PACKAGE"
                       cachedPrecision="17"
                       cachedScale="2"
                       externalMetadataColumnId="Package\CARGA DIM PRODUCT\Comando de OLE DB.Inputs[Entrada de comando de OLE DB].ExternalColumns[Param_1]"
-                      lineageId="Package\CARGA DIM PRODUCT\STG_PRODUCT.Outputs[Salida de origen de OLE DB].Columns[LITROS]" />
+                      lineageId="Package\CARGA DIM PRODUCT\STG_PRODUCT.Outputs[Salida de origen de OLE DB].Columns[LITROS_PACKAGE]" />
                     <inputColumn
                       refId="Package\CARGA DIM PRODUCT\Comando de OLE DB.Inputs[Entrada de comando de OLE DB].Columns[PACKAGE]"
                       cachedCodepage="1252"
@@ -286,7 +262,7 @@
                   dataType="System.String"
                   description="Especifica la instrucción SELECT utilizada para crear un conjunto de filas de esquema."
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT [DETAIL], [LITROS], [PACKAGE], [PRODUCT_ID] FROM [DW].[DIM_PRODUCT]</property>
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT [DETAIL], [LITROS_PACKAGE], [PACKAGE], [PRODUCT_ID] FROM [DW].[DIM_PRODUCT]</property>
                 <property
                   dataType="System.String"
                   description="Especifica la cláusula WHERE de la instrucción SELECT que selecciona la fila actual de entre filas con claves empresariales idénticas."
@@ -324,8 +300,8 @@
               <connections>
                 <connection
                   refId="Package\CARGA DIM PRODUCT\Dimensión de variación lenta.Connections[LookupConnection]"
-                  connectionManagerID="Package.ConnectionManagers[DW_SDG]"
-                  connectionManagerRefId="Package.ConnectionManagers[DW_SDG]"
+                  connectionManagerID="{F16069F5-75BA-47A0-9669-81E799955D28}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DESKTOP-1HP4R3R_MSSQLSERVERDEV.DW_SDG]"
                   description="Define la conexión que se debe usar para búsquedas en la tabla de dimensiones"
                   name="LookupConnection" />
               </connections>
@@ -350,13 +326,13 @@
                       </properties>
                     </inputColumn>
                     <inputColumn
-                      refId="Package\CARGA DIM PRODUCT\Dimensión de variación lenta.Inputs[Entrada de dimensión de variación lenta].Columns[LITROS]"
+                      refId="Package\CARGA DIM PRODUCT\Dimensión de variación lenta.Inputs[Entrada de dimensión de variación lenta].Columns[LITROS_PACKAGE]"
                       cachedDataType="numeric"
-                      cachedName="LITROS"
+                      cachedName="LITROS_PACKAGE"
                       cachedPrecision="17"
                       cachedScale="2"
-                      externalMetadataColumnId="Package\CARGA DIM PRODUCT\Dimensión de variación lenta.Inputs[Entrada de dimensión de variación lenta].ExternalColumns[LITROS]"
-                      lineageId="Package\CARGA DIM PRODUCT\STG_PRODUCT.Outputs[Salida de origen de OLE DB].Columns[LITROS]">
+                      externalMetadataColumnId="Package\CARGA DIM PRODUCT\Dimensión de variación lenta.Inputs[Entrada de dimensión de variación lenta].ExternalColumns[LITROS_PACKAGE]"
+                      lineageId="Package\CARGA DIM PRODUCT\STG_PRODUCT.Outputs[Salida de origen de OLE DB].Columns[LITROS_PACKAGE]">
                       <properties>
                         <property
                           dataType="System.Int32"
@@ -402,9 +378,9 @@
                       length="255"
                       name="DETAIL" />
                     <externalMetadataColumn
-                      refId="Package\CARGA DIM PRODUCT\Dimensión de variación lenta.Inputs[Entrada de dimensión de variación lenta].ExternalColumns[LITROS]"
+                      refId="Package\CARGA DIM PRODUCT\Dimensión de variación lenta.Inputs[Entrada de dimensión de variación lenta].ExternalColumns[LITROS_PACKAGE]"
                       dataType="numeric"
-                      name="LITROS"
+                      name="LITROS_PACKAGE"
                       precision="17"
                       scale="2" />
                     <externalMetadataColumn
@@ -530,8 +506,8 @@
               <connections>
                 <connection
                   refId="Package\CARGA DIM PRODUCT\Insert Destination.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[DW_SDG]"
-                  connectionManagerRefId="Package.ConnectionManagers[DW_SDG]"
+                  connectionManagerID="{F16069F5-75BA-47A0-9669-81E799955D28}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DESKTOP-1HP4R3R_MSSQLSERVERDEV.DW_SDG]"
                   description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
                   name="OleDbConnection" />
               </connections>
@@ -566,13 +542,13 @@
                       externalMetadataColumnId="Package\CARGA DIM PRODUCT\Insert Destination.Inputs[Entrada de destino de OLE DB].ExternalColumns[PACKAGE]"
                       lineageId="Package\CARGA DIM PRODUCT\STG_PRODUCT.Outputs[Salida de origen de OLE DB].Columns[PACKAGE]" />
                     <inputColumn
-                      refId="Package\CARGA DIM PRODUCT\Insert Destination.Inputs[Entrada de destino de OLE DB].Columns[LITROS]"
+                      refId="Package\CARGA DIM PRODUCT\Insert Destination.Inputs[Entrada de destino de OLE DB].Columns[LITROS_PACKAGE]"
                       cachedDataType="numeric"
-                      cachedName="LITROS"
+                      cachedName="LITROS_PACKAGE"
                       cachedPrecision="17"
                       cachedScale="2"
-                      externalMetadataColumnId="Package\CARGA DIM PRODUCT\Insert Destination.Inputs[Entrada de destino de OLE DB].ExternalColumns[LITROS]"
-                      lineageId="Package\CARGA DIM PRODUCT\STG_PRODUCT.Outputs[Salida de origen de OLE DB].Columns[LITROS]" />
+                      externalMetadataColumnId="Package\CARGA DIM PRODUCT\Insert Destination.Inputs[Entrada de destino de OLE DB].ExternalColumns[LITROS_PACKAGE]"
+                      lineageId="Package\CARGA DIM PRODUCT\STG_PRODUCT.Outputs[Salida de origen de OLE DB].Columns[LITROS_PACKAGE]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -597,9 +573,9 @@
                       length="255"
                       name="PACKAGE" />
                     <externalMetadataColumn
-                      refId="Package\CARGA DIM PRODUCT\Insert Destination.Inputs[Entrada de destino de OLE DB].ExternalColumns[LITROS]"
+                      refId="Package\CARGA DIM PRODUCT\Insert Destination.Inputs[Entrada de destino de OLE DB].ExternalColumns[LITROS_PACKAGE]"
                       dataType="numeric"
-                      name="LITROS"
+                      name="LITROS_PACKAGE"
                       precision="17"
                       scale="2" />
                   </externalMetadataColumns>
@@ -681,8 +657,8 @@
               <connections>
                 <connection
                   refId="Package\CARGA DIM PRODUCT\STG_PRODUCT.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[STG_SDG]"
-                  connectionManagerRefId="Package.ConnectionManagers[STG_SDG]"
+                  connectionManagerID="{D407B61B-7BFE-4C4D-8149-DA3FEBD5F7E8}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DESKTOP-1HP4R3R_MSSQLSERVERDEV.STG_SDG]"
                   description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
                   name="OleDbConnection" />
               </connections>
@@ -723,13 +699,13 @@
                       name="PACKAGE"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\CARGA DIM PRODUCT\STG_PRODUCT.Outputs[Salida de origen de OLE DB].Columns[LITROS]"
+                      refId="Package\CARGA DIM PRODUCT\STG_PRODUCT.Outputs[Salida de origen de OLE DB].Columns[LITROS_PACKAGE]"
                       dataType="numeric"
                       errorOrTruncationOperation="Conversión"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\CARGA DIM PRODUCT\STG_PRODUCT.Outputs[Salida de origen de OLE DB].ExternalColumns[LITROS]"
-                      lineageId="Package\CARGA DIM PRODUCT\STG_PRODUCT.Outputs[Salida de origen de OLE DB].Columns[LITROS]"
-                      name="LITROS"
+                      externalMetadataColumnId="Package\CARGA DIM PRODUCT\STG_PRODUCT.Outputs[Salida de origen de OLE DB].ExternalColumns[LITROS_PACKAGE]"
+                      lineageId="Package\CARGA DIM PRODUCT\STG_PRODUCT.Outputs[Salida de origen de OLE DB].Columns[LITROS_PACKAGE]"
+                      name="LITROS_PACKAGE"
                       precision="17"
                       scale="2"
                       truncationRowDisposition="FailComponent" />
@@ -753,9 +729,9 @@
                       length="255"
                       name="PACKAGE" />
                     <externalMetadataColumn
-                      refId="Package\CARGA DIM PRODUCT\STG_PRODUCT.Outputs[Salida de origen de OLE DB].ExternalColumns[LITROS]"
+                      refId="Package\CARGA DIM PRODUCT\STG_PRODUCT.Outputs[Salida de origen de OLE DB].ExternalColumns[LITROS_PACKAGE]"
                       dataType="numeric"
-                      name="LITROS"
+                      name="LITROS_PACKAGE"
                       precision="17"
                       scale="2" />
                   </externalMetadataColumns>
@@ -785,10 +761,10 @@
                       lineageId="Package\CARGA DIM PRODUCT\STG_PRODUCT.Outputs[Salida de error de origen de OLE DB].Columns[PACKAGE]"
                       name="PACKAGE" />
                     <outputColumn
-                      refId="Package\CARGA DIM PRODUCT\STG_PRODUCT.Outputs[Salida de error de origen de OLE DB].Columns[LITROS]"
+                      refId="Package\CARGA DIM PRODUCT\STG_PRODUCT.Outputs[Salida de error de origen de OLE DB].Columns[LITROS_PACKAGE]"
                       dataType="numeric"
-                      lineageId="Package\CARGA DIM PRODUCT\STG_PRODUCT.Outputs[Salida de error de origen de OLE DB].Columns[LITROS]"
-                      name="LITROS"
+                      lineageId="Package\CARGA DIM PRODUCT\STG_PRODUCT.Outputs[Salida de error de origen de OLE DB].Columns[LITROS_PACKAGE]"
+                      name="LITROS_PACKAGE"
                       precision="17"
                       scale="2" />
                     <outputColumn
@@ -899,8 +875,8 @@
               <connections>
                 <connection
                   refId="Package\CARGA STG PRODUCT\ODS PRODUCT.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[STG_SDG]"
-                  connectionManagerRefId="Package.ConnectionManagers[STG_SDG]"
+                  connectionManagerID="{D407B61B-7BFE-4C4D-8149-DA3FEBD5F7E8}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DESKTOP-1HP4R3R_MSSQLSERVERDEV.STG_SDG]"
                   description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
                   name="OleDbConnection" />
               </connections>
@@ -1085,8 +1061,8 @@
               <connections>
                 <connection
                   refId="Package\CARGA STG PRODUCT\STG_PRODUCT.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[STG_SDG]"
-                  connectionManagerRefId="Package.ConnectionManagers[STG_SDG]"
+                  connectionManagerID="{D407B61B-7BFE-4C4D-8149-DA3FEBD5F7E8}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DESKTOP-1HP4R3R_MSSQLSERVERDEV.STG_SDG]"
                   description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
                   name="OleDbConnection" />
               </connections>
@@ -1265,8 +1241,8 @@
               <connections>
                 <connection
                   refId="Package\CARGA TXT PRODUCTS\ODS_PRODUCT.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[STG_SDG]"
-                  connectionManagerRefId="Package.ConnectionManagers[STG_SDG]"
+                  connectionManagerID="{D407B61B-7BFE-4C4D-8149-DA3FEBD5F7E8}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DESKTOP-1HP4R3R_MSSQLSERVERDEV.STG_SDG]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -1522,7 +1498,7 @@
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
-          SQLTask:Connection="{4DCC8D22-CC1B-4E7E-B81C-341ADE0FD4D5}"
+          SQLTask:Connection="{F16069F5-75BA-47A0-9669-81E799955D28}"
           SQLTask:SqlStatementSource="SELECT PARAMETER_RUTA FROM DW.DW_PARAMETER WHERE PARAMETER_NAME='TXT_PRODUCTOS'"
           SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
           <SQLTask:ResultBinding
@@ -1544,7 +1520,7 @@
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
-          SQLTask:Connection="{78BD0076-EA66-44BF-A72B-AFA6AE0F4B05}"
+          SQLTask:Connection="{D407B61B-7BFE-4C4D-8149-DA3FEBD5F7E8}"
           SQLTask:SqlStatementSource="TRUNCATE TABLE [ODS].[PRODUCTS]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
@@ -1561,7 +1537,7 @@
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
-          SQLTask:Connection="{78BD0076-EA66-44BF-A72B-AFA6AE0F4B05}"
+          SQLTask:Connection="{D407B61B-7BFE-4C4D-8149-DA3FEBD5F7E8}"
           SQLTask:SqlStatementSource="TRUNCATE TABLE [STG].[STG_PRODUCT]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
@@ -1775,13 +1751,13 @@
       <GraphLayout
         Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="162,42"
-          Id="Package\CARGA DIM PRODUCT\STG_PRODUCT"
-          TopLeft="243,5.5" />
-        <NodeLayout
           Size="220,42"
           Id="Package\CARGA DIM PRODUCT\Dimensión de variación lenta"
           TopLeft="214,107.5" />
+        <NodeLayout
+          Size="162,42"
+          Id="Package\CARGA DIM PRODUCT\STG_PRODUCT"
+          TopLeft="243,5.5" />
         <EdgeLayout
           Id="Package\CARGA DIM PRODUCT.Paths[Salida de origen de OLE DB]"
           TopLeft="324,47.5">
@@ -1895,7 +1871,7 @@
         <Value
           type="q2:string">&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;SCDWizardMetadata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;ConnectionID&gt;{4DCC8D22-CC1B-4E7E-B81C-341ADE0FD4D5}&lt;/ConnectionID&gt;
+  &lt;ConnectionID&gt;{F16069F5-75BA-47A0-9669-81E799955D28}&lt;/ConnectionID&gt;
   &lt;TableName&gt;[DW].[DIM_PRODUCT]&lt;/TableName&gt;
   &lt;InputToColumnsCollection&gt;
     &lt;InputColumnToDBColumn&gt;
@@ -1905,8 +1881,8 @@
       &lt;ChangeType&gt;ChangingAttribute&lt;/ChangeType&gt;
     &lt;/InputColumnToDBColumn&gt;
     &lt;InputColumnToDBColumn&gt;
-      &lt;IdentificationString&gt;STG_PRODUCT.Salidas[Salida de origen de OLE DB].Columnas[LITROS]&lt;/IdentificationString&gt;
-      &lt;ColumnName&gt;LITROS&lt;/ColumnName&gt;
+      &lt;IdentificationString&gt;STG_PRODUCT.Salidas[Salida de origen de OLE DB].Columnas[LITROS_PACKAGE]&lt;/IdentificationString&gt;
+      &lt;ColumnName&gt;LITROS_PACKAGE&lt;/ColumnName&gt;
       &lt;KeyType&gt;None&lt;/KeyType&gt;
       &lt;ChangeType&gt;ChangingAttribute&lt;/ChangeType&gt;
     &lt;/InputColumnToDBColumn&gt;

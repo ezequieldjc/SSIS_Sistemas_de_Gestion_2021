@@ -11,23 +11,11 @@
   DTS:LocaleID="11274"
   DTS:ObjectName="Carga_Dim_Tiempo_Holidays"
   DTS:PackageType="5"
-  DTS:VersionBuild="11"
-  DTS:VersionGUID="{7FB11A32-4FE3-4217-A1D3-7307A453E00B}">
+  DTS:VersionBuild="14"
+  DTS:VersionGUID="{034C7A8A-40C7-425A-9D1A-876B53D3E534}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
-    <DTS:ConnectionManager
-      DTS:refId="Package.ConnectionManagers[DW_SDG]"
-      DTS:CreationName="OLEDB"
-      DTS:DTSID="{5D1AA6B2-559C-4B0F-8217-83C457EE03FB}"
-      DTS:ObjectName="DW_SDG">
-      <DTS:ObjectData>
-        <DTS:ConnectionManager
-          DTS:ConnectRetryCount="1"
-          DTS:ConnectRetryInterval="5"
-          DTS:ConnectionString="Data Source=DESKTOP-1HP4R3R\MSSQLSERVERDEV;Initial Catalog=DW_SDG;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
-      </DTS:ObjectData>
-    </DTS:ConnectionManager>
     <DTS:ConnectionManager
       DTS:refId="Package.ConnectionManagers[Excel Connection Manager]"
       DTS:CreationName="EXCEL"
@@ -38,18 +26,6 @@
           DTS:ConnectRetryCount="0"
           DTS:ConnectRetryInterval="0"
           DTS:ConnectionString="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Users\genti\Documents\SISTEMAS\UTN\5 AÑO\Sistema de Gestión\TP DW\Datos\Holidays.xls;Extended Properties=&quot;EXCEL 8.0;HDR=YES&quot;;" />
-      </DTS:ObjectData>
-    </DTS:ConnectionManager>
-    <DTS:ConnectionManager
-      DTS:refId="Package.ConnectionManagers[STG_SDG]"
-      DTS:CreationName="OLEDB"
-      DTS:DTSID="{9B28D502-C252-4706-BB1A-A8F458532866}"
-      DTS:ObjectName="STG_SDG">
-      <DTS:ObjectData>
-        <DTS:ConnectionManager
-          DTS:ConnectRetryCount="1"
-          DTS:ConnectRetryInterval="5"
-          DTS:ConnectionString="Data Source=DESKTOP-1HP4R3R\MSSQLSERVERDEV;Initial Catalog=STG_SDG;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
   </DTS:ConnectionManagers>
@@ -68,7 +44,7 @@
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
-          SQLTask:Connection="{5D1AA6B2-559C-4B0F-8217-83C457EE03FB}"
+          SQLTask:Connection="{F16069F5-75BA-47A0-9669-81E799955D28}"
           SQLTask:SqlStatementSource="UPDATE T&#xA;SET HOLIDAY_FLAG=1&#xA;, HOLIDAY_DESCRIPTION = STG.HOLIDAY_DESCRIPTION &#xA;FROM  DW_SDG.DW.DIM_TIME AS T&#xA;INNER JOIN  STG_SDG.STG.STG_HOLIDAYS AS STG ON STG.[HOLIDAY_DATE]=T.[TIME_DATE]&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
@@ -145,8 +121,8 @@
               <connections>
                 <connection
                   refId="Package\CARGA HOLIDAYS EXCEL\ODS HOLIDAYS.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[STG_SDG]"
-                  connectionManagerRefId="Package.ConnectionManagers[STG_SDG]"
+                  connectionManagerID="{D407B61B-7BFE-4C4D-8149-DA3FEBD5F7E8}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DESKTOP-1HP4R3R_MSSQLSERVERDEV.STG_SDG]"
                   description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
                   name="OleDbConnection" />
               </connections>
@@ -409,8 +385,8 @@ FROM STG_SDG.ODS.HOLIDAYS</property>
               <connections>
                 <connection
                   refId="Package\CARGA STG HOLIDAYS\ODS HOLIDAYS.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[STG_SDG]"
-                  connectionManagerRefId="Package.ConnectionManagers[STG_SDG]"
+                  connectionManagerID="{D407B61B-7BFE-4C4D-8149-DA3FEBD5F7E8}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DESKTOP-1HP4R3R_MSSQLSERVERDEV.STG_SDG]"
                   description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
                   name="OleDbConnection" />
               </connections>
@@ -547,8 +523,8 @@ FROM STG_SDG.ODS.HOLIDAYS</property>
               <connections>
                 <connection
                   refId="Package\CARGA STG HOLIDAYS\STG HOLIDAYS.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[STG_SDG]"
-                  connectionManagerRefId="Package.ConnectionManagers[STG_SDG]"
+                  connectionManagerID="{D407B61B-7BFE-4C4D-8149-DA3FEBD5F7E8}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DESKTOP-1HP4R3R_MSSQLSERVERDEV.STG_SDG]"
                   description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
                   name="OleDbConnection" />
               </connections>
@@ -640,7 +616,7 @@ FROM STG_SDG.ODS.HOLIDAYS</property>
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
-          SQLTask:Connection="{FB1BF3B8-3FBC-48A0-9F38-0E618DC4FEA4}"
+          SQLTask:Connection="{F16069F5-75BA-47A0-9669-81E799955D28}"
           SQLTask:SqlStatementSource="SELECT PARAMETER_RUTA FROM DW.DW_PARAMETER WHERE PARAMETER_NAME='XLSX_EMPLOYEE'"
           SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
           <SQLTask:ResultBinding
@@ -662,7 +638,7 @@ FROM STG_SDG.ODS.HOLIDAYS</property>
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
-          SQLTask:Connection="{9B28D502-C252-4706-BB1A-A8F458532866}"
+          SQLTask:Connection="{D407B61B-7BFE-4C4D-8149-DA3FEBD5F7E8}"
           SQLTask:SqlStatementSource="TRUNCATE TABLE  ODS.HOLIDAYS" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
@@ -679,7 +655,7 @@ FROM STG_SDG.ODS.HOLIDAYS</property>
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
-          SQLTask:Connection="{9B28D502-C252-4706-BB1A-A8F458532866}"
+          SQLTask:Connection="{D407B61B-7BFE-4C4D-8149-DA3FEBD5F7E8}"
           SQLTask:SqlStatementSource="TRUNCATE TABLE  STG_SDG.STG.STG_HOLIDAYS" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
@@ -761,7 +737,7 @@ FROM STG_SDG.ODS.HOLIDAYS</property>
         <NodeLayout
           Size="223,42"
           Id="Package\TRUNCATE STG HOLIDAYS"
-          TopLeft="60,214.666666666666" />
+          TopLeft="61,214.666666666666" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint]"
           TopLeft="288.277777777778,163.677777447171">
@@ -790,9 +766,9 @@ FROM STG_SDG.ODS.HOLIDAYS</property>
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-300.5,29.222222222222"
+              EndConnector="-299.5,29.222222222222"
               Start="0,0"
-              End="-300.5,21.722222222222">
+              End="-299.5,21.722222222222">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
@@ -803,13 +779,13 @@ FROM STG_SDG.ODS.HOLIDAYS</property>
                     Point2="0,14.611111111111"
                     Point3="-4,14.611111111111" />
                   <mssgle:LineSegment
-                    End="-296.5,14.611111111111" />
+                    End="-295.5,14.611111111111" />
                   <mssgle:CubicBezierSegment
-                    Point1="-296.5,14.611111111111"
-                    Point2="-300.5,14.611111111111"
-                    Point3="-300.5,18.611111111111" />
+                    Point1="-295.5,14.611111111111"
+                    Point2="-299.5,14.611111111111"
+                    Point3="-299.5,18.611111111111" />
                   <mssgle:LineSegment
-                    End="-300.5,21.722222222222" />
+                    End="-299.5,21.722222222222" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -842,18 +818,18 @@ FROM STG_SDG.ODS.HOLIDAYS</property>
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 3]"
-          TopLeft="283,237.333333333333">
+          TopLeft="284,237.333333333333">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="80.944444444445,0"
+              EndConnector="79.944444444445,0"
               Start="0,0"
-              End="73.444444444445,0">
+              End="72.444444444445,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="73.444444444445,0" />
+                    End="72.444444444445,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -969,13 +945,13 @@ FROM STG_SDG.ODS.HOLIDAYS</property>
       <GraphLayout
         Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="161,42"
-          Id="Package\CARGA STG HOLIDAYS\ODS HOLIDAYS"
-          TopLeft="512,92" />
-        <NodeLayout
           Size="160,42"
           Id="Package\CARGA STG HOLIDAYS\STG HOLIDAYS"
           TopLeft="507,184" />
+        <NodeLayout
+          Size="161,42"
+          Id="Package\CARGA STG HOLIDAYS\ODS HOLIDAYS"
+          TopLeft="512,92" />
         <EdgeLayout
           Id="Package\CARGA STG HOLIDAYS.Paths[Salida de origen de OLE DB]"
           TopLeft="589.75,134">
